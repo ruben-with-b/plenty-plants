@@ -23,3 +23,8 @@ default port see: [How to set another port?]())
 
 ## Where to put the frontend code?
 The server deploys the dist folder located at `<Project root>\server\dist`
+
+## Where is the database hosted?
+https://www.elephantsql.com/ 
+
+If you need access please contact [Rudi](mailto:rudi.loderer@hs-augsburg.de).

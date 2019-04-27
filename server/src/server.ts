@@ -1,5 +1,6 @@
 import express = require("express");
 import dotenv = require("dotenv");
+import * as DemoTable from "./database/demo-table"
 
 const app: express.Application = express();
 let port: string;
@@ -16,6 +17,8 @@ if(process.env.PORT) {
 }
 
 app.use(express.static(__dirname + "/../dist"));
+
+app.get("/api", DemoTable.getDemos);
 
 app.listen(port); 
 console.log("Application started! see: http://localhost:" + port); 
