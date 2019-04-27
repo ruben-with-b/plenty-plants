@@ -1,7 +1,17 @@
-var express = require('express');
-var app = express();
+let express = require('express'),
+    app = express(),
+    port;
+
+// Read port from the environment variables. If there is no environment variable specifying the port, use the default port.
+require('dotenv').config();
+if (process.env.PORT) {
+    port = process.env.PORT;
+} else {
+    // Default port is 3000.
+    port = 3000;
+}
 
 app.use(express.static(__dirname + '/dist'));
 
-app.listen('3000');
-console.log('working on 3000');
+app.listen(port);
+console.log('Application started! see: http://localhost:' + port);
