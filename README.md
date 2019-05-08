@@ -12,7 +12,7 @@
 1. Install dependencies: `npm install`
 
 ### Deploy application
-1. The script `debug.sh` starts the application in development mode. In 
+1. The script `debug.sh` (windows) and `sh debug.sh` (macOS) starts the application in development mode. In 
 development mode the application automatically reloads your changes. (You must 
 not redeploy the application manually.)
 
