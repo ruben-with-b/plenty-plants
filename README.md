@@ -5,6 +5,7 @@
 * [Nodejs](https://nodejs.org/en/) is installed
 * [Vue CLI](https://cli.vuejs.org/guide/installation.html) is installed
 * [Vue Router](https://router.vuejs.org) is installed
+* [Vue Sass Loader](https://vue-loader.vuejs.org/guide/pre-processors.html) is installed
 
 ### Install dependencies
 1. Go to the project root: `cd <Project root>`
