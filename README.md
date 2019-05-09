@@ -11,10 +11,13 @@
 1. Install dependencies: `npm install`
 
 ### Deploy application
-1. The script `debug.sh` (windows) and `sh debug.sh` (macOS) starts the application in development mode. In 
-development mode the application automatically reloads your changes. (You must 
-not redeploy the application manually.)
-
+The following three steps describe, how to deploy the application in 
+development mode. In development mode the application automatically reloads 
+your changes. (You must not redeploy the application manually.)
+1. Deploy backend: `startBackend.sh` (windows) and `sh startBackend.sh` (macOS) 
+starts the backend in development mode. 
+1. Deploy frontend: `startFrontend.sh` (windows) and `sh startFrontend.sh` (macOS)
+starts the frontend in development mode.
 1. After that the server is available at port 3000. The frontend is available 
 at port 3001. (To change the default port see: How to set another port?)
 
