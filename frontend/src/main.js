@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Home from './Home.vue'
+/*
 import Menu from './Menu.vue'
-import About from './About.vue'
+import About from './About.vue'*/
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
@@ -13,15 +13,15 @@ require("./styles/main.scss")
 
 const routes = [
   { path: '/',
-    component: Home
-  },
+    component: App
+  }/*,
   { path: '/menu',
     component: Menu
   },
   { path: '/about',
     component: About
-  }
-];
+  }*/
+]; 
 
 const router = new VueRouter({
   routes, // routes: routes
