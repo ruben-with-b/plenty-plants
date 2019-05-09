@@ -6,8 +6,6 @@ find . -maxdepth 1 -name ".env*" -print0 | xargs -0 -i cp {} frontend
 # both, the frontend and the backend, are deployed on separate development
 # servers).
 export DEV_MODE_ENABLED="true"
-# Start the development server of the server in a separate terminal.
-start npm run dev
 # Start the development server of the frontend in a separate terminal.
 cd frontend
 npm run serve
