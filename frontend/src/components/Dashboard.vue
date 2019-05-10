@@ -2,30 +2,34 @@
     <div>
         <h2>Dashboard</h2>
         <p>Name: {{ user.name }}</p>
+        <p>eMail: {{ user.email }}</p>
     </div>
 </template>
 <script>
+    import router from "../main.js";
     import axios from "axios"
+    import Console from "console"
     export default {
         name: "Login",
         data() {
             return {
                 user: {
-                    name: "Jesse"
+                    name: "",
+                    email: ""
                 }
             }
         },
         methods: {
             getUserData: function() {
-                let self = this
+                let self = this;
                 axios.get("/api/user")
                     .then((response) => {
-                        console.log(response)
-                        self.$set(this, "user", response.data.user)
+                        Console.log(response);
+                        self.$set(this, "user", response.data.user);
                     })
                     .catch((errors) => {
-                        console.log(errors)
-                        this.$route.push("/")
+                        Console.log(errors);
+                        router.push("/");
                     })
             }
         },

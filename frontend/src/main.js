@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard.vue'
 // import Menu from './Menu.vue'
 // import About from './About.vue'
 import VueRouter from 'vue-router'
+import HelloWorld from "./components/HelloWorld";
 
 Vue.use(VueRouter);
 
@@ -15,10 +16,15 @@ require("./styles/main.scss");
 
 const routes = [
   { path: '/',
-     component: Login
+    name: 'Login',
+    component: Login
   },
   { path: '/dashboard',
+    name: 'Dashboard',
     component: Dashboard
+  },
+  { path: '/hello',
+    component: HelloWorld
   }/*,
   { path: '/menu',
     component: Menu
@@ -32,6 +38,8 @@ const router = new VueRouter({
   routes, // routes: routes
   mode: 'history'
 });
+
+export default router;
 
 new Vue({
   render: h => h(App),
