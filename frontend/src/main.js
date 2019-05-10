@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 // import components
 import Login from './components/Login.vue'
+import Dashboard from './components/Dashboard.vue'
 // import Menu from './Menu.vue'
 // import About from './About.vue'
 import VueRouter from 'vue-router'
@@ -15,6 +16,9 @@ require("./styles/main.scss");
 const routes = [
   { path: '/',
      component: Login
+  },
+  { path: '/dashboard',
+    component: Dashboard
   }/*,
   { path: '/menu',
     component: Menu

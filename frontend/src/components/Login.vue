@@ -9,32 +9,31 @@
     </div>
 </template>
 
-<!--<script>-->
-<!--    import router from "../router"-->
-<!--    import axios from "axios"-->
-<!--    export default {-->
-<!--        name: "Login",-->
-<!--        methods: {-->
-<!--            login: (e) => {-->
-<!--                e.preventDefault()-->
-<!--                let email = "user@email.com"-->
-<!--                let password = "password"-->
-<!--                let login = () => {-->
-<!--                    let data = {-->
-<!--                        email: email,-->
-<!--                        password: password-->
-<!--                    }-->
-<!--                    axios.post("/api/login", data)-->
-<!--                        .then(() => {-->
-<!--                            console.log("Logged in")-->
-<!--                            router.push("/dashboard")-->
-<!--                        })-->
-<!--                        .catch(() => {-->
-<!--                            console.log("Cannot log in")-->
-<!--                        })-->
-<!--                }-->
-<!--                login()-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
+<script>
+    import axios from "axios"
+    export default {
+        name: "Login",
+        methods: {
+            login: (e) => {
+                e.preventDefault()
+                let email = "user@email.com"
+                let password = "password"
+                let login = () => {
+                    let data = {
+                        email: email,
+                        password: password
+                    }
+                    axios.post("/api/login", data)
+                        .then(() => {
+                            console.log("Logged in")
+                            this.$route.push("/dashboard")
+                        })
+                        .catch(() => {
+                            console.log("Cannot log in")
+                        })
+                }
+                login()
+            }
+        }
+    }
+</script>
