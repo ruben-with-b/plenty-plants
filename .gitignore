@@ -4,14 +4,9 @@ node_modules
 /frontend/dist
 /server/build
 
-
 # local env files
 .env.local
 .env.*.local
-
-# All frontend env files. These files are automatically copied from the
-# project root to the frontend, when debug.sh is executed.
-/frontend/.env*
 
 # Log files
 npm-debug.log*

@@ -8,8 +8,8 @@ let port: string;
 let distFolder: string;
 let devModeEnabled: boolean;
 
-if(process.env.PORT_SERVER) {
-    port = process.env.PORT_SERVER;
+if(process.env.PORT_BE) {
+    port = process.env.PORT_BE;
 } else {
     throw new Error("Environment variable PORT_SERVER undefined!");
 }

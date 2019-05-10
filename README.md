@@ -12,19 +12,32 @@
 
 ### Deploy application
 The following three steps describe, how to deploy the application in 
-development mode. In development mode the application automatically reloads 
-your changes. (You must not redeploy the application manually.)
+development mode. (In development mode the application automatically reloads 
+your changes. You must not redeploy the application manually.)
 1. Deploy backend: `startBackend.sh` (windows) and `sh startBackend.sh` (macOS) 
-starts the backend in development mode. 
+start the backend in development mode. 
 1. Deploy frontend: `startFrontend.sh` (windows) and `sh startFrontend.sh` (macOS)
-starts the frontend in development mode.
+start the frontend in development mode.
 1. After that the server is available at port 3000. The frontend is available 
 at port 3001. (To change the default port see: How to set another port?)
 
+## Important information concerning environment variables
+In production, both the frontend and the backend are deployed on the same 
+machine. Due to this fact the environment variables defined in the frontend and 
+in the backend have to be unique!
+
 ## FAQ's
 ### How to set other ports?
-1. Open/create a file named `.env.local` in the projects root directory.
-1. Add/edit the lines beginning with: `PORT_SERVER` or `DEV_PORT_FE`
+#### How to change the port of the backend?
+1. Go to the project root: `cd <Project root>`
+1. Open/create a file named `.env.local`.
+1. Add/edit the line `PORT=<PORT>`
+
+#### How to change the port of the frontend?
+1. Go to the project root: `cd <Project root>`
+1. Navigate to the frontend: `cd frontend`
+1. Open/create a file named `.env.local`.
+1. Add/edit the line `PORT=<PORT>`
 
 ### Where to put the frontend code?
 To deploy the built frontend, place the artifacts in the folder specified by 
