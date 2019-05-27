@@ -4,7 +4,8 @@ import cookieSession = require('cookie-session');
 import bodyParser = require('body-parser');
 import passport = require('passport');
 import LocalStrategy = require('passport-local');
-import * as DemoTable from './database/demo-table';
+import * as UserTable from './database/UserTable'
+import {User} from './model/User';
 
 const app: express.Application = express();
 dotenv.config();
@@ -13,24 +14,24 @@ let distFolder: string;
 let devModeEnabled: boolean;
 
 // Fetch some environment variables
-if(process.env.PORT_BE) {
+if (process.env.PORT_BE) {
     port = process.env.PORT_BE;
 } else {
     throw new Error("Environment variable PORT_SERVER undefined!");
 }
-if(process.env.DIST_FOLDER) {
+if (process.env.DIST_FOLDER) {
     distFolder = process.env.DIST_FOLDER;
 } else {
     throw new Error("Environment variable DIST_FOLDER undefined!");
 }
-if(process.env.DEV_MODE_ENABLED) {
+if (process.env.DEV_MODE_ENABLED) {
     devModeEnabled = (process.env.DEV_MODE_ENABLED === 'true');
 } else {
     throw new Error("Environment variable DEV_MODE_ENABLED undefined!");
 }
 
 // Deploy frontend?
-if(!devModeEnabled) {
+if (!devModeEnabled) {
     app.use(express.static(__dirname + distFolder));
 }
 
@@ -49,49 +50,32 @@ passport.use(
     new LocalStrategy.Strategy(
         {
             usernameField: "email",
-            passwordField: "password"
+            passwordField: "hashedPw"
         },
 
         (username, password, done) => {
-            let user = users.find((user) => {
-                return user.email === username && user.password === password
+            UserTable.getUser(username).then((user) => {
+                if (user && user.getEmail() === username && user.getHashedPw() === password) {
+                    done(null, user);
+                } else {
+                    done(null, false, {message: 'Incorrect username or password'});
+                }
+            }).catch((error) => {
+                done(error);
             });
-
-            if (user) {
-                done(null, user)
-            } else {
-                done(null, false, { message: 'Incorrect username or password'})
-            }
         }
     )
 );
 passport.serializeUser((user: User, done) => {
-    done(null, user.id)
+    done(null, user.getEmail())
 });
-passport.deserializeUser((id, done) => {
-    let user = users.find((user) => {
-        return user.id === id
+passport.deserializeUser((email: String, done) => {
+    UserTable.getUser(email).then((user) => {
+        done(null, user);
+    }).catch((error) => {
+        done(error);
     });
-
-    done(null, user)
 });
-
-// TODO fetch users from DB ---------------------------------------------------
-class User {
-    constructor(
-        public id: number,
-        public  name: string,
-        public email: string,
-        public password: string) {
-    }
-}
-
-let users = [
-    new User(1, "Ronja", "mail@ronja-weber.de", "password"),
-    new User(2, "Ruben", "ruben.santoro@hs-augsburg.de", "password"),
-    new User(3, "Rudi", "rudi.loderer@outlook.de", "passwordx"),
-];
-// ----------------------------------------------------------------------------
 
 // Create middleware to protect endpoints
 const authMiddleware = (req: any, res: any, next: any) => {
@@ -110,7 +94,10 @@ app.post("/api/login", (req, res, next) => {
         }
 
         if (!user) {
-            return res.status(400).send([user, "Cannot log in", info]);
+            console.log(info.message);
+            res.statusMessage = info.message;
+            res.status(401).send();
+            return;
         }
 
         req.login(user, err => {
@@ -119,7 +106,7 @@ app.post("/api/login", (req, res, next) => {
     })(req, res, next);
 });
 
-app.get("/api/logout", function(req, res) {
+app.get("/api/logout", function (req, res) {
     req.logout();
 
     console.log("logged out");
@@ -128,16 +115,16 @@ app.get("/api/logout", function(req, res) {
 });
 
 app.get("/api/user", authMiddleware, (req: any, res: any) => {
-    let user = users.find(user => {
-        return user.id === req.session.passport.user
+    UserTable.getUser(req.session.passport.user).then((user) => {
+        res.send({user: user});
+    }).catch((error) => {
+        let msg: String = "Failed to fetch user data."
+        console.log(msg);
+        res.status(500).send(msg);
     });
-
-    console.log([user, req.session]);
-
-    res.send({ user: user });
 });
 
-app.get('/api', DemoTable.getDemos);
+// app.get('/api', AuthApi.signUp);
 
-app.listen(port); 
+app.listen(port);
 console.log('Server started! see: http://localhost:' + port);

@@ -1,7 +1,6 @@
 <template>
     <div>
         <h2>Dashboard</h2>
-        <p>Name: {{ user.name }}</p>
         <p>eMail: {{ user.email }}</p>
     </div>
 </template>
@@ -14,7 +13,6 @@
         data() {
             return {
                 user: {
-                    name: "",
                     email: ""
                 }
             }
