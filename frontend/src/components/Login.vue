@@ -25,7 +25,7 @@
                         email: email,
                         password: password
                     };
-                    axios.post("/api/login", data)
+                    axios.post("/api/v1/login", data)
                         .then(() => {
                             Console.log("Logged in");
                             router.push("/dashboard")

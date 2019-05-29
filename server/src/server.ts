@@ -1,8 +1,8 @@
-import express = require('express');
-import dotenv = require('dotenv');
-import cookieSession = require('cookie-session');
-import bodyParser = require('body-parser');
-import passport = require('passport');
+import express from 'express';
+import dotenv from 'dotenv';
+import cookieSession from 'cookie-session';
+import bodyParser from 'body-parser';
+import passport from 'passport';
 import * as AuthApi from './api/AuthApi';
 import * as UserApi from './api/UserApi';
 import * as AuthService from './service/AuthService'
@@ -47,10 +47,17 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 AuthService.initAuthentication();
-// Add endpoints concerning authentication
-app.post("/api/login", AuthApi.login);
-app.get("/api/logout", AuthApi.logout);
-app.get("/api/user", AuthService.middleware, UserApi.getUser);
+
+// Add endpoints
+let router = express.Router();
+router.route('/login')
+    .post(AuthApi.login);
+router.route('/logout')
+    .get(AuthApi.logout);
+router.route('/user')
+    .get(AuthService.middleware, UserApi.getUser);
+
+app.use('/api/v1', router);
 
 app.listen(port);
 console.log('Server started! see: http://localhost:' + port);

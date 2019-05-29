@@ -22,7 +22,7 @@ export default {
   methods: {
     logout: function () {
       axios
-              .get("/api/logout")
+              .get("/api/v1/logout")
               .then(
                       () => {
                         router.push("/")

@@ -20,7 +20,7 @@
         methods: {
             getUserData: function() {
                 let self = this;
-                axios.get("/api/user")
+                axios.get("/api/v1/user")
                     .then((response) => {
                         Console.log(response);
                         self.$set(this, "user", response.data.user);
