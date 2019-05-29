@@ -1,6 +1,7 @@
 import * as UserTable from '../database/UserTable';
 import {User} from '../model/User';
-import passport = require('passport');
+import passport from 'passport';
+import bcrypt from 'bcrypt';
 
 export {
     login,
@@ -8,6 +9,8 @@ export {
     getUser,
     signUp
 }
+
+const saltRounds = 10;
 
 const login = (req: any, res: any, next: any) => {
     passport.authenticate("local", (err, user, info) => {
@@ -48,23 +51,29 @@ const getUser = (req: any, res: any) => {
 
 const signUp = (request: any, response: any) => {
     let email: String = request.query.email;
-    let hashedPw: String = request.query.hashedPw;
+    let password: String = request.query.password;
 
     UserTable.getUser(email).then((user: User) => {
         if (user === undefined) {
+            bcrypt.hash(password, saltRounds).then((hashedPw) => {
                 UserTable.addUser(email, hashedPw).then(() => {
                     response.status(200).send();
                 }).catch(error => {
                     console.log(error);
                     response.status(500).send('Creating new user failed!');
                 });
+            }).catch((error) => {
+                console.log('Password encryption failed!', error);
+                response.status(500).send('Password encryption failed!');
+            });
+
         } else {
             let msg: String = 'A user with the email \'' + email + '\' already exists!';
             console.log(msg);
             response.status(409).send(msg);
         }
     }).catch(error => {
-        console.log(error);
+        console.log('DB access failed!', error);
         response.status(500).send('DB access failed!');
     });
 };

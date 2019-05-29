@@ -1,20 +1,30 @@
 import * as UserTable from "../database/UserTable";
 import {User} from "../model/User";
-import passport = require('passport');
-import LocalStrategy = require('passport-local');
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
+import bcrypt from 'bcrypt';
 
 function initAuthentication(): void {
     passport.use(
         new LocalStrategy.Strategy(
             {
                 usernameField: "email",
-                passwordField: "hashedPw"
+                passwordField: "password"
             },
 
             (username, password, done) => {
                 UserTable.getUser(username).then((user) => {
-                    if (user && user.getEmail() === username && user.getHashedPw() === password) {
-                        done(null, user);
+                    if (user && user.getEmail() === username) {
+                        bcrypt.compare(password, user.getHashedPw()).then((result) => {
+                            if(result) {
+                                done(null, user);
+                            } else {
+                                done(null, false, {message: 'Incorrect username or password'});
+                            }
+                        }).catch((error) => {
+                            console.log("Password comparision failed!", error);
+                            done("Password comparision failed!");
+                        });
                     } else {
                         done(null, false, {message: 'Incorrect username or password'});
                     }

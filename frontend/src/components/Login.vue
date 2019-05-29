@@ -23,7 +23,7 @@
                 let login = () => {
                     let data = {
                         email: email,
-                        hashedPw: password
+                        password: password
                     };
                     axios.post("/api/login", data)
                         .then(() => {
