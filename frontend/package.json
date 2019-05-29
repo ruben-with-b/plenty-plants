@@ -11,8 +11,10 @@
     "axios": "^0.18.0",
     "console": "^0.7.2",
     "core-js": "^2.6.5",
+    "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
-    "vue-cookies": "^1.5.13"
+    "vue-cookies": "^1.5.13",
+    "vue-router": "^3.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
