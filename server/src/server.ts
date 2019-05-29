@@ -4,6 +4,7 @@ import cookieSession = require('cookie-session');
 import bodyParser = require('body-parser');
 import passport = require('passport');
 import * as AuthApi from './api/AuthApi';
+import * as UserApi from './api/UserApi';
 import * as AuthService from './service/AuthService'
 
 const app: express.Application = express();
@@ -49,7 +50,7 @@ AuthService.initAuthentication();
 // Add endpoints concerning authentication
 app.post("/api/login", AuthApi.login);
 app.get("/api/logout", AuthApi.logout);
-app.get("/api/user", AuthService.middleware, AuthApi.getUser);
+app.get("/api/user", AuthService.middleware, UserApi.getUser);
 
 app.listen(port);
 console.log('Server started! see: http://localhost:' + port);

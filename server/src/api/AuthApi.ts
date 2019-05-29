@@ -1,18 +1,18 @@
 import * as UserTable from '../database/UserTable';
 import {User} from '../model/User';
+import { Request, Response, NextFunction } from "express";
 import passport from 'passport';
 import bcrypt from 'bcrypt';
 
 export {
     login,
     logout,
-    getUser,
     signUp
 }
 
 const saltRounds = 10;
 
-const login = (req: any, res: any, next: any) => {
+const login = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate("local", (err, user, info) => {
         if (err) {
             return next(err);
@@ -31,7 +31,7 @@ const login = (req: any, res: any, next: any) => {
     })(req, res, next);
 };
 
-const logout = (req: any, res: any) => {
+const logout = (req: Request, res: Response) => {
     req.logout();
 
     console.log("logged out");
@@ -39,17 +39,7 @@ const logout = (req: any, res: any) => {
     return res.send();
 };
 
-const getUser = (req: any, res: any) => {
-    UserTable.getUser(req.session.passport.user).then((user) => {
-        res.send({user: user});
-    }).catch(() => {
-        let msg: String = "Failed to fetch user data.";
-        console.log(msg);
-        res.status(500).send(msg);
-    });
-};
-
-const signUp = (request: any, response: any) => {
+const signUp = (request: Request, response: Response) => {
     let email: String = request.query.email;
     let password: String = request.query.password;
 

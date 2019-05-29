@@ -3,6 +3,7 @@ import {User} from "../model/User";
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import bcrypt from 'bcrypt';
+import { Request, Response, NextFunction } from "express";
 
 function initAuthentication(): void {
     passport.use(
@@ -48,7 +49,7 @@ function initAuthentication(): void {
     });
 }
 
-const middleware = (req: any, res: any, next: any) => {
+const middleware = (req: Request, res: Response, next: NextFunction) => {
     if (!req.isAuthenticated()) {
         res.status(401).send('You are not authenticated')
     } else {
