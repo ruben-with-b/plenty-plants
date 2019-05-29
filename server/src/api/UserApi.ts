@@ -1,10 +1,18 @@
 import * as UserTable from '../database/UserTable';
 import { Request, Response } from "express";
 
+/**
+ * Offers some functions to get user information.
+ */
 export {
     getUser
 }
 
+/**
+ * Get the currently registered user.
+ * @param req The request.
+ * @param res The response.
+ */
 const getUser = (req: Request, res: Response) => {
     if(req.session) {
         UserTable.getUser(req.session.passport.user).then((user) => {

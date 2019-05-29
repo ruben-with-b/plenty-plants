@@ -1,7 +1,18 @@
 import * as CONFIG from "./config";
 import {User} from "../model/User";
 
-function getUser(email: String): Promise<User> {
+/**
+ * Some functions to access the user table.
+ */
+export {
+    getUser, addUser
+}
+
+/**
+ * Get the user specified by email.
+ * @param email The email address of the user.
+ */
+function getUser(email: string): Promise<User> {
     return new Promise<User>(function(resolve, reject) {
         CONFIG.pool.query('SELECT hashedPw FROM user_table WHERE email = \'' + email + '\'', (error, results) => {
             if (error) {
@@ -24,11 +35,16 @@ function getUser(email: String): Promise<User> {
     });
 }
 
+/**
+ * Add a new user.
+ * @param email The email address of the new user.
+ * @param hashedPw The hashed password of the new user.
+ */
 function addUser(email: String, hashedPw: String): Promise<boolean> {
     return new Promise<boolean>(function(resolve, reject) {
         CONFIG.pool.query(
             'INSERT INTO user_table (email, hashedPw)' +
-            'VALUES (\'' + email + '\', \'' + hashedPw + '\')' , (error, results) => {
+            'VALUES (\'' + email + '\', \'' + hashedPw + '\')' , (error) => {
                 if (error) {
                     reject(error);
                     return
@@ -36,9 +52,4 @@ function addUser(email: String, hashedPw: String): Promise<boolean> {
                 resolve(true);
             })
     });
-}
-
-
-export {
-    getUser, addUser
 }

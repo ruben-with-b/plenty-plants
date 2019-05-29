@@ -5,6 +5,17 @@ import LocalStrategy from 'passport-local';
 import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from "express";
 
+/**
+ * Initializes the authentication.
+ */
+export {
+    initAuthentication,
+    middleware
+}
+
+/**
+ * Initialize the authentication.
+ */
 function initAuthentication(): void {
     passport.use(
         new LocalStrategy.Strategy(
@@ -40,7 +51,7 @@ function initAuthentication(): void {
         done(null, user.getEmail())
     });
     // Describes how to deserialize a user from the session.
-    passport.deserializeUser((email: String, done) => {
+    passport.deserializeUser((email: string, done) => {
         UserTable.getUser(email).then((user) => {
             done(null, user);
         }).catch((error) => {
@@ -49,6 +60,12 @@ function initAuthentication(): void {
     });
 }
 
+/**
+ * The authentication middleware.
+ * @param req The request.
+ * @param res The response.
+ * @param next The next function to be called.
+ */
 const middleware = (req: Request, res: Response, next: NextFunction) => {
     if (!req.isAuthenticated()) {
         res.status(401).send('You are not authenticated')
@@ -56,9 +73,4 @@ const middleware = (req: Request, res: Response, next: NextFunction) => {
         return next()
     }
 };
-
-export {
-    initAuthentication,
-    middleware
-}
 

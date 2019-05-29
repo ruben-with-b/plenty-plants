@@ -1,4 +1,7 @@
-class User {
+/**
+ * Represents a user.
+ */
+export class User {
     constructor(private email: string, private hashedPw: string){};
 
     getEmail() {
@@ -8,8 +11,4 @@ class User {
     getHashedPw() {
         return this.hashedPw;
     }
-}
-
-export {
-    User
 }

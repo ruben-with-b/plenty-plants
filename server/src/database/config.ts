@@ -1,5 +1,12 @@
 import {Pool} from "pg";
 
+/**
+ * The DB connection data.
+ */
+export {
+    pool
+}
+
 const pool: Pool = new Pool({
     user: 'pyssnhvz',
     host: 'balarama.db.elephantsql.com',
@@ -7,7 +14,3 @@ const pool: Pool = new Pool({
     password: 'BRHrJhK6ROvEDBiY-vxEizFpZpZMTkvi',
     port: 5432
 });
-
-export {
-    pool
-}
