@@ -1,0 +1,21 @@
+{
+    "short_name": "PlentyPlants",
+    "name": "Plenty Plants",
+    "icons": [
+      {
+        "src": "/pwa-logo-192.svg",
+        "type": "image/svg",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/pwa-logo-512.svg",
+        "type": "image/svg",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/?utm_source=a2hs",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#FFFFFF"
+  }
