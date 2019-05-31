@@ -3,11 +3,12 @@ import dotenv from 'dotenv';
 import cookieSession from 'cookie-session';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-import * as AuthApi from './api/AuthApi';
-import * as UserApi from './api/UserApi';
 import * as AuthService from './service/AuthService'
+import { RegisterRoutes } from './routes';
+import './api/UserApi';
+import './api/AuthApi';
 
-const app: express.Application = express();
+const app: express.Express = express();
 dotenv.config();
 let port: string;
 let distFolder: string;
@@ -48,16 +49,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 AuthService.initAuthentication();
 
-// Add endpoints
-let router = express.Router();
-router.route('/login')
-    .post(AuthApi.login);
-router.route('/logout')
-    .get(AuthApi.logout);
-router.route('/user')
-    .get(AuthService.middleware, UserApi.getUser);
+RegisterRoutes(app);
 
-app.use('/api/v1', router);
+// It's important that this come after the main routes are registered
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const status = err.status || 500;
+    const body: any = {
+        fields: err.fields || undefined,
+        message: err.message || 'An error occurred during the request.',
+        name: err.name,
+        status,
+    };
+    res.status(status).json(body);
+});
 
 app.listen(port);
 console.log('Server started! see: http://localhost:' + port);

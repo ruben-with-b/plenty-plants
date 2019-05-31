@@ -1,92 +1,79 @@
 import * as UserTable from '../database/UserTable';
 import {User} from '../model/User';
-import {Request, Response, NextFunction} from "express";
+import * as express from "express";
 import passport from 'passport';
 import bcrypt from 'bcrypt';
+import {Controller, Get, Post, Route, Request, Response, SuccessResponse, Query, Security} from "tsoa";
+import {StatusError} from "./StatusError";
 
 /**
  * Offers some functions for user authentication.
  */
-export {
-    login,
-    logout,
-    signUp
-}
+@Route('auth')
+export class AuthApi extends Controller {
 
-/**
- * The salt to be used to hash the password. If specified as a number then a salt will be generated with the specified
- * number of rounds.
- */
-const saltRounds = 10;
+    /**
+     * The salt to be used to hash the password. If specified as a number then a salt will be generated with the specified
+     * number of rounds.
+     */
+    private readonly SALT_ROUNDS: number = 10;
 
-/**
- * Authenticate a user.
- * @param req The request.
- * @param res The response.
- * @param next The next function to be called.
- */
-const login = (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate("local", (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
-
-        if (!user) {
-            console.log(info.message);
-            res.statusMessage = info.message;
-            res.status(401).send();
-            return;
-        }
-
-        req.login(user, () => {
-            res.send("Logged in");
+    /**
+     * Log in a user.
+     * @param req The request.
+     */
+    @Security('passport_local')
+    @SuccessResponse('200', 'Logged in')
+    @Response('401', 'Authentication failed')
+    @Post('login')
+    public async login(@Request() req: express.Request): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            passport.authenticate("local", (err, user, info) => {
+                if(user) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            })(req, req.res, req.next);
         });
-    })(req, res, next);
-};
+    }
 
-/**
- * Logout a user.
- * @param req The request.
- * @param res The response.
- */
-const logout = (req: Request, res: Response) => {
-    req.logout();
+    /**
+     * Log out a user.
+     * @param req The request.
+     */
+    @SuccessResponse('200', 'Logged out')
+    @Response('401', 'Authentication failed')
+    @Get('logout')
+    public async logout(@Request() req: express.Request) {
+        req.logout();
 
-    console.log("logged out");
+        console.log("logged out");
+    }
 
-    return res.send();
-};
-
-/**
- * Affiliate new user.
- * @param req The request.
- * @param res The response.
- */
-const signUp = (req: Request, res: Response) => {
-    let email: string = req.query.email;
-    let password: string = req.query.password;
-
-    UserTable.getUser(email).then((user: User) => {
-        if (user === undefined) {
-            bcrypt.hash(password, saltRounds).then((hashedPw) => {
-                UserTable.addUser(email, hashedPw).then(() => {
-                    res.status(200).send();
-                }).catch(error => {
-                    console.log(error);
-                    res.status(500).send('Creating new user failed!');
+    /**
+     * Sign up a new user.
+     * @param email The email address of the new user.
+     * @param password The password of the new user.
+     */
+    @SuccessResponse('200', 'Signed up')
+    @Response('409', 'User already exists')
+    @Get('signup')
+    public async signUp(@Query('email') email: string, @Query('password') password: string) {
+        UserTable.getUser(email).then((user: User) => {
+            if (user === undefined) {
+                bcrypt.hash(password, this.SALT_ROUNDS).then((hashedPw) => {
+                    UserTable.addUser(email, hashedPw).then(() => {
+                        return;
+                    });
                 });
-            }).catch((error) => {
-                console.log('Password encryption failed!', error);
-                res.status(500).send('Password encryption failed!');
-            });
 
-        } else {
-            let msg: String = 'A user with the email \'' + email + '\' already exists!';
-            console.log(msg);
-            res.status(409).send(msg);
-        }
-    }).catch(error => {
-        console.log('DB access failed!', error);
-        res.status(500).send('DB access failed!');
-    });
-};
+            } else {
+                let error: StatusError = new StatusError(409, 'Conflict',
+                    'A user with the email \'' + email + '\' already exists!');
+                console.log(error);
+                throw error;
+            }
+        });
+    }
+}

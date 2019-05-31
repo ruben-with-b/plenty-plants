@@ -63,3 +63,7 @@ code.
 https://www.elephantsql.com/ 
 
 If you need access please contact [Rudi](mailto:rudi.loderer@hs-augsburg.de).
+
+
+### The cool swagger-tool:
+https://github.com/lukeautry/tsoa

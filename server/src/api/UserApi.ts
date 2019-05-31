@@ -1,29 +1,23 @@
 import * as UserTable from '../database/UserTable';
-import { Request, Response } from "express";
+import * as express from "express";
+import {Controller, Get, Route, Request, Security} from 'tsoa';
+import {User} from "../model/User";
 
 /**
- * Offers some functions to get user information.
+ * Offers some user information.
  */
-export {
-    getUser
-}
+@Route('user')
+export class UserApi extends Controller {
 
-/**
- * Get the currently registered user.
- * @param req The request.
- * @param res The response.
- */
-const getUser = (req: Request, res: Response) => {
-    if(req.session) {
-        UserTable.getUser(req.session.passport.user).then((user) => {
-            res.send({user: user});
-        }).catch(() => {
-            let msg: String = "Failed to fetch user data.";
-            console.log(msg);
-            res.status(500).send(msg);
-        });
-    } else {
-        console.log("Session broken (req.session === null)");
-        res.status(500).send("Session broken");
+    @Security('passport_local')
+    @Get()
+    public async getUser(@Request() req: express.Request): Promise<User> {
+        console.log(req.user);
+        if(req.session) {
+            //return UserTable.getUser(req.session.passport.user); FIXME
+            return new User('rudi.loderer@outlook.de', 'aays');
+        } else {
+            throw new Error("Session not available!");
+        }
     }
-};
+}
