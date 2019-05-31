@@ -23,7 +23,7 @@
                 axios.get("/api/v1/user")
                     .then((response) => {
                         Console.log(response);
-                        self.$set(this, "user", response.data.user);
+                        self.$set(this, "user", response.data);
                     })
                     .catch((errors) => {
                         Console.log(errors);
