@@ -46,9 +46,7 @@ paths:
                 '401':
                     description: 'Authentication failed'
             description: 'Log in a user.'
-            security:
-                -
-                    passport_local: []
+            security: []
             parameters: []
     /auth/logout:
         get:

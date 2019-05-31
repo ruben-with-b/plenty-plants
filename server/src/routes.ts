@@ -37,7 +37,6 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/auth/login',
-        authenticateMiddleware([{ "passport_local": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 req: { "in": "request", "name": "req", "required": true, "dataType": "object" },

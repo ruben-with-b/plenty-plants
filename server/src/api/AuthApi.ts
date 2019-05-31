@@ -22,15 +22,20 @@ export class AuthApi extends Controller {
      * Log in a user.
      * @param req The request.
      */
-    @Security('passport_local')
     @SuccessResponse('200', 'Logged in')
     @Response('401', 'Authentication failed')
     @Post('login')
     public async login(@Request() req: express.Request): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            passport.authenticate("local", (err, user, info) => {
+            passport.authenticate("local", (err: Error, user: string, info: any) => {
                 if(user) {
-                    resolve();
+                    req.login(user, (error) => {
+                        if(error) {
+                            reject(error);
+                        } else {
+                            resolve();
+                        }
+                    });
                 } else {
                     reject();
                 }
@@ -47,8 +52,6 @@ export class AuthApi extends Controller {
     @Get('logout')
     public async logout(@Request() req: express.Request) {
         req.logout();
-
-        console.log("logged out");
     }
 
     /**
@@ -71,7 +74,6 @@ export class AuthApi extends Controller {
             } else {
                 let error: StatusError = new StatusError(409, 'Conflict',
                     'A user with the email \'' + email + '\' already exists!');
-                console.log(error);
                 throw error;
             }
         });

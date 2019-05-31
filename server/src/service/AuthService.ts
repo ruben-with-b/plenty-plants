@@ -10,7 +10,6 @@ import { Request, Response, NextFunction } from "express";
  */
 export {
     initAuthentication,
-    middleware
 }
 
 /**
@@ -33,9 +32,6 @@ function initAuthentication(): void {
                             } else {
                                 done(null, false, {message: 'Incorrect username or password'});
                             }
-                        }).catch((error) => {
-                            console.log("Password comparision failed!", error);
-                            done("Password comparision failed!");
                         });
                     } else {
                         done(null, false, {message: 'Incorrect username or password'});
@@ -59,18 +55,3 @@ function initAuthentication(): void {
         });
     });
 }
-
-/**
- * The authentication middleware.
- * @param req The request.
- * @param res The response.
- * @param next The next function to be called.
- */
-const middleware = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.isAuthenticated()) {
-        res.status(401).send('You are not authenticated')
-    } else {
-        return next()
-    }
-};
-
