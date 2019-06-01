@@ -7,6 +7,9 @@ import * as AuthService from './service/AuthService'
 import { RegisterRoutes } from './routes';
 import './api/UserApi';
 import './api/AuthApi';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+const swaggerDocument = YAML.load('./dist/swagger.yaml');
 
 const app: express.Express = express();
 dotenv.config();
@@ -52,7 +55,7 @@ AuthService.initAuthentication();
 RegisterRoutes(app);
 
 // It's important that this come after the main routes are registered
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: any, req: express.Request, res: express.Response) => {
     const status = err.status || 500;
     const body: any = {
         fields: err.fields || undefined,
@@ -62,6 +65,10 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
     };
     res.status(status).json(body);
 });
+
+
+// Deploy api documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port);
 console.log('Server started! see: http://localhost:' + port);

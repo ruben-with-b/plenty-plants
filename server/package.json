@@ -20,6 +20,8 @@
     "@types/passport": "^1.0.0",
     "@types/passport-local": "^1.0.33",
     "@types/pg": "^7.4.14",
+    "@types/swagger-ui-express": "^3.0.0",
+    "@types/yamljs": "^0.2.30",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "console": "^0.7.2",
@@ -29,8 +31,10 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.10.0",
+    "swagger-ui-express": "^4.0.5",
     "ts-node-dev": "^1.0.0-pre.32",
     "tsoa": "^2.3.81",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "yamljs": "^0.3.0"
   }
 }
