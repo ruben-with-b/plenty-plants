@@ -1,0 +1,97 @@
+basePath: /api/v1
+consumes:
+    - application/json
+definitions:
+    User:
+        description: 'Represents a user.'
+        properties:
+            email:
+                type: string
+            hashedPw:
+                type: string
+        required:
+            - email
+            - hashedPw
+        type: object
+info:
+    title: web-technologien
+    version: 1.0.0
+    license:
+        name: ISC
+paths:
+    /user:
+        get:
+            operationId: GetUser
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/User'
+            security:
+                -
+                    basicAuth: []
+            parameters: []
+    /auth/login:
+        post:
+            operationId: Login
+            produces:
+                - application/json
+            responses:
+                '204':
+                    description: 'Logged in'
+                    schema:
+                        type: object
+                '401':
+                    description: 'Authentication error'
+            description: 'Log in a user.'
+            security:
+                -
+                    basicAuth: []
+            parameters: []
+    /auth/logout:
+        get:
+            operationId: Logout
+            produces:
+                - application/json
+            responses:
+                '204':
+                    description: 'Logged out'
+            description: 'Log out a user.'
+            security: []
+            parameters: []
+    /auth/signup:
+        get:
+            operationId: SignUp
+            produces:
+                - application/json
+            responses:
+                '204':
+                    description: 'Signed up'
+                    schema:
+                        type: object
+                '409':
+                    description: 'User already exists'
+            description: 'Sign up a new user.'
+            security: []
+            parameters:
+                -
+                    description: 'The email address of the new user.'
+                    in: query
+                    name: email
+                    required: true
+                    type: string
+                -
+                    description: 'The password of the new user.'
+                    in: query
+                    name: password
+                    required: true
+                    type: string
+produces:
+    - application/json
+swagger: '2.0'
+securityDefinitions:
+    basicAuth:
+        type: basic
+host: 'localhost:3000'

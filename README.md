@@ -30,6 +30,7 @@ in the backend have to be unique!
 ### How to set other ports?
 #### How to change the port of the backend?
 1. Go to the project root: `cd <Project root>`
+1. Navigate to the backend: `cd backend`
 1. Open/create a file named `.env.local`.
 1. Add/edit the line `PORT=<PORT>`
 
@@ -50,6 +51,7 @@ the environment variable `DIST_FOLDER`.
 
 ### How to build the server?
 1. Go to the project root: `cd <Project root>`
+1. Navigate to the backend: `cd server`
 1. Execute build script: `npm run-script tsc`
 
 
@@ -63,3 +65,7 @@ code.
 https://www.elephantsql.com/ 
 
 If you need access please contact [Rudi](mailto:rudi.loderer@hs-augsburg.de).
+
+
+### How to use swagger?
+The script `<Project root>/server/resources/tsoa.sh` generates the api-documentation and the routes-module. (documentation see https://github.com/lukeautry/tsoa)

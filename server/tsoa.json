@@ -1,0 +1,21 @@
+{
+  "swagger": {
+    "outputDirectory": "./dist",
+    "entryFile": "./src/server.ts",
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "securityDefinitions": {
+      "basicAuth": {
+        "type": "basic"
+      }
+    },
+    "yaml": true
+  },
+  "routes": {
+    "basePath": "/api/v1",
+    "entryFile": "./src/server.ts",
+    "routesDir": "./src",
+    "middleware": "express",
+    "authenticationModule": "./src/service/AuthService.ts"
+  }
+}
