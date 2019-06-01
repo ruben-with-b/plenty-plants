@@ -1,9 +1,8 @@
 import * as UserTable from "../database/UserTable";
 import {User} from "../model/User";
 import passport from 'passport';
-import LocalStrategy from 'passport-local';
 import bcrypt from 'bcrypt';
-import { Request, Response, NextFunction } from "express";
+import {BasicStrategy} from "passport-http";
 
 /**
  * Initializes the authentication.
@@ -17,24 +16,21 @@ export {
  */
 function initAuthentication(): void {
     passport.use(
-        new LocalStrategy.Strategy(
-            {
-                usernameField: "email",
-                passwordField: "password"
-            },
-
-            (username, password, done) => {
+        new BasicStrategy(
+           (username, password, done) => {
                 UserTable.getUser(username).then((user) => {
                     if (user && user.getEmail() === username) {
                         bcrypt.compare(password, user.getHashedPw()).then((result) => {
                             if(result) {
                                 done(null, user);
                             } else {
-                                done(null, false, {message: 'Incorrect username or password'});
+                                done(null, false);
                             }
+                        }).catch((error) => {
+                            done(error);
                         });
                     } else {
-                        done(null, false, {message: 'Incorrect username or password'});
+                        done(null, false);
                     }
                 }).catch((error) => {
                     done(error);

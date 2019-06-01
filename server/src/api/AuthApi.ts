@@ -1,7 +1,6 @@
 import * as UserTable from '../database/UserTable';
 import {User} from '../model/User';
 import * as express from "express";
-import passport from 'passport';
 import bcrypt from 'bcrypt';
 import {Controller, Get, Post, Route, Request, Response, SuccessResponse, Query, Security} from "tsoa";
 import {StatusError} from "./StatusError";
@@ -22,24 +21,19 @@ export class AuthApi extends Controller {
      * Log in a user.
      * @param req The request.
      */
-    @SuccessResponse('200', 'Logged in')
-    @Response('401', 'Authentication failed')
+    @Security('basicAuth')
+    @SuccessResponse('204', 'Logged in')
+    @Response('401', 'Authentication error')
     @Post('login')
-    public async login(@Request() req: express.Request): Promise<any> {
+    public async login(@Request() req: express.Request): Promise<any>{
         return new Promise<any>((resolve, reject) => {
-            passport.authenticate("local", (err: Error, user: string, info: any) => {
-                if(user) {
-                    req.login(user, (error) => {
-                        if(error) {
-                            reject(error);
-                        } else {
-                            resolve();
-                        }
-                    });
-                } else {
-                    reject();
-                }
-            })(req, req.res, req.next);
+            if(req.isAuthenticated()) {
+                resolve();
+            } else {
+                reject(new StatusError(401, 'Authentication error',
+                    'Missing or wrong credentials'));
+                return;
+            }
         });
     }
 
@@ -47,8 +41,7 @@ export class AuthApi extends Controller {
      * Log out a user.
      * @param req The request.
      */
-    @SuccessResponse('200', 'Logged out')
-    @Response('401', 'Authentication failed')
+    @SuccessResponse('204', 'Logged out')
     @Get('logout')
     public async logout(@Request() req: express.Request) {
         req.logout();
@@ -59,23 +52,26 @@ export class AuthApi extends Controller {
      * @param email The email address of the new user.
      * @param password The password of the new user.
      */
-    @SuccessResponse('200', 'Signed up')
+    @SuccessResponse('204', 'Signed up')
     @Response('409', 'User already exists')
     @Get('signup')
-    public async signUp(@Query('email') email: string, @Query('password') password: string) {
-        UserTable.getUser(email).then((user: User) => {
-            if (user === undefined) {
-                bcrypt.hash(password, this.SALT_ROUNDS).then((hashedPw) => {
-                    UserTable.addUser(email, hashedPw).then(() => {
-                        return;
+    public async signUp(@Query('email') email: string, @Query('password') password: string): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            UserTable.getUser(email).then((user: User) => {
+                if (user === undefined) {
+                    bcrypt.hash(password, this.SALT_ROUNDS).then((hashedPw) => {
+                        UserTable.addUser(email, hashedPw).then(() => {
+                            resolve();
+                            return;
+                        });
                     });
-                });
 
-            } else {
-                let error: StatusError = new StatusError(409, 'Conflict',
-                    'A user with the email \'' + email + '\' already exists!');
-                throw error;
-            }
+                } else {
+                    reject(new StatusError(409, 'Conflict',
+                        'A user with the email \'' + email + '\' already exists!'));
+                    return;
+                }
+            });
         });
     }
 }

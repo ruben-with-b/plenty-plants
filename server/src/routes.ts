@@ -17,7 +17,7 @@ const validationService = new ValidationService(models);
 
 export function RegisterRoutes(app: express.Express) {
     app.get('/api/v1/user',
-        authenticateMiddleware([{ "passport_local": [] }]),
+        authenticateMiddleware([{ "basicAuth": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
@@ -37,6 +37,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/auth/login',
+        authenticateMiddleware([{ "basicAuth": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 req: { "in": "request", "name": "req", "required": true, "dataType": "object" },

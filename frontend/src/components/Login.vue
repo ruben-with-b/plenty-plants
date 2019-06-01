@@ -21,11 +21,14 @@
                 let email = e.target.elements.email.value;
                 let password = e.target.elements.password.value;
                 let login = () => {
-                    let data = {
-                        email: email,
-                        password: password
+                    let authHeader = {
+                        auth: {
+                            username: email,
+                            password: password
+                        },
                     };
-                    axios.post("/api/v1/auth/login", data)
+                    console.log(authHeader);
+                    axios.post("/api/v1/auth/login", {}, authHeader)
                         .then(() => {
                             Console.log("Logged in");
                             router.push("/dashboard")

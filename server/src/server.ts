@@ -55,7 +55,7 @@ AuthService.initAuthentication();
 RegisterRoutes(app);
 
 // It's important that this come after the main routes are registered
-app.use((err: any, req: express.Request, res: express.Response) => {
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     const status = err.status || 500;
     const body: any = {
         fields: err.fields || undefined,

@@ -1,4 +1,4 @@
-basePath: '/api/v1'
+basePath: /api/v1
 consumes:
     - application/json
 definitions:
@@ -31,7 +31,7 @@ paths:
                         $ref: '#/definitions/User'
             security:
                 -
-                    passport_local: []
+                    basicAuth: []
             parameters: []
     /auth/login:
         post:
@@ -39,14 +39,16 @@ paths:
             produces:
                 - application/json
             responses:
-                '200':
+                '204':
                     description: 'Logged in'
                     schema:
                         type: object
                 '401':
-                    description: 'Authentication failed'
+                    description: 'Authentication error'
             description: 'Log in a user.'
-            security: []
+            security:
+                -
+                    basicAuth: []
             parameters: []
     /auth/logout:
         get:
@@ -54,10 +56,8 @@ paths:
             produces:
                 - application/json
             responses:
-                '200':
+                '204':
                     description: 'Logged out'
-                '401':
-                    description: 'Authentication failed'
             description: 'Log out a user.'
             security: []
             parameters: []
@@ -67,8 +67,10 @@ paths:
             produces:
                 - application/json
             responses:
-                '200':
+                '204':
                     description: 'Signed up'
+                    schema:
+                        type: object
                 '409':
                     description: 'User already exists'
             description: 'Sign up a new user.'
@@ -90,6 +92,6 @@ produces:
     - application/json
 swagger: '2.0'
 securityDefinitions:
-    passport_local:
+    basicAuth:
         type: basic
 host: 'localhost:3000'
