@@ -27,7 +27,6 @@
                             password: password
                         },
                     };
-                    console.log(authHeader);
                     axios.post("/api/v1/auth/login", {}, authHeader)
                         .then(() => {
                             Console.log("Logged in");

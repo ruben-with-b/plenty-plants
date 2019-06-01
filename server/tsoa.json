@@ -16,6 +16,6 @@
     "entryFile": "./src/server.ts",
     "routesDir": "./src",
     "middleware": "express",
-    "authenticationModule": "./src/authentication.ts"
+    "authenticationModule": "./src/service/AuthService.ts"
   }
 }

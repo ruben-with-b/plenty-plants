@@ -2,7 +2,7 @@
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
 import { UserApi } from './api/UserApi';
 import { AuthApi } from './api/AuthApi';
-import { expressAuthentication } from './authentication';
+import { expressAuthentication } from './service/AuthService';
 import * as express from 'express';
 
 const models: TsoaRoute.Models = {
