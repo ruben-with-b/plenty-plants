@@ -13,6 +13,32 @@ definitions:
             - email
             - hashedPw
         type: object
+    Condition:
+        description: 'Describes the overall weather condition.'
+        enum:
+            - CLEAR
+            - CLOUDY
+            - RAINY
+        type: string
+    Weather:
+        description: 'Represents the predicted weather status.'
+        properties:
+            condition:
+                $ref: '#/definitions/Condition'
+                description: 'The overall condition.'
+            temperature:
+                type: number
+                format: double
+                description: 'The temperature in celsius.'
+            precipitation:
+                type: number
+                format: double
+                description: 'The precipitation in millimeters per square meter.'
+        required:
+            - condition
+            - temperature
+            - precipitation
+        type: object
 info:
     title: web-technologien
     version: 1.0.0
@@ -86,6 +112,31 @@ paths:
                     description: 'The password of the new user.'
                     in: query
                     name: password
+                    required: true
+                    type: string
+    /weather:
+        get:
+            operationId: GetWeather
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/Weather'
+            summary: 'Get the weather-forecast (next day) for the specified location.'
+            security: []
+            parameters:
+                -
+                    description: 'The coordinates (latitude) of the location for which the weather should be determined.'
+                    in: query
+                    name: latitude
+                    required: true
+                    type: string
+                -
+                    description: 'The coordinates (longitude) of the location for which the weather should be determined.'
+                    in: query
+                    name: longitude
                     required: true
                     type: string
 produces:

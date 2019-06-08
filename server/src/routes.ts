@@ -2,6 +2,7 @@
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
 import { UserApi } from './api/UserApi';
 import { AuthApi } from './api/AuthApi';
+import { WeatherApi } from './api/WeatherApi';
 import { expressAuthentication } from './service/AuthService';
 import * as express from 'express';
 
@@ -10,6 +11,16 @@ const models: TsoaRoute.Models = {
         "properties": {
             "email": { "dataType": "string", "required": true },
             "hashedPw": { "dataType": "string", "required": true },
+        },
+    },
+    "Condition": {
+        "enums": ["CLEAR", "CLOUDY", "RAINY"],
+    },
+    "Weather": {
+        "properties": {
+            "condition": { "ref": "Condition", "required": true },
+            "temperature": { "dataType": "double", "required": true },
+            "precipitation": { "dataType": "double", "required": true },
         },
     },
 };
@@ -93,6 +104,26 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.signUp.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/v1/weather',
+        function(request: any, response: any, next: any) {
+            const args = {
+                latitude: { "in": "query", "name": "latitude", "required": true, "dataType": "string" },
+                longitude: { "in": "query", "name": "longitude", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new WeatherApi();
+
+
+            const promise = controller.getWeather.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
 
