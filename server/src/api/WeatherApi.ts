@@ -1,5 +1,6 @@
 import {Controller, Get, Query, Route} from "tsoa";
 import {Condition, Weather} from "../model/Weather";
+import * as WeatherService from "../service/WeatherService"
 
 /**
  * Offers some weather information.
@@ -14,6 +15,6 @@ export class WeatherApi extends Controller {
      */
     @Get()
     public async getWeather(@Query() latitude: string, @Query() longitude: string): Promise<Weather> {
-        return Promise.resolve(new Weather(Condition.Clear, 22, 0)); // TODO Fetch real data.
+        return WeatherService.getWeather(latitude, longitude);
     }
 }
