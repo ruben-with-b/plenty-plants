@@ -26,9 +26,5 @@ export class Weather {
      * @param temperature The temperature in celsius.
      * @param precipitation The precipitation in millimeters per square meter.
      */
-    constructor(readonly condition: Condition, readonly temperature: number, readonly precipitation: number){
-        this.condition = condition;
-        this.temperature = temperature;
-        this.precipitation = precipitation;
-    };
+    constructor(readonly condition: Condition, readonly temperature: number, readonly precipitation: number){ };
 }

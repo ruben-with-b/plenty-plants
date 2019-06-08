@@ -3,6 +3,7 @@ import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } 
 import { UserApi } from './api/UserApi';
 import { AuthApi } from './api/AuthApi';
 import { WeatherApi } from './api/WeatherApi';
+import { PlantApi } from './api/PlantApi';
 import { expressAuthentication } from './service/AuthService';
 import * as express from 'express';
 
@@ -21,6 +22,12 @@ const models: TsoaRoute.Models = {
             "condition": { "ref": "Condition", "required": true },
             "temperature": { "dataType": "double", "required": true },
             "precipitation": { "dataType": "double", "required": true },
+        },
+    },
+    "TimePeriod": {
+        "properties": {
+            "firstMonth": { "dataType": "double", "required": true },
+            "lastMonth": { "dataType": "double", "required": true },
         },
     },
 };
@@ -124,6 +131,63 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.getWeather.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/v1/plant/:plant/sowPeriod',
+        function(request: any, response: any, next: any) {
+            const args = {
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new PlantApi();
+
+
+            const promise = controller.getSowPeriod.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/v1/plant/:plant/plantPeriod',
+        function(request: any, response: any, next: any) {
+            const args = {
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new PlantApi();
+
+
+            const promise = controller.getPlantPeriod.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/v1/plant/:plant/harvestPeriod',
+        function(request: any, response: any, next: any) {
+            const args = {
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new PlantApi();
+
+
+            const promise = controller.getHarvestPeriod.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
 

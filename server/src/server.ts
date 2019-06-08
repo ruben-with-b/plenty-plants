@@ -8,6 +8,7 @@ import { RegisterRoutes } from './routes';
 import './api/UserApi';
 import './api/AuthApi';
 import './api/WeatherApi';
+import './api/PlantApi';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 const swaggerDocument = YAML.load('./dist/swagger.yaml');

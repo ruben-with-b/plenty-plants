@@ -39,6 +39,21 @@ definitions:
             - temperature
             - precipitation
         type: object
+    TimePeriod:
+        description: "Represents a period of time (on a monthly basis).\r\n1 == january\r\n2 == february\r\n3 == march\r\n...\r\n12 == december"
+        properties:
+            firstMonth:
+                type: number
+                format: double
+                description: 'The first month of the period.'
+            lastMonth:
+                type: number
+                format: double
+                description: 'The last month of the period.'
+        required:
+            - firstMonth
+            - lastMonth
+        type: object
 info:
     title: web-technologien
     version: 1.0.0
@@ -137,6 +152,63 @@ paths:
                     description: 'The coordinates (longitude) of the location for which the weather should be determined.'
                     in: query
                     name: longitude
+                    required: true
+                    type: string
+    '/plant/{plant}/sowPeriod':
+        get:
+            operationId: GetSowPeriod
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/TimePeriod'
+            summary: 'Get the sow period for a plant.'
+            security: []
+            parameters:
+                -
+                    description: 'The plant for which the sow period should be determined.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
+    '/plant/{plant}/plantPeriod':
+        get:
+            operationId: GetPlantPeriod
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/TimePeriod'
+            summary: 'Get the plant period for a plant.'
+            security: []
+            parameters:
+                -
+                    description: 'The plant for which the plant period should be determined.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
+    '/plant/{plant}/harvestPeriod':
+        get:
+            operationId: GetHarvestPeriod
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/TimePeriod'
+            summary: 'Get the harvest period for a plant.'
+            security: []
+            parameters:
+                -
+                    description: 'The plant for which the harvest period should be determined.'
+                    in: path
+                    name: plant
                     required: true
                     type: string
 produces:
