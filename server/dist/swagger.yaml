@@ -164,6 +164,8 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/TimePeriod'
+                '404':
+                    description: 'The specified plant does not exist'
             summary: 'Get the sow period for a plant.'
             security: []
             parameters:
@@ -183,6 +185,8 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/TimePeriod'
+                '404':
+                    description: 'The specified plant does not exist'
             summary: 'Get the plant period for a plant.'
             security: []
             parameters:
@@ -202,6 +206,8 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/TimePeriod'
+                '404':
+                    description: 'The specified plant does not exist'
             summary: 'Get the harvest period for a plant.'
             security: []
             parameters:
