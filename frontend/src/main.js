@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueOnsen from 'vue-onsenui';
 import App from './App.vue'
-// import components
+
 import Dashboard from './components/Dashboard.vue'
 import VueRouter from 'vue-router'
 
@@ -9,6 +9,15 @@ import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
 Vue.use(VueOnsen);
+
+new Vue({
+  render: h => h(App),
+  router,
+  created : function() {
+    this.$ons.platform.select('android');
+  },
+}).$mount('#app');
+
 Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
@@ -28,7 +37,3 @@ const router = new VueRouter({
 
 export default router;
 
-new Vue({
-  render: h => h(App),
-  router
-}).$mount('#app');
