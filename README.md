@@ -66,6 +66,11 @@ https://www.elephantsql.com/
 
 If you need access please contact [Rudi](mailto:rudi.loderer@hs-augsburg.de).
 
-
 ### How to use swagger?
 The script `<Project root>/server/resources/tsoa.sh` generates the api-documentation and the routes-module. (documentation see https://github.com/lukeautry/tsoa)
+
+### Where to find swagger-ui?
+[click to open swagger-ui](http://localhost:3000/api-docs/) 
+
+### How to implement push-notifications?
+[see here](https://medium.com/izettle-engineering/beginners-guide-to-web-push-notifications-using-service-workers-cb3474a17679)
