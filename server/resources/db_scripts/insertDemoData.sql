@@ -6,4 +6,10 @@ INSERT INTO plant_table (Plant_Name, SowPeriod_Begin, SowPeriod_End,
     HarvestPeriod_Begin, HarvestPeriod_End)
 values ('strawberry', '2', '4',
     '5', '5',
-    '6', '10');
+    '6', '10'),
+    ('arugula', '2', '2',
+    '3', '3',
+    '4', '4'),
+    ('tomato', '2', '4',
+    '5', '6',
+    '7', '10');
