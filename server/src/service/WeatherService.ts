@@ -15,7 +15,6 @@ export function getWeather(latitude: string, longitude: string): Promise<Weather
             if (apiResponse.cod != 200) {
                 reject(new StatusError(apiResponse.cod, "Error accessing weather API", apiResponse.message));
             } else {
-                console.log(apiResponse);
                 let condition: Condition;
                 if (apiResponse && apiResponse.weather && apiResponse.weather[0] && apiResponse.weather[0].id) {
                     condition = getCondition(apiResponse.weather[0].id);

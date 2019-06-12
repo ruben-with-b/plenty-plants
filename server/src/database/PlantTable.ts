@@ -24,7 +24,6 @@ export function getSowPeriod(plant: string): Promise<TimePeriod> {
                 reject(new StatusError(404, "Not found", "There is no plant called '" + plant + "'"));
                 return;
             }
-            console.log(results.rows[0]);
             resolve(new TimePeriod(results.rows[0].sowperiod_begin, results.rows[0].sowperiod_end));
         });
     });
@@ -51,7 +50,6 @@ export function getPlantPeriod(plant: string): Promise<TimePeriod> {
                 reject(new StatusError(404, "Not found", "There is no plant called '" + plant + "'"));
                 return;
             }
-            console.log(results.rows[0]);
             resolve(new TimePeriod(results.rows[0].plantperiod_begin, results.rows[0].plantperiod_end));
         });
     });
@@ -78,7 +76,6 @@ export function getHarvestPeriod(plant: string): Promise<TimePeriod> {
                 reject(new StatusError(404, "Not found", "There is no plant called '" + plant + "'"));
                 return;
             }
-            console.log(results.rows[0]);
             resolve(new TimePeriod(results.rows[0].harvestperiod_begin, results.rows[0].harvestperiod_end));
         });
     });
