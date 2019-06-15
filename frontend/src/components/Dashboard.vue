@@ -8,9 +8,7 @@
     </v-ons-toolbar>
     <div class="container">
       <h3 class="title-segment">Kalender</h3>
-      <p class="text-center">
-        Some content.
-      </p>
+      <Chart class="flex center-content"></Chart>
       <div class="flex space-between">
         <div>
           <h3 class="title-segment">Nächste Schritte</h3>
@@ -30,6 +28,7 @@
 </template>
 
 <script>
+import Chart from './Chart.vue'
 
 export default {
   data() {
@@ -38,6 +37,9 @@ export default {
     }
   },
   name: "Dashboard",
+  components: {
+    Chart
+  },
   props: {
     msg: String
   }
@@ -47,7 +49,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.text-center{
-  text-align: center
-}
+
 </style>
