@@ -1,4 +1,4 @@
-import {Controller, Get, Query, Route} from "tsoa";
+import {Controller, Get, Query, Response, Route} from "tsoa";
 import {Condition, Weather} from "../model/Weather";
 import * as WeatherService from "../service/WeatherService"
 
@@ -13,6 +13,7 @@ export class WeatherApi extends Controller {
      * @param {string} latitude The coordinates (latitude) of the location for which the weather should be determined.
      * @param {string} longitude The coordinates (longitude) of the location for which the weather should be determined.
      */
+    @Response('404', 'Invalid coordinates')
     @Get()
     public async getWeather(@Query() latitude: string, @Query() longitude: string): Promise<Weather> {
         return WeatherService.getWeather(latitude, longitude);

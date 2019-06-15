@@ -54,6 +54,24 @@ export function RegisterRoutes(app: express.Express) {
             const promise = controller.getUser.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
+    app.get('/api/v1/user/my-plants',
+        function(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserApi();
+
+
+            const promise = controller.getMyPlants.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
     app.post('/api/v1/auth/login',
         authenticateMiddleware([{ "basicAuth": [] }]),
         function(request: any, response: any, next: any) {

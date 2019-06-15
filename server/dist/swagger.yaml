@@ -74,6 +74,23 @@ paths:
                 -
                     basicAuth: []
             parameters: []
+    /user/my-plants:
+        get:
+            operationId: GetMyPlants
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            type: string
+                '401':
+                    description: 'Please log in.'
+            summary: 'Get the plants of the current user.'
+            security: []
+            parameters: []
     /auth/login:
         post:
             operationId: Login
@@ -139,6 +156,8 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/Weather'
+                '404':
+                    description: 'Invalid coordinates'
             summary: 'Get the weather-forecast (next day) for the specified location.'
             security: []
             parameters:

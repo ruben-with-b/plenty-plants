@@ -1,6 +1,6 @@
 import * as UserTable from '../database/UserTable';
 import * as express from "express";
-import {Controller, Get, Route, Request, Security} from 'tsoa';
+import {Controller, Get, Route, Request, Security, Response} from 'tsoa';
 import {User} from "../model/User";
 import {StatusError} from "./StatusError";
 
@@ -23,6 +23,17 @@ export class UserApi extends Controller {
             } else {
                 reject(new StatusError(500, "Internal Error", "Session not available!"));
             }
+        });
+    }
+
+    /**
+     * @summary Get the plants of the current user.
+     */
+    @Response('401', 'Please log in.')
+    @Get('my-plants')
+    public async getMyPlants(): Promise<Array<string>> {
+        return new Promise<Array<string>>((resolve, reject) => {
+            resolve(new Array<string>('tomato', 'arugula'));
         });
     }
 }
