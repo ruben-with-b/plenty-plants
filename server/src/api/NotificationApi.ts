@@ -12,7 +12,7 @@ import {PushSubscription} from "web-push";
 export class NotificationApi extends Controller {
 
     /**
-     * Add a subscription.
+     * @summary Add a notification-subscription.
      * @param {express.Request} req The incoming request.
      * @param {PushSubscription} pushSubscription The push subscription.
      */
@@ -46,9 +46,8 @@ export class NotificationApi extends Controller {
     }
 
     /**
-     * Send a notification to the current user.
+     * @summary Send a frost-warning to the current user.
      * @param {express.Request} req The incoming request.
-     * @param {string} message The message to be sent.
      */
     @Security('basicAuth')
     @Response('204')

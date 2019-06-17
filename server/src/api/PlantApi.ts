@@ -9,7 +9,7 @@ import * as PlantTable from "../database/PlantTable"
 export class PlantApi extends Controller {
 
     /**
-     * @summary Get the sow period for a plant.
+     * @summary Obtaining the sowing period for a plant
      * @param {string} plant The plant for which the sow period should be determined.
      */
     @Response('404', 'The specified plant does not exist')
@@ -19,7 +19,7 @@ export class PlantApi extends Controller {
     }
 
     /**
-     * @summary Get the plant period for a plant.
+     * @summary Obtaining the planting period for a plant
      * @param {string} plant The plant for which the plant period should be determined.
      */
     @Response('404', 'The specified plant does not exist')
@@ -29,7 +29,7 @@ export class PlantApi extends Controller {
     }
 
     /**
-     * @summary Get the harvest period for a plant.
+     * @summary Obtaining the harvest period for a plant
      * @param {string} plant The plant for which the harvest period should be determined.
      */
     @Response('404', 'The specified plant does not exist')

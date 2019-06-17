@@ -196,7 +196,7 @@ paths:
                         $ref: '#/definitions/TimePeriod'
                 '404':
                     description: 'The specified plant does not exist'
-            summary: 'Get the sow period for a plant.'
+            summary: 'Obtaining the sowing period for a plant'
             security: []
             parameters:
                 -
@@ -217,7 +217,7 @@ paths:
                         $ref: '#/definitions/TimePeriod'
                 '404':
                     description: 'The specified plant does not exist'
-            summary: 'Get the plant period for a plant.'
+            summary: 'Obtaining the planting period for a plant'
             security: []
             parameters:
                 -
@@ -238,7 +238,7 @@ paths:
                         $ref: '#/definitions/TimePeriod'
                 '404':
                     description: 'The specified plant does not exist'
-            summary: 'Get the harvest period for a plant.'
+            summary: 'Obtaining the harvest period for a plant'
             security: []
             parameters:
                 -
@@ -263,7 +263,7 @@ paths:
                     description: Unauthorized
                 '500':
                     description: 'Internal server error'
-            description: 'Add a subscription.'
+            summary: 'Add a notification-subscription.'
             security:
                 -
                     basicAuth: []
@@ -291,7 +291,7 @@ paths:
                     description: Unauthorized
                 '500':
                     description: 'Internal server error'
-            description: 'Send a notification to the current user.'
+            summary: 'Send a frost-warning to the current user.'
             security:
                 -
                     basicAuth: []
