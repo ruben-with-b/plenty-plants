@@ -47,7 +47,7 @@
     if(permission == 'granted'){
       await navigator.serviceWorker.register('sw_notification.js');
     } else {
-      console.log('Warning: We are not allowed to use notifications');
+      throw new Error('Warning: We are not allowed to use notifications');
     }
   };
 
