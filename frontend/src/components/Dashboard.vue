@@ -44,7 +44,7 @@
 
   // I added a function that can be used to register a service worker.
   const registerServiceWorker = async () => {
-    const swRegistration = await navigator.serviceWorker.register('service.js'); //notice the file name
+    const swRegistration = await navigator.serviceWorker.register('sw_notification.js'); //notice the file name
     return swRegistration;
   };
 

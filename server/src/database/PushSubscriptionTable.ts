@@ -23,6 +23,26 @@ export function add(userEmail: string, pushSubscription: PushSubscription): Prom
 }
 
 /**
+ * Remove a push subscription.
+ * @param userEmail The email of the user.
+ * @param pushSubscription The push subscription to be removed.
+ */
+export function remove(userEmail: string, pushSubscription: PushSubscription): Promise<any> {
+    return new Promise<boolean>(function(resolve, reject) {
+        CONFIG.pool.query(
+            'DELETE FROM push_subscription_table WHERE user_email=\'' + userEmail
+            + '\' AND push_subscription=\'' + JSON.stringify(pushSubscription) + '\'' , (error) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                    return
+                }
+                resolve();
+            })
+    });
+}
+
+/**
  * Get all push subscriptions of a specified user.
  * @param userEmail The email address of the user.
  * @return All push subscriptions of the user.
