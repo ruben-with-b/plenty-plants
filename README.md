@@ -74,3 +74,12 @@ The script `<Project root>/server/resources/tsoa.sh` generates the api-documenta
 
 ### How to implement push-notifications?
 [see here](https://medium.com/izettle-engineering/beginners-guide-to-web-push-notifications-using-service-workers-cb3474a17679)
+
+### Vapid-Keys
+Public Key:
+
+BDLpp91SDx9YfVpkbSCVIi4H-uXBcoggk1x0Whaw_kHQRU_9yxYQWQN4Uob0x06iu26nH7AdzNdq9vBc6Fk80OU
+
+Private Key:
+
+PWzMXos8riKO6GAgV7q9z10_GunQPqu8pWVmCZuzFX0

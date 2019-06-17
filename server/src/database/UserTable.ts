@@ -14,7 +14,7 @@ export {
  */
 function getUser(email: string): Promise<User> {
     return new Promise<User>(function(resolve, reject) {
-        CONFIG.pool.query('SELECT hashedPw FROM user_table WHERE email = \'' + email + '\'', (error, results) => {
+        CONFIG.pool.query('SELECT hashed_pw FROM user_table WHERE email = \'' + email + '\'', (error, results) => {
             if (error) {
                 reject(error);
                 return;
@@ -30,7 +30,7 @@ function getUser(email: string): Promise<User> {
                 return;
             }
 
-            resolve(new User(email, results.rows[0].hashedpw));
+            resolve(new User(email, results.rows[0].hashed_pw));
         });
     });
 }
@@ -43,7 +43,7 @@ function getUser(email: string): Promise<User> {
 function addUser(email: String, hashedPw: String): Promise<boolean> {
     return new Promise<boolean>(function(resolve, reject) {
         CONFIG.pool.query(
-            'INSERT INTO user_table (email, hashedPw)' +
+            'INSERT INTO user_table (email, hashed_pw)' +
             'VALUES (\'' + email + '\', \'' + hashedPw + '\')' , (error) => {
                 if (error) {
                     reject(error);

@@ -14,6 +14,12 @@ const models: TsoaRoute.Models = {
             "hashedPw": { "dataType": "string", "required": true },
         },
     },
+    "PushSubscription": {
+        "properties": {
+            "endpoint": { "dataType": "string", "required": true },
+            "keys": { "dataType": "any", "required": true },
+        },
+    },
     "Condition": {
         "enums": ["CLEAR", "CLOUDY", "RAINY"],
     },
@@ -70,6 +76,47 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.getMyPlants.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/v1/user/save-push-subscription',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+                pushSubscription: { "in": "body", "name": "pushSubscription", "required": true, "ref": "PushSubscription" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserApi();
+
+
+            const promise = controller.savePushSubscription.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/v1/user/send-push-notification',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserApi();
+
+
+            const promise = controller.sendNotification.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/auth/login',

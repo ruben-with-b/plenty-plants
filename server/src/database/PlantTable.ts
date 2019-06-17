@@ -9,7 +9,7 @@ import {StatusError} from "../api/StatusError";
  */
 export function getSowPeriod(plant: string): Promise<TimePeriod> {
     return new Promise<TimePeriod>((resolve, reject) => {
-        CONFIG.pool.query('SELECT SowPeriod_Begin, SowPeriod_End FROM plant_table WHERE plant_name = \'' + plant + '\'', (error, results) => {
+        CONFIG.pool.query('SELECT sow_period_begin, sow_period_end FROM plant_table WHERE plant_name = \'' + plant + '\'', (error, results) => {
             if (error) {
                 reject(new StatusError(500, "Error accessing the DB", error.message));
                 return;
@@ -24,7 +24,7 @@ export function getSowPeriod(plant: string): Promise<TimePeriod> {
                 reject(new StatusError(404, "Not found", "There is no plant called '" + plant + "'"));
                 return;
             }
-            resolve(new TimePeriod(results.rows[0].sowperiod_begin, results.rows[0].sowperiod_end));
+            resolve(new TimePeriod(results.rows[0].sow_period_begin, results.rows[0].sow_period_end));
         });
     });
 }
@@ -35,7 +35,7 @@ export function getSowPeriod(plant: string): Promise<TimePeriod> {
  */
 export function getPlantPeriod(plant: string): Promise<TimePeriod> {
     return new Promise<TimePeriod>((resolve, reject) => {
-        CONFIG.pool.query('SELECT PlantPeriod_Begin, PlantPeriod_End FROM plant_table WHERE plant_name = \'' + plant + '\'', (error, results) => {
+        CONFIG.pool.query('SELECT plant_period_begin, plant_period_end FROM plant_table WHERE plant_name = \'' + plant + '\'', (error, results) => {
             if (error) {
                 reject(new StatusError(500, "Error accessing the DB", error.message));
                 return;
@@ -50,7 +50,7 @@ export function getPlantPeriod(plant: string): Promise<TimePeriod> {
                 reject(new StatusError(404, "Not found", "There is no plant called '" + plant + "'"));
                 return;
             }
-            resolve(new TimePeriod(results.rows[0].plantperiod_begin, results.rows[0].plantperiod_end));
+            resolve(new TimePeriod(results.rows[0].plant_period_begin, results.rows[0].plant_period_end));
         });
     });
 }
@@ -61,7 +61,7 @@ export function getPlantPeriod(plant: string): Promise<TimePeriod> {
  */
 export function getHarvestPeriod(plant: string): Promise<TimePeriod> {
     return new Promise<TimePeriod>((resolve, reject) => {
-        CONFIG.pool.query('SELECT HarvestPeriod_Begin, HarvestPeriod_End FROM plant_table WHERE plant_name = \'' + plant + '\'', (error, results) => {
+        CONFIG.pool.query('SELECT harvest_period_begin, harvest_period_end FROM plant_table WHERE plant_name = \'' + plant + '\'', (error, results) => {
             if (error) {
                 reject(new StatusError(500, "Error accessing the DB", error.message));
                 return;
@@ -76,7 +76,7 @@ export function getHarvestPeriod(plant: string): Promise<TimePeriod> {
                 reject(new StatusError(404, "Not found", "There is no plant called '" + plant + "'"));
                 return;
             }
-            resolve(new TimePeriod(results.rows[0].harvestperiod_begin, results.rows[0].harvestperiod_end));
+            resolve(new TimePeriod(results.rows[0].harvest_period_begin, results.rows[0].harvest_period_end));
         });
     });
 }
