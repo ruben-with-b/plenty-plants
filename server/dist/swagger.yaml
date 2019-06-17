@@ -81,6 +81,7 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/User'
+            summary: 'Get the user profile for the current user.'
             security:
                 -
                     basicAuth: []
@@ -169,7 +170,7 @@ paths:
                         $ref: '#/definitions/Weather'
                 '404':
                     description: 'Invalid coordinates'
-            summary: 'Get the weather-forecast (next day) for the specified location.'
+            summary: 'Get the actual weather for the specified location.'
             security: []
             parameters:
                 -

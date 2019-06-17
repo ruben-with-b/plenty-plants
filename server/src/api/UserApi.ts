@@ -10,6 +10,9 @@ import {StatusError} from "./StatusError";
 @Route('user')
 export class UserApi extends Controller {
 
+    /**
+     * @summary Get the user profile for the current user.
+     */
     @Security('basicAuth')
     @Get()
     public async getUser(@Request() req: express.Request): Promise<User> {

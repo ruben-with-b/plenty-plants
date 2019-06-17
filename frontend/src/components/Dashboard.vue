@@ -6,7 +6,7 @@
         <v-ons-toolbar-button icon="ion-navicon, material: md-menu"></v-ons-toolbar-button>
       </div> -->
     </v-ons-toolbar>
-    <button id="permission-btn" v-on:click="main()">Ask Permission</button>
+    <button id="permission-btn" v-on:click="activateNotifications()">Ask Permission</button>
     <div class="container">
       <h3 class="title-segment">Kalender</h3>
       <Chart class="flex center-content"></Chart>
@@ -30,53 +30,26 @@
 
 <script>
   import Chart from './Chart.vue'
-  import Vue from 'vue';
 
-  const check = () => {
+  /**
+   * Activate push-notifications.
+   */
+  const activateNotifications = async () => {
     if (!('serviceWorker' in navigator)) {
-      throw new Error('No Service Worker support!')
+      throw new Error('No Service Worker support!');
     }
 
     if (!('PushManager' in window)) {
-      throw new Error('No Push API Support!')
+      throw new Error('No Push API Support!');
     }
-  };
 
-  // I added a function that can be used to register a service worker.
-  const registerServiceWorker = async () => {
-    const swRegistration = await navigator.serviceWorker.register('sw_notification.js'); //notice the file name
-    return swRegistration;
-  };
-
-  const requestNotificationPermission = async () => {
     const permission = await window.Notification.requestPermission();
-    // value of permission can be 'granted', 'default', 'denied'
-    // granted: user has accepted the request
-    // default: user has dismissed the notification permission popup by clicking on x
-    // denied: user has denied the request.
-    if(permission !== 'granted'){
-      throw new Error('Permission not granted for Notification');
+    if(permission == 'granted'){
+      await navigator.serviceWorker.register('sw_notification.js');
+    } else {
+      console.log('Warning: We are not allowed to use notifications');
     }
   };
-
-  const showLocalNotification = (title, body, swRegistration) => {
-    const options = {
-      body,
-      // here you can add more properties like icon, image, vibrate, etc.
-    };
-    swRegistration.showNotification(title, options);
-  };
-
-  const main = async () => {
-    check();
-    const swRegistration = await registerServiceWorker();
-    const permission =  await requestNotificationPermission();
-    showLocalNotification('This is title', 'this is the message', swRegistration);
-  };
-
-  export var sdf =  new Vue({
-
-  });
 
   export default {
     name: "Dashboard",
@@ -92,7 +65,7 @@
       }
     },
     methods: {
-      main: main
+      activateNotifications: activateNotifications
     }
   }
 </script>

@@ -1,3 +1,5 @@
+// just a function to convert the vapid-key
+// adopted from here: https://www.npmjs.com/package/web-push
 const urlBase64ToUint8Array = base64String => {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
     const base64 = (base64String + padding)
@@ -13,7 +15,9 @@ const urlBase64ToUint8Array = base64String => {
     return outputArray;
 };
 
-// saveSubscription saves the subscription to the backend
+// In order to send notifications from the backend to the frontend, the
+// backend must know our subscription. So let's send the subscription to
+// the backend.
 const saveSubscription = async subscription => {
     const SERVER_URL = 'http://localhost:3001/api/v1/notification/add';
     const response = await fetch(SERVER_URL, {
@@ -26,6 +30,7 @@ const saveSubscription = async subscription => {
     return response.json()
 };
 
+// subscribe to the push manager
 self.addEventListener('activate', async () => {
     // This will be called only once when the service worker is activated.
     try {
@@ -38,15 +43,19 @@ self.addEventListener('activate', async () => {
     } catch (err) {
         console.log('Error', err)
     }
-})
+});
 
+// listen for incoming notifications
 self.addEventListener("push", function(event) {
     if (event.data) {
         let notification = JSON.parse(event.data.text());
         showLocalNotification(notification.title, notification.message,  self.registration);
+    } else {
+        console.log('Warning', 'There was a notification without content!');
     }
 });
 
+// show notifications
 const showLocalNotification = (title, body, swRegistration) => {
     const options = {
         body

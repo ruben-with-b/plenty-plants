@@ -9,7 +9,7 @@ import * as WeatherService from "../service/WeatherService"
 export class WeatherApi extends Controller {
 
     /**
-     * @summary Get the weather-forecast (next day) for the specified location.
+     * @summary Get the actual weather for the specified location.
      * @param {string} latitude The coordinates (latitude) of the location for which the weather should be determined.
      * @param {string} longitude The coordinates (longitude) of the location for which the weather should be determined.
      */
