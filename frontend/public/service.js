@@ -13,7 +13,7 @@ const urlB64ToUint8Array = base64String => {
 
 // saveSubscription saves the subscription to the backend
 const saveSubscription = async subscription => {
-    const SERVER_URL = 'http://localhost:3001/api/v1/user/save-push-subscription'
+    const SERVER_URL = 'http://localhost:3001/api/v1/notification/add'
     const response = await fetch(SERVER_URL, {
         method: 'post',
         headers: {
@@ -33,7 +33,6 @@ self.addEventListener('activate', async () => {
         const options = { applicationServerKey, userVisibleOnly: true};
         const subscription = await self.registration.pushManager.subscribe(options);
         const response = await saveSubscription(subscription);
-        console.log(response)
     } catch (err) {
         console.log('Error', err)
     }

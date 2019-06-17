@@ -4,6 +4,7 @@ import { UserApi } from './api/UserApi';
 import { AuthApi } from './api/AuthApi';
 import { WeatherApi } from './api/WeatherApi';
 import { PlantApi } from './api/PlantApi';
+import { NotificationApi } from './api/NotificationApi';
 import { expressAuthentication } from './service/AuthService';
 import * as express from 'express';
 
@@ -12,12 +13,6 @@ const models: TsoaRoute.Models = {
         "properties": {
             "email": { "dataType": "string", "required": true },
             "hashedPw": { "dataType": "string", "required": true },
-        },
-    },
-    "PushSubscription": {
-        "properties": {
-            "endpoint": { "dataType": "string", "required": true },
-            "keys": { "dataType": "any", "required": true },
         },
     },
     "Condition": {
@@ -34,6 +29,12 @@ const models: TsoaRoute.Models = {
         "properties": {
             "firstMonth": { "dataType": "double", "required": true },
             "lastMonth": { "dataType": "double", "required": true },
+        },
+    },
+    "PushSubscription": {
+        "properties": {
+            "endpoint": { "dataType": "string", "required": true },
+            "keys": { "dataType": "any", "required": true },
         },
     },
 };
@@ -76,47 +77,6 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.getMyPlants.apply(controller, validatedArgs as any);
-            promiseHandler(controller, promise, response, next);
-        });
-    app.post('/api/v1/user/save-push-subscription',
-        authenticateMiddleware([{ "basicAuth": [] }]),
-        function(request: any, response: any, next: any) {
-            const args = {
-                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
-                pushSubscription: { "in": "body", "name": "pushSubscription", "required": true, "ref": "PushSubscription" },
-            };
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request);
-            } catch (err) {
-                return next(err);
-            }
-
-            const controller = new UserApi();
-
-
-            const promise = controller.savePushSubscription.apply(controller, validatedArgs as any);
-            promiseHandler(controller, promise, response, next);
-        });
-    app.post('/api/v1/user/send-push-notification',
-        authenticateMiddleware([{ "basicAuth": [] }]),
-        function(request: any, response: any, next: any) {
-            const args = {
-                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
-            };
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request);
-            } catch (err) {
-                return next(err);
-            }
-
-            const controller = new UserApi();
-
-
-            const promise = controller.sendNotification.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/auth/login',
@@ -253,6 +213,47 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.getHarvestPeriod.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/v1/notification/add',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+                pushSubscription: { "in": "body", "name": "pushSubscription", "required": true, "ref": "PushSubscription" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new NotificationApi();
+
+
+            const promise = controller.addSubscription.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/v1/notification/send-frost-warning',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new NotificationApi();
+
+
+            const promise = controller.sendFrostWarning.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
 

@@ -13,17 +13,6 @@ definitions:
             - email
             - hashedPw
         type: object
-    PushSubscription:
-        description: "Configuration for a Push Subscription. This can be obtained on the frontend by calling\r\nserviceWorkerRegistration.pushManager.subscribe().\r\nThe expected format is the same output as JSON.stringify'ing a PushSubscription in the browser."
-        properties:
-            endpoint:
-                type: string
-            keys:
-                type: object
-        required:
-            - endpoint
-            - keys
-        type: object
     Condition:
         description: 'Describes the overall weather condition.'
         enum:
@@ -65,6 +54,17 @@ definitions:
             - firstMonth
             - lastMonth
         type: object
+    PushSubscription:
+        description: "Configuration for a Push Subscription. This can be obtained on the frontend by calling\r\nserviceWorkerRegistration.pushManager.subscribe().\r\nThe expected format is the same output as JSON.stringify'ing a PushSubscription in the browser."
+        properties:
+            endpoint:
+                type: string
+            keys:
+                type: object
+        required:
+            - endpoint
+            - keys
+        type: object
 info:
     title: web-technologien
     version: 1.0.0
@@ -101,49 +101,6 @@ paths:
                     description: 'Please log in.'
             summary: 'Get the plants of the current user.'
             security: []
-            parameters: []
-    /user/save-push-subscription:
-        post:
-            operationId: SavePushSubscription
-            produces:
-                - application/json
-            responses:
-                '200':
-                    description: Ok
-                    schema:
-                        type: object
-                '401':
-                    description: Unauthorized
-                '500':
-                    description: 'Internal server error'
-            security:
-                -
-                    basicAuth: []
-            parameters:
-                -
-                    description: 'The push subscription (as json).'
-                    in: body
-                    name: pushSubscription
-                    required: true
-                    schema:
-                        $ref: '#/definitions/PushSubscription'
-    /user/send-push-notification:
-        post:
-            operationId: SendNotification
-            produces:
-                - application/json
-            responses:
-                '200':
-                    description: Ok
-                    schema:
-                        type: object
-                '401':
-                    description: Unauthorized
-                '500':
-                    description: 'Internal server error'
-            security:
-                -
-                    basicAuth: []
             parameters: []
     /auth/login:
         post:
@@ -290,6 +247,55 @@ paths:
                     name: plant
                     required: true
                     type: string
+    /notification/add:
+        post:
+            operationId: AddSubscription
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: object
+                '201':
+                    description: ""
+                '401':
+                    description: Unauthorized
+                '500':
+                    description: 'Internal server error'
+            description: 'Add a subscription.'
+            security:
+                -
+                    basicAuth: []
+            parameters:
+                -
+                    description: 'The push subscription.'
+                    in: body
+                    name: pushSubscription
+                    required: true
+                    schema:
+                        $ref: '#/definitions/PushSubscription'
+    /notification/send-frost-warning:
+        post:
+            operationId: SendFrostWarning
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: object
+                '204':
+                    description: ""
+                '401':
+                    description: Unauthorized
+                '500':
+                    description: 'Internal server error'
+            description: 'Send a notification to the current user.'
+            security:
+                -
+                    basicAuth: []
+            parameters: []
 produces:
     - application/json
 swagger: '2.0'
