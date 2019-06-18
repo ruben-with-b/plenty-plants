@@ -25,11 +25,14 @@
         </div>
       </div>
     </div>
+    <Navigationbar></Navigationbar>
   </v-ons-page>
 </template>
 
 <script>
-  import Chart from './Chart.vue'
+
+import Chart from './Chart.vue'
+import Navigationbar from './NavigationBar.vue'
 
   /**
    * Activate push-notifications.
@@ -54,7 +57,8 @@
   export default {
     name: "Dashboard",
     components: {
-      Chart
+      Chart,
+      Navigationbar
     },
     props: {
       msg: String

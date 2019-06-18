@@ -6,10 +6,28 @@
     justify-content: space-between;
 }
 
+.space-around{
+    justify-content: space-around;
+}
+
 .center-content{
     justify-content: center;
 }
 
+.center-ver{
+    align-items: center;
+}
+
 .container{
     padding: 1em 1.2em;
+}
+
+// Resets
+
+li{
+    list-style: none;
+    ul{
+        margin: 0;
+        padding: 0;
+    }
 }
