@@ -22,6 +22,7 @@ export default {
       ]
     },
     {
+      cutoutPercentage: 90,
       responsive: false,
       legend: {
             display: true,

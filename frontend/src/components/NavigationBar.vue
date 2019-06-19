@@ -3,23 +3,23 @@
   <v-ons-fab position="bottom center" :visible="fabVisible">
       <v-ons-icon icon="md-plus"></v-ons-icon>
   </v-ons-fab>
-  <div class="bottom-navi">
-    <li class="flex space-around center-ver">
+  <div class="bottom-navi flex center-ver space-around">
+    <li class="flex">
       <ul>
-        <div>Icon</div>
-        <div>Dashboard</div>
+        <v-ons-icon class="active" icon="md-calendar"></v-ons-icon>
+        <div class="sub-icon-font active">Dashboard</div>
       </ul>
       <ul>
-        <div>Icon</div>
-        <div>Katalog</div>
+        <v-ons-icon icon="md-search"></v-ons-icon>
+        <div class="sub-icon-font">Katalog</div>
       </ul>
       <ul>
-        <div>Icon</div>
-        <div>Aufgaben</div>
+        <v-ons-icon icon="md-alarm"></v-ons-icon>
+        <div class="sub-icon-font">Aufgaben</div>
       </ul>
       <ul>
-        <div>Icon</div>
-        <div>Konto</div>
+        <v-ons-icon icon="md-account"></v-ons-icon>
+        <div class="sub-icon-font">Konto</div>
       </ul>
     </li>
   </div>
@@ -54,11 +54,30 @@ li{
 
 ul{
   text-align: center;
+  width: calc(100vw/4);
+}
+
+ons-icon{
+  color: #A4B1BA;
+}
+
+.sub-icon-font{
+  color: #A4B1BA
+}
+
+.active{
+  color: #fff;
 }
 
 ons-fab{
   bottom: 40px !important;
   background: #FBD876 !important;
+  position: fixed !important;
+}
+
+
+ons-fab ons-icon{
+  color: gray;
 }
 
 </style>
