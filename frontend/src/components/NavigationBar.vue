@@ -1,6 +1,6 @@
 <template>
 <div class="root">
-  <v-ons-fab position="bottom center" :visible="fabVisible">
+  <v-ons-fab position="bottom center">
       <v-ons-icon icon="md-plus"></v-ons-icon>
   </v-ons-fab>
   <div class="bottom-navi flex center-ver space-around">

@@ -34,6 +34,26 @@
 import Chart from './Chart.vue'
 import Navigationbar from './NavigationBar.vue'
 
+import axios from "axios"
+import Console from "console"
+
+axios.get("/api/v1/user/my-plants", {})
+    .then((response) => {
+        Console.log(response.data);
+
+        axios.get("/api/v1/plant/tomato/sowPeriod", {})
+            .then((response) => {
+                Console.log(response.data);
+            })
+            .catch((errors) => {
+                Console.log("Cannot log in. Error: " + errors.message);
+            });
+    })
+    .catch((errors) => {
+        Console.log("Cannot log in. Error: " + errors.message);
+    });
+
+
   /**
    * Activate push-notifications.
    */
