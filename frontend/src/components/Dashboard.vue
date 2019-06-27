@@ -1,21 +1,26 @@
 <template id="main">
   <v-ons-page>
-    <v-ons-toolbar>
+    <v-ons-toolbar modifier="transparent">
       <div class="center">{{ title }}</div>
-      <!-- <div class="right">
-        <v-ons-toolbar-button icon="ion-navicon, material: md-menu"></v-ons-toolbar-button>
-      </div> -->
     </v-ons-toolbar>
     <button id="permission-btn" v-on:click="activateNotifications()">Ask Permission</button>
     <div class="container">
-      <h3 class="title-segment">Kalender</h3>
       <Chart class="flex center-content"></Chart>
       <div class="flex space-between">
         <div>
           <h3 class="title-segment">Nächste Schritte</h3>
-          <p>
-            Some content.
-          </p>
+          <v-ons-card class="flex space-around center-ver">
+            <icon-base width="50" height="50" viewBox="0 0 50 50" icon-name="noun-gardening" >
+              <WateringCan />
+            </icon-base>
+            <div class="text-next-steps">Prüfe, ob deine Pflanzen Wasser benötigen.</div>
+          </v-ons-card>
+          <v-ons-card class="flex space-around center-ver">
+            <icon-base width="50" height="50" viewBox="0 0 50 50" icon-name="noun-gardening" >
+              <Plant />
+            </icon-base>
+            <div class="text-next-steps">Tomaten umtopfen.</div>
+          </v-ons-card>
         </div>
         <div>
           <h3 class="title-segment">Wetter</h3>
@@ -25,6 +30,7 @@
         </div>
       </div>
     </div>
+    <div class="offset-navi"></div>
     <Navigationbar></Navigationbar>
   </v-ons-page>
 </template>
@@ -33,25 +39,9 @@
 
 import Chart from './Chart.vue'
 import Navigationbar from './NavigationBar.vue'
-
-import axios from "axios"
-import Console from "console"
-
-axios.get("/api/v1/user/my-plants", {})
-    .then((response) => {
-        Console.log(response.data);
-
-        axios.get("/api/v1/plant/tomato/sowPeriod", {})
-            .then((response) => {
-                Console.log(response.data);
-            })
-            .catch((errors) => {
-                Console.log("Cannot log in. Error: " + errors.message);
-            });
-    })
-    .catch((errors) => {
-        Console.log("Cannot log in. Error: " + errors.message);
-    });
+import IconBase from '@/components/icons/IconBase.vue'
+import WateringCan from '@/components/icons/WateringCan.vue'
+import Plant from '@/components/icons/Plant.vue'
 
 
   /**
@@ -78,14 +68,17 @@ axios.get("/api/v1/user/my-plants", {})
     name: "Dashboard",
     components: {
       Chart,
-      Navigationbar
+      Navigationbar,
+      IconBase,
+      WateringCan,
+      Plant
     },
     props: {
       msg: String
     },
     data() {
       return {
-        title: "Dashboard"
+        title: "Mein Kalender"
       }
     },
     methods: {
@@ -95,6 +88,22 @@ axios.get("/api/v1/user/my-plants", {})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 
+@import "../styles/main.scss";
+
+#main{
+  background: $dashboard-bg;
+}
+
+ons-card{
+  width: 50vw;
+}
+.text-next-steps{
+  width: 60%;
+}
+
+.offset-navi{
+  height: 65px;
+}
 </style>
