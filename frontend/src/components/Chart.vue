@@ -2,6 +2,7 @@
 
 import { Doughnut } from 'vue-chartjs'
 import 'chartjs-plugin-labels';
+import 'chartjs-plugin-doughnutlabel';
 
 import axios from "axios"
 import Console from "console"
@@ -13,12 +14,15 @@ export default {
   data() {
     return {
       plants: null,
-      sowPeriod: null
+      sowPeriod: null,
+      calenderIcons: [
+              { src: require('@/assets/tomato.png'), width: 20, height: 20 },
+              { src: require('@/assets/salad.png'), width: 20, height: 20 }
+            ]
     }
   },
   mounted () {
-    // const vm = this;
-
+    const vm = this;
     axios.get("/api/v1/user/my-plants", {})
     .then((response) => {
         this.plants = response.data;
@@ -93,16 +97,34 @@ export default {
         labels: [
           {
             render: 'image',
-            images: [
-              { src:  require('@/assets/tomato.png'), width: 20, height: 20 },
-              { src: require('@/assets/salad.png'), width: 20, height: 20 },
-            ],
+            images: vm.calenderIcons,
             
           }
+        ],
+        doughnutlabel: {
+          labels: [
+            {
+              text: '22',
+              font: {
+                size: '50',
+                family: 'Karla',
+                weight: 700
+              },
+              color: 'grey'
+            },
+            {
+              text: '08',
+              font: {
+                size: '20',
+                family: 'Karla',
+                weight: 700
+              },
+              color: 'grey'
+            }
         ]
       }
-    })
-    
+    }
+  })
     
     // this.chart.data.datasets[0].label
 

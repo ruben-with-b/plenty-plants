@@ -85,6 +85,8 @@ import Plant from '@/components/icons/Plant.vue'
       activateNotifications: activateNotifications
     }
   }
+
+  
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
