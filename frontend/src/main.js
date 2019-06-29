@@ -11,14 +11,6 @@ import 'onsenui/css/onsen-css-components.css';
 
 Vue.use(VueOnsen);
 
-new Vue({
-  render: h => h(App),
-  router,
-  created : function() {
-    this.$ons.platform.select('android');
-  },
-}).$mount('#app');
-
 Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
@@ -39,4 +31,10 @@ const router = new VueRouter({
   mode: 'history'
 });
 
-export default router;
+new Vue({
+  render: h => h(App),
+  router,
+  created : function() {
+    this.$ons.platform.select('android');
+  },
+}).$mount('#app');
