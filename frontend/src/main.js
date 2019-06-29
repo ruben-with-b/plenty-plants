@@ -3,6 +3,7 @@ import VueOnsen from 'vue-onsenui';
 import App from './App.vue'
 
 import Dashboard from './components/Dashboard.vue'
+import Login from './components/Login.vue'
 import VueRouter from 'vue-router'
 
 import 'onsenui/css/onsenui.css';
@@ -27,6 +28,9 @@ require("./styles/main.scss");
 const routes = [
   { path: '/',
     component: Dashboard
+  },
+  { path: '/login',
+    component: Login
   }
 ];
 

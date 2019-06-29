@@ -1,6 +1,6 @@
 <template>
 <div class="root">
-  <v-ons-fab position="bottom center">
+  <v-ons-fab position="bottom right">
       <v-ons-icon icon="md-plus"></v-ons-icon>
   </v-ons-fab>
   <div class="bottom-navi flex center-ver space-around">
@@ -14,12 +14,8 @@
         <div class="sub-icon-font">Katalog</div>
       </ul>
       <ul>
-        <v-ons-icon icon="md-alarm"></v-ons-icon>
-        <div class="sub-icon-font">Aufgaben</div>
-      </ul>
-      <ul>
-        <v-ons-icon icon="md-account"></v-ons-icon>
-        <div class="sub-icon-font">Konto</div>
+        <v-ons-icon icon="md-settings"></v-ons-icon>
+        <div class="sub-icon-font">Einstellungen</div>
       </ul>
     </li>
   </div>
@@ -44,7 +40,7 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100vw;
-  height: 65px;
+  height: 55px;
   background: #7C8F9C;
 }
 
@@ -70,14 +66,14 @@ ons-icon{
 }
 
 ons-fab{
-  bottom: 40px !important;
-  background: #FBD876 !important;
+  bottom: 35px !important;
+  background: #9fd6b7 !important;
   position: fixed !important;
 }
 
 
 ons-fab ons-icon{
-  color: gray;
+  color: #fff;
 }
 
 </style>

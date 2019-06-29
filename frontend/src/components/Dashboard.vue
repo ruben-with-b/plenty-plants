@@ -1,10 +1,10 @@
 <template id="main">
-  <v-ons-page>
+  <v-ons-page class="dashboard-bg">
     <v-ons-toolbar modifier="transparent">
       <div class="center">{{ title }}</div>
     </v-ons-toolbar>
-    <button id="permission-btn" v-on:click="activateNotifications()">Ask Permission</button>
     <div class="container">
+       <!-- <button id="permission-btn" v-on:click="activateNotifications()">Ask Permission</button> -->
       <Chart class="flex center-content"></Chart>
       <div class="flex space-between">
         <div>
@@ -13,7 +13,7 @@
             <icon-base width="50" height="50" viewBox="0 0 50 50" icon-name="noun-gardening" >
               <WateringCan />
             </icon-base>
-            <div class="text-next-steps">Prüfe, ob deine Pflanzen Wasser benötigen.</div>
+            <div class="text-next-steps">Pflanzen gießen.</div>
           </v-ons-card>
           <v-ons-card class="flex space-around center-ver">
             <icon-base width="50" height="50" viewBox="0 0 50 50" icon-name="noun-gardening" >
@@ -94,8 +94,8 @@ import Plant from '@/components/icons/Plant.vue'
 
 @import "../styles/main.scss";
 
-#main{
-  background: $dashboard-bg;
+ons-toolbar, .container{
+  background: $dashboard-bg !important;
 }
 
 ons-card{
@@ -106,6 +106,6 @@ ons-card{
 }
 
 .offset-navi{
-  height: 65px;
+  height: 55px;
 }
 </style>

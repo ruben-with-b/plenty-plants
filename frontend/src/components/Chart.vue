@@ -54,7 +54,7 @@ export default {
             '#e6e6e6'
           ],
           borderWidth: 0,
-          data: [4,3,1,2]
+          data: [5,4,1,2]
         },
         {
           label: 'salad',
@@ -65,11 +65,51 @@ export default {
             '#e6e6e6'
           ],
           borderWidth: 0,
-          data: [1,2,4,3]
+          data: [1,3,5,3]
         }
       ]
     },
     {
+      events: ['click'],
+      animation: {
+      duration: 1,
+      onComplete: function() {
+        
+        let ctx = document.getElementById('doughnut-chart').getContext('2d');
+        let controller = this.chart.controller;
+        let xAxis = controller.scales['first-x-axis'];
+
+        xAxis.ticks.forEach(function() {
+          let xOffset = ctx.canvas.clientWidth;
+          let yOffset = ctx.canvas.clientHeight;
+          ctx.fillStyle = ''
+          ctx.font = '14px Karla';
+          ctx.fillText('Jan', xOffset - xOffset/2.5, yOffset - yOffset/1.02 );
+          ctx.fillText('Feb', xOffset - xOffset/8, yOffset - yOffset/1.2 );
+          ctx.fillText('Mär', xOffset - xOffset/30, yOffset - yOffset/1.5 );
+          ctx.fillText('Apr', xOffset - xOffset/30, yOffset - yOffset/2.2 );
+          ctx.fillText('Mai', xOffset - xOffset/8, yOffset - yOffset/3.8 );
+          ctx.fillText('Aug', xOffset - xOffset/1.16, yOffset - yOffset/3.8 );
+          ctx.fillText('Sep', xOffset - xOffset/1.05, yOffset - yOffset/2.2 );
+          ctx.fillText('Okt', xOffset - xOffset/1.05, yOffset - yOffset/1.5 );
+          ctx.fillText('Nov', xOffset - xOffset/1.16, yOffset - yOffset/1.2 );
+          ctx.fillText('Dez', xOffset - xOffset/1.5, yOffset - yOffset/1.02 );
+        });
+
+      }
+    },
+      scales: {
+            xAxes: [{
+                id: 'first-x-axis',
+                type: 'category',
+                position: 'top',
+                display: false,
+                gridLines: {
+                    display : false
+                }
+              }]
+            
+        },
       cutoutPercentage: 60,
       rotation: 2 * Math.PI,
       responsive: false,
@@ -98,7 +138,6 @@ export default {
           {
             render: 'image',
             images: vm.calenderIcons,
-            
           }
         ],
         doughnutlabel: {
