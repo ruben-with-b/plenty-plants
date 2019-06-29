@@ -10,9 +10,9 @@
 </template>
 
 <script>
-    import router from "../main.js";
     import axios from "axios"
     import Console from "console"
+    import {router} from "../main.js"
     export default {
         name: "Login",
         methods: {
@@ -30,7 +30,7 @@
                     axios.post("/api/v1/auth/login", {}, authHeader)
                         .then(() => {
                             Console.log("Logged in");
-                            router.push("/dashboard")
+                            router.push('/');
                         })
                         .catch((errors) => {
                             Console.log("Cannot log in. Error: " + errors.message);
