@@ -9,6 +9,14 @@ import * as PlantTable from "../database/PlantTable"
 export class PlantApi extends Controller {
 
     /**
+     * @summary Obtaining all available plants.
+     */
+    @Get('all')
+    public async getAvailablePlants(): Promise<string[]> {
+        return PlantTable.getAvailablePlants();
+    }
+
+    /**
      * @summary Obtaining the sowing period for a plant
      * @param {string} plant The plant for which the sow period should be determined.
      */

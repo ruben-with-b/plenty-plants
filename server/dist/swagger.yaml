@@ -185,6 +185,21 @@ paths:
                     name: longitude
                     required: true
                     type: string
+    /plant/all:
+        get:
+            operationId: GetAvailablePlants
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            type: string
+            summary: 'Obtaining all available plants.'
+            security: []
+            parameters: []
     '/plant/{plant}/sowPeriod':
         get:
             operationId: GetSowPeriod

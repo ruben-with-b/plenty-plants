@@ -4,6 +4,28 @@ import {StatusError} from "../api/StatusError";
 
 
 /**
+ * @summary Get all available plants.
+ */
+export function getAvailablePlants(): Promise<string[]> {
+    return new Promise<string[]>((resolve, reject) => {
+        CONFIG.pool.query('SELECT plant_name FROM plant_table', (error, results) => {
+            if (error) {
+                reject(new StatusError(500, "Error accessing the DB", error.message));
+                return;
+            }
+
+            let plants: string[] = [];
+
+            results.rows.forEach((row: any) => {
+                plants.push(row.plant_name);
+            });
+
+            resolve(plants);
+        });
+    });
+}
+
+/**
  * @summary Get the sow period for a plant.
  * @param {string} plant The plant for which the sow period should be determined.
  */

@@ -158,6 +158,24 @@ export function RegisterRoutes(app: express.Express) {
             const promise = controller.getWeather.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
+    app.get('/api/v1/plant/all',
+        function(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new PlantApi();
+
+
+            const promise = controller.getAvailablePlants.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
     app.get('/api/v1/plant/:plant/sowPeriod',
         function(request: any, response: any, next: any) {
             const args = {
