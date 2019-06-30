@@ -1,13 +1,14 @@
 import * as PushSubscriptionTable from '../database/PushSubscriptionTable';
 import * as express from "express";
 import * as NotificationService from '../service/NotificationService';
-import {Controller, Route, Request, Security, Response, Post, Body} from 'tsoa';
-import {StatusError} from "./StatusError";
+import {Controller, Route, Request, Security, Response, Post, Body, Tags} from 'tsoa';
+import {StatusError} from "../model/StatusError";
 import {PushSubscription} from "web-push";
 
 /**
  * Some actions concerning notification-management.
  */
+@Tags('Notifications')
 @Route('notification')
 export class NotificationApi extends Controller {
 

@@ -4,7 +4,7 @@ import passport from 'passport';
 import bcrypt from 'bcrypt';
 import {BasicStrategy} from "passport-http";
 import * as express from "express";
-import {StatusError} from "../api/StatusError";
+import {StatusError} from "../model/StatusError";
 
 /**
  * Initialize the authentication.

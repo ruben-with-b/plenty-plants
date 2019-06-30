@@ -1,5 +1,5 @@
 import * as CONFIG from "./config";
-import {StatusError} from "../api/StatusError";
+import {StatusError} from "../model/StatusError";
 
 /**
  * @summary Get the favourite plants of a user.

@@ -146,6 +146,8 @@ paths:
                     schema:
                         $ref: '#/definitions/User'
             summary: 'Get the user profile for the current user.'
+            tags:
+                - User
             security:
                 -
                     basicAuth: []
@@ -163,6 +165,8 @@ paths:
                         items:
                             type: string
             summary: 'Get the users favourite plants.'
+            tags:
+                - User
             security:
                 -
                     basicAuth: []
@@ -180,6 +184,8 @@ paths:
                 '204':
                     description: 'Plant successfully added.'
             summary: 'Add a plant to the users favourite plants.'
+            tags:
+                - User
             security:
                 -
                     basicAuth: []
@@ -202,6 +208,8 @@ paths:
                 '204':
                     description: 'Plant successfully removed.'
             summary: 'Remove a plant from the users favourite plants.'
+            tags:
+                - User
             security:
                 -
                     basicAuth: []
@@ -225,6 +233,8 @@ paths:
                 '401':
                     description: 'Authentication error'
             description: 'Log in a user.'
+            tags:
+                - Authentication
             security:
                 -
                     basicAuth: []
@@ -238,6 +248,8 @@ paths:
                 '204':
                     description: 'Logged out'
             description: 'Log out a user.'
+            tags:
+                - Authentication
             security: []
             parameters: []
     /auth/signup:
@@ -253,6 +265,8 @@ paths:
                 '409':
                     description: 'User already exists'
             description: 'Sign up a new user.'
+            tags:
+                - Authentication
             security: []
             parameters:
                 -
@@ -280,6 +294,8 @@ paths:
                 '404':
                     description: 'Invalid coordinates'
             summary: 'Get the actual weather for the specified location.'
+            tags:
+                - Weather
             security: []
             parameters:
                 -
@@ -307,6 +323,8 @@ paths:
                         items:
                             type: string
             summary: 'Obtaining all available plants.'
+            tags:
+                - Plants
             security: []
             parameters: []
     '/plant/{plant}/sowPeriod':
@@ -322,6 +340,8 @@ paths:
                 '404':
                     description: 'The specified plant does not exist'
             summary: 'Obtaining the sowing period for a plant'
+            tags:
+                - Plants
             security: []
             parameters:
                 -
@@ -343,6 +363,8 @@ paths:
                 '404':
                     description: 'The specified plant does not exist'
             summary: 'Obtaining the planting period for a plant'
+            tags:
+                - Plants
             security: []
             parameters:
                 -
@@ -364,6 +386,8 @@ paths:
                 '404':
                     description: 'The specified plant does not exist'
             summary: 'Obtaining the harvest period for a plant'
+            tags:
+                - Plants
             security: []
             parameters:
                 -
@@ -385,6 +409,8 @@ paths:
                 '404':
                     description: 'The specified plant does not exist'
             summary: 'Obtaining the summary for a plant.'
+            tags:
+                - Plants
             security: []
             parameters:
                 -
@@ -410,6 +436,8 @@ paths:
                 '500':
                     description: 'Internal server error'
             summary: 'Add a notification-subscription.'
+            tags:
+                - Notifications
             security:
                 -
                     basicAuth: []
@@ -438,6 +466,8 @@ paths:
                 '500':
                     description: 'Internal server error'
             summary: 'Send a frost-warning to the current user.'
+            tags:
+                - Notifications
             security:
                 -
                     basicAuth: []
@@ -449,3 +479,19 @@ securityDefinitions:
     basicAuth:
         type: basic
 host: 'localhost:3000'
+tags:
+    -
+        name: Authentication
+        description: 'Common authentication functions'
+    -
+        name: User
+        description: 'User specific information'
+    -
+        name: Plants
+        description: 'Information about plants'
+    -
+        name: Weather
+        description: 'Information about weather'
+    -
+        name: Notifications
+        description: 'Functions to manage Push-Notifications'

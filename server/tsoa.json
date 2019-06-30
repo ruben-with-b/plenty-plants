@@ -9,7 +9,29 @@
         "type": "basic"
       }
     },
-    "yaml": true
+    "yaml": true,
+    "tags": [
+      {
+        "name": "Authentication",
+        "description": "Common authentication functions"
+      },
+      {
+        "name": "User",
+        "description": "User specific information"
+      },
+      {
+        "name": "Plants",
+        "description": "Information about plants"
+      },
+      {
+        "name": "Weather",
+        "description": "Information about weather"
+      },
+      {
+        "name": "Notifications",
+        "description": "Functions to manage Push-Notifications"
+      }
+    ]
   },
   "routes": {
     "basePath": "/api/v1",

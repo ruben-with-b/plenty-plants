@@ -1,13 +1,14 @@
 import * as UserTable from '../database/UserTable';
 import * as UserGardenTable from '../database/UserGardenTable';
 import * as express from "express";
-import {Controller, Get, Route, Request, Security, Response, Post, Delete} from 'tsoa';
+import {Controller, Get, Route, Request, Security, Response, Post, Delete, Tags} from 'tsoa';
 import {User} from "../model/User";
-import {StatusError} from "./StatusError";
+import {StatusError} from "../model/StatusError";
 
 /**
  * Offers some user information.
  */
+@Tags('User')
 @Route('user')
 export class UserApi extends Controller {
 

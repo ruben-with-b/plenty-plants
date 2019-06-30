@@ -1,10 +1,11 @@
-import {Controller, Get, Query, Response, Route} from "tsoa";
+import {Controller, Get, Query, Response, Route, Tags} from "tsoa";
 import {Condition, Weather} from "../model/Weather";
 import * as WeatherService from "../service/WeatherService"
 
 /**
  * Offers some weather information.
  */
+@Tags('Weather')
 @Route('weather')
 export class WeatherApi extends Controller {
 

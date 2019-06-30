@@ -1,6 +1,6 @@
 import {Condition, Weather} from "../model/Weather";
 import * as http from "http";
-import {StatusError} from "../api/StatusError";
+import {StatusError} from "../model/StatusError";
 
 /**
  * Get the weather at the specified location.

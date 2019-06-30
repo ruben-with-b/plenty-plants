@@ -1,4 +1,4 @@
-import {Controller, Get, Response, Route} from "tsoa";
+import {Controller, Get, Response, Route, Tags} from "tsoa";
 import {TimePeriod} from "../model/TimePeriod";
 import * as PlantTable from "../database/PlantTable"
 import {PlantSummary} from "../model/PlantSummary";
@@ -6,6 +6,7 @@ import {PlantSummary} from "../model/PlantSummary";
 /**
  * Offers some information about plants.
  */
+@Tags('Plants')
 @Route('plant')
 export class PlantApi extends Controller {
 

@@ -1,6 +1,6 @@
 import * as CONFIG from "./config";
 import {TimePeriod} from "../model/TimePeriod";
-import {StatusError} from "../api/StatusError";
+import {StatusError} from "../model/StatusError";
 import {PlantSummary} from "../model/PlantSummary";
 
 /**

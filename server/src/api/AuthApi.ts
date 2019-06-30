@@ -2,12 +2,13 @@ import * as UserTable from '../database/UserTable';
 import {User} from '../model/User';
 import * as express from "express";
 import bcrypt from 'bcrypt';
-import {Controller, Get, Post, Route, Request, Response, SuccessResponse, Query, Security} from "tsoa";
-import {StatusError} from "./StatusError";
+import {Controller, Get, Post, Route, Request, Response, SuccessResponse, Query, Security, Tags} from "tsoa";
+import {StatusError} from "../model/StatusError";
 
 /**
  * Offers some functions for user authentication.
  */
+@Tags('Authentication')
 @Route('auth')
 export class AuthApi extends Controller {
 
