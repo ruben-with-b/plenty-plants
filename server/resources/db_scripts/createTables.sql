@@ -31,3 +31,11 @@ create table user_garden_table (
     user_email VARCHAR(50) not null references user_table(email),
     plant_name VARCHAR(64) not null references plant_table(plant_name)
 )
+
+create table plant_tutorial_table (
+    plant_name VARCHAR(50) not null references plant_table(plant_name),
+    step_number INT not null,
+    heading VARCHAR(64) not null,
+    body VARCHAR(1024) not null,
+    primary key (plant_name, step_number)
+);

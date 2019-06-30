@@ -118,6 +118,19 @@ definitions:
             - sowPeriodBegin
             - harvestPeriodEnd
         type: object
+    TutorialStep:
+        description: 'Represents a tutorial step.'
+        properties:
+            heading:
+                type: string
+                description: 'The heading of the step.'
+            body:
+                type: string
+                description: 'The description of the step.'
+        required:
+            - heading
+            - body
+        type: object
     PushSubscription:
         description: "Configuration for a Push Subscription. This can be obtained on the frontend by calling\r\nserviceWorkerRegistration.pushManager.subscribe().\r\nThe expected format is the same output as JSON.stringify'ing a PushSubscription in the browser."
         properties:
@@ -415,6 +428,29 @@ paths:
             parameters:
                 -
                     description: 'The plant for which the summary should be fetched.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
+    '/plant/{plant}/tutorial-steps':
+        get:
+            operationId: GetTutorialSteps
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: array
+                        items:
+                            $ref: '#/definitions/TutorialStep'
+            summary: 'Obtaining the tutorial steps for a plant.'
+            tags:
+                - Plants
+            security: []
+            parameters:
+                -
+                    description: 'The plant for which the steps should be fetched.'
                     in: path
                     name: plant
                     required: true

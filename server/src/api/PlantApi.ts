@@ -1,7 +1,9 @@
 import {Controller, Get, Response, Route, Tags} from "tsoa";
 import {TimePeriod} from "../model/TimePeriod";
 import * as PlantTable from "../database/PlantTable"
+import * as PlantTutorialTable from "../database/PlantTutorialTable"
 import {PlantSummary} from "../model/PlantSummary";
+import {TutorialStep} from "../model/TutorialStep";
 
 /**
  * Offers some information about plants.
@@ -56,5 +58,14 @@ export class PlantApi extends Controller {
     @Get('{plant}/summary')
     public async getSummary(plant: string): Promise<PlantSummary> {
         return PlantTable.getPlantSummary(plant);
+    }
+
+    /**
+     * @summary Obtaining the tutorial steps for a plant.
+     * @param {string} plant The plant for which the steps should be fetched.
+     */
+    @Get('{plant}/tutorial-steps')
+    public async getTutorialSteps(plant: string): Promise<TutorialStep[]> {
+        return PlantTutorialTable.getTutorialSteps(plant);
     }
 }

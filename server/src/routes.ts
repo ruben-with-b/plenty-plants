@@ -51,6 +51,12 @@ const models: TsoaRoute.Models = {
             "harvestPeriodEnd": { "dataType": "double", "required": true },
         },
     },
+    "TutorialStep": {
+        "properties": {
+            "heading": { "dataType": "string", "required": true },
+            "body": { "dataType": "string", "required": true },
+        },
+    },
     "PushSubscription": {
         "properties": {
             "endpoint": { "dataType": "string", "required": true },
@@ -314,6 +320,25 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.getSummary.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/v1/plant/:plant/tutorial-steps',
+        function(request: any, response: any, next: any) {
+            const args = {
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new PlantApi();
+
+
+            const promise = controller.getTutorialSteps.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/notification/add',
