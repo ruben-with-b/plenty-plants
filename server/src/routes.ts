@@ -31,6 +31,19 @@ const models: TsoaRoute.Models = {
             "lastMonth": { "dataType": "double", "required": true },
         },
     },
+    "PlantSummary": {
+        "properties": {
+            "name": { "dataType": "string", "required": true },
+            "sowingDistance": { "dataType": "double", "required": true },
+            "sowingDepth": { "dataType": "double", "required": true },
+            "soilCondition": { "dataType": "string", "required": true },
+            "germinationTime": { "dataType": "double", "required": true },
+            "numberOfHarvests": { "dataType": "string", "required": true },
+            "difficulty": { "dataType": "double", "required": true },
+            "sowPeriodBegin": { "dataType": "double", "required": true },
+            "harvestPeriodEnd": { "dataType": "double", "required": true },
+        },
+    },
     "PushSubscription": {
         "properties": {
             "endpoint": { "dataType": "string", "required": true },
@@ -231,6 +244,25 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.getHarvestPeriod.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/v1/plant/:plant/summary',
+        function(request: any, response: any, next: any) {
+            const args = {
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new PlantApi();
+
+
+            const promise = controller.getSummary.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/notification/add',

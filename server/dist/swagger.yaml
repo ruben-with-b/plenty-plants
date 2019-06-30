@@ -54,6 +54,53 @@ definitions:
             - firstMonth
             - lastMonth
         type: object
+    PlantSummary:
+        description: "Some basic information about a plant. Currently this information is\r\nshown in the \"Katalog\""
+        properties:
+            name:
+                type: string
+                description: 'The name of the plant.'
+            sowingDistance:
+                type: number
+                format: double
+                description: 'The sowing distance between the individual plants. (unit: cm)'
+            sowingDepth:
+                type: number
+                format: double
+                description: 'The sowing depth preferred by the plant. (unit: cm)'
+            soilCondition:
+                type: string
+                description: 'The preferred soil condition.'
+            germinationTime:
+                type: number
+                format: double
+                description: 'The germination time of the plant. (unit: days)'
+            numberOfHarvests:
+                type: string
+                description: 'The number of harvests. (unit: string)'
+            difficulty:
+                type: number
+                format: double
+                description: "The difficulty to grow this plant. (A number\rfrom the set [1, 3]. 3 is the highest level of difficulty.)"
+            sowPeriodBegin:
+                type: number
+                format: double
+                description: 'The begin of the sow period. (unit: month)'
+            harvestPeriodEnd:
+                type: number
+                format: double
+                description: 'The end of the harvest period. (unit: month)'
+        required:
+            - name
+            - sowingDistance
+            - sowingDepth
+            - soilCondition
+            - germinationTime
+            - numberOfHarvests
+            - difficulty
+            - sowPeriodBegin
+            - harvestPeriodEnd
+        type: object
     PushSubscription:
         description: "Configuration for a Push Subscription. This can be obtained on the frontend by calling\r\nserviceWorkerRegistration.pushManager.subscribe().\r\nThe expected format is the same output as JSON.stringify'ing a PushSubscription in the browser."
         properties:
@@ -259,6 +306,27 @@ paths:
             parameters:
                 -
                     description: 'The plant for which the harvest period should be determined.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
+    '/plant/{plant}/summary':
+        get:
+            operationId: GetSummary
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/PlantSummary'
+                '404':
+                    description: 'The specified plant does not exist'
+            summary: 'Obtaining the summary for a plant.'
+            security: []
+            parameters:
+                -
+                    description: 'The plant for which the summary should be fetched.'
                     in: path
                     name: plant
                     required: true

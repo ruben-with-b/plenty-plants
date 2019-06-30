@@ -1,6 +1,7 @@
 import {Controller, Get, Response, Route} from "tsoa";
 import {TimePeriod} from "../model/TimePeriod";
 import * as PlantTable from "../database/PlantTable"
+import {PlantSummary} from "../model/PlantSummary";
 
 /**
  * Offers some information about plants.
@@ -44,5 +45,15 @@ export class PlantApi extends Controller {
     @Get('{plant}/harvestPeriod')
     public async getHarvestPeriod(plant: string): Promise<TimePeriod> {
         return PlantTable.getHarvestPeriod(plant);
+    }
+
+    /**
+     * @summary Obtaining the summary for a plant.
+     * @param {string} plant The plant for which the summary should be fetched.
+     */
+    @Response('404', 'The specified plant does not exist')
+    @Get('{plant}/summary')
+    public async getSummary(plant: string): Promise<PlantSummary> {
+        return PlantTable.getPlantSummary(plant);
     }
 }

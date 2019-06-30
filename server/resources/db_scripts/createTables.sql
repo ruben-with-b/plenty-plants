@@ -5,13 +5,19 @@ create table user_table (
 );
 
 create table plant_table (
-    plant_name VARCHAR(50) not null,
-    sow_period_begin INT,
-    sow_period_end INT,
-    plant_period_begin INT,
-    plant_period_end INT,
-    harvest_period_begin INT,
-    harvest_period_end INT,
+    plant_name VARCHAR(64) not null,
+    sow_period_begin INT not null,
+    sow_period_end INT not null,
+    plant_period_begin INT not null,
+    plant_period_end INT not null,
+    harvest_period_begin INT not null,
+    harvest_period_end INT not null,
+    sowing_distance INT not null,
+    sowing_depth INT not null,
+    soil_condition VARCHAR(64) not null,
+    germination_time INT not null,
+    number_of_harvests VARCHAR(64) not null,
+    difficulty INT not null,
     primary key (plant_name)
 );
 
