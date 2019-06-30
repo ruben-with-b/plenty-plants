@@ -15,6 +15,11 @@ const models: TsoaRoute.Models = {
             "hashedPw": { "dataType": "string", "required": true },
         },
     },
+    "TutorialProgress": {
+        "properties": {
+            "progress": { "dataType": "double", "required": true },
+        },
+    },
     "Condition": {
         "enums": ["CLEAR", "CLOUDY", "RAINY"],
     },
@@ -147,6 +152,49 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.removePlant.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/v1/user/my-plants/:plant/tutorial-progress',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserApi();
+
+
+            const promise = controller.getTutorialProgress.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/api/v1/user/my-plants/:plant/tutorial-progress',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+                tutorialProgress: { "in": "body", "name": "tutorialProgress", "required": true, "ref": "TutorialProgress" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserApi();
+
+
+            const promise = controller.updateTutorialProgress.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/auth/login',

@@ -29,7 +29,9 @@ create table push_subscription_table (
 
 create table user_garden_table (
     user_email VARCHAR(50) not null references user_table(email),
-    plant_name VARCHAR(64) not null references plant_table(plant_name)
+    plant_name VARCHAR(64) not null references plant_table(plant_name),
+    tutorial_progress INT not null,
+    primary key (user_email, plant_name)
 )
 
 create table plant_tutorial_table (

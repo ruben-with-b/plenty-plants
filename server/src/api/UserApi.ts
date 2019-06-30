@@ -1,9 +1,10 @@
 import * as UserTable from '../database/UserTable';
 import * as UserGardenTable from '../database/UserGardenTable';
 import * as express from "express";
-import {Controller, Get, Route, Request, Security, Response, Post, Delete, Tags} from 'tsoa';
+import {Controller, Get, Route, Request, Security, Response, Post, Delete, Tags, Put, Body} from 'tsoa';
 import {User} from "../model/User";
 import {StatusError} from "../model/StatusError";
+import {TutorialProgress} from "../model/TutorialProgress";
 
 /**
  * Offers some user information.
@@ -60,7 +61,7 @@ export class UserApi extends Controller {
     @Security('basicAuth')
     @Post('my-plants/{plant}')
     public async addPlant(@Request() req: express.Request, plant: string): Promise<any> {
-        return new Promise<Array<string>>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             if(req.session) {
                 // Get current user.
                 UserTable.getUser(req.session.passport.user).then((user) => {
@@ -88,7 +89,7 @@ export class UserApi extends Controller {
     @Security('basicAuth')
     @Delete('my-plants/{plant}')
     public async removePlant(@Request() req: express.Request, plant: string): Promise<any> {
-        return new Promise<Array<string>>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             if(req.session) {
                 // Get current user.
                 UserTable.getUser(req.session.passport.user).then((user) => {
@@ -98,6 +99,61 @@ export class UserApi extends Controller {
                     }).catch((error) => {
                         reject(new StatusError(500, "Internal error", error.toString()));
                     })
+                }).catch((error) => {
+                    reject(new StatusError(500, "Internal error", error.toString()));
+                })
+            } else {
+                reject(new StatusError(500, "Internal Error", "Session not available!"));
+            }
+        });
+    }
+
+    /**
+     * @summary Get the tutorial-progress for a plant.
+     * @param req The request.
+     * @param plant The name of the plant.
+     */
+    @Security('basicAuth')
+    @Get('my-plants/{plant}/tutorial-progress')
+    public async getTutorialProgress(@Request() req: express.Request, plant: string): Promise<TutorialProgress> {
+        return new Promise<TutorialProgress>((resolve, reject) => {
+            if(req.session) {
+                // Get current user.
+                UserTable.getUser(req.session.passport.user).then((user) => {
+                    // Get progress.
+                    UserGardenTable.getTutorialProgress(user.getEmail(), plant).then((progress) => {
+                        resolve(new TutorialProgress(progress));
+                    });
+                }).catch((error) => {
+                    reject(new StatusError(500, "Internal error", error.toString()));
+                })
+            } else {
+                reject(new StatusError(500, "Internal Error", "Session not available!"));
+            }
+        });
+    }
+
+    /**
+     * @summary Update the tutorial-progress of a plant.
+     * @param req The request.
+     * @param plant The name of the plant.
+     * @param tutorialProgress The new tutorial progress.
+     */
+    @Response('204', 'Progress successfully updated.')
+    @Security('basicAuth')
+    @Put('my-plants/{plant}/tutorial-progress')
+    public async updateTutorialProgress(@Request() req: express.Request, plant: string,
+                                        @Body() tutorialProgress: TutorialProgress): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            if(req.session) {
+                // Get current user.
+                UserTable.getUser(req.session.passport.user).then((user) => {
+                    // Update progress.
+                    UserGardenTable.updateTutorialProgress(user.getEmail(), plant, tutorialProgress.progress).then(() => {
+                        resolve();
+                    }).catch((error) => {
+                        reject(new StatusError(500, "Internal error", error.toString()));
+                    });
                 }).catch((error) => {
                     reject(new StatusError(500, "Internal error", error.toString()));
                 })

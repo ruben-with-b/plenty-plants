@@ -13,6 +13,16 @@ definitions:
             - email
             - hashedPw
         type: object
+    TutorialProgress:
+        description: 'The progress in a plant tutorial.'
+        properties:
+            progress:
+                type: number
+                format: double
+                description: 'The actual step-number.'
+        required:
+            - progress
+        type: object
     Condition:
         description: 'Describes the overall weather condition.'
         enum:
@@ -233,6 +243,60 @@ paths:
                     name: plant
                     required: true
                     type: string
+    '/user/my-plants/{plant}/tutorial-progress':
+        get:
+            operationId: GetTutorialProgress
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        $ref: '#/definitions/TutorialProgress'
+            summary: 'Get the tutorial-progress for a plant.'
+            tags:
+                - User
+            security:
+                -
+                    basicAuth: []
+            parameters:
+                -
+                    description: 'The name of the plant.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
+        put:
+            operationId: UpdateTutorialProgress
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: object
+                '204':
+                    description: 'Progress successfully updated.'
+            summary: 'Update the tutorial-progress of a plant.'
+            tags:
+                - User
+            security:
+                -
+                    basicAuth: []
+            parameters:
+                -
+                    description: 'The name of the plant.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
+                -
+                    description: 'The new tutorial progress.'
+                    in: body
+                    name: tutorialProgress
+                    required: true
+                    schema:
+                        $ref: '#/definitions/TutorialProgress'
     /auth/login:
         post:
             operationId: Login
