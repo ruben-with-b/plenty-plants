@@ -9,12 +9,12 @@ export {
 }
 
 /**
- * Get the user specified by email.
- * @param email The email address of the user.
+ * Get the user specified by username.
+ * @param username The username of the actual user.
  */
-function getUser(email: string): Promise<User> {
+function getUser(username: string): Promise<User> {
     return new Promise<User>(function(resolve, reject) {
-        CONFIG.pool.query('SELECT hashed_pw FROM user_table WHERE email = \'' + email + '\'', (error, results) => {
+        CONFIG.pool.query('SELECT hashed_pw FROM user_table WHERE username = \'' + username + '\'', (error, results) => {
             if (error) {
                 reject(error);
                 return;
@@ -30,21 +30,21 @@ function getUser(email: string): Promise<User> {
                 return;
             }
 
-            resolve(new User(email, results.rows[0].hashed_pw));
+            resolve(new User(username, results.rows[0].hashed_pw));
         });
     });
 }
 
 /**
  * Add a new user.
- * @param email The email address of the new user.
+ * @param username The username of the actual user.
  * @param hashedPw The hashed password of the new user.
  */
-function addUser(email: String, hashedPw: String): Promise<boolean> {
+function addUser(username: String, hashedPw: String): Promise<boolean> {
     return new Promise<boolean>(function(resolve, reject) {
         CONFIG.pool.query(
-            'INSERT INTO user_table (email, hashed_pw)' +
-            'VALUES (\'' + email + '\', \'' + hashedPw + '\')' , (error) => {
+            'INSERT INTO user_table (username, hashed_pw)' +
+            'VALUES (\'' + username + '\', \'' + hashedPw + '\')' , (error) => {
                 if (error) {
                     reject(error);
                     return

@@ -50,18 +50,18 @@ export class AuthApi extends Controller {
 
     /**
      * Sign up a new user.
-     * @param email The email address of the new user.
+     * @param username The username of the new user.
      * @param password The password of the new user.
      */
     @SuccessResponse('204', 'Signed up')
     @Response('409', 'User already exists')
     @Get('signup')
-    public async signUp(@Query('email') email: string, @Query('password') password: string): Promise<any> {
+    public async signUp(@Query('username') username: string, @Query('password') password: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            UserTable.getUser(email).then((user: User) => {
+            UserTable.getUser(username).then((user: User) => {
                 if (user === undefined) {
                     bcrypt.hash(password, this.SALT_ROUNDS).then((hashedPw) => {
-                        UserTable.addUser(email, hashedPw).then(() => {
+                        UserTable.addUser(username, hashedPw).then(() => {
                             resolve();
                             return;
                         });
@@ -69,7 +69,7 @@ export class AuthApi extends Controller {
 
                 } else {
                     reject(new StatusError(409, 'Conflict',
-                        'A user with the email \'' + email + '\' already exists!'));
+                        'A user with the username \'' + username + '\' already exists!'));
                     return;
                 }
             });

@@ -42,7 +42,7 @@ export class UserApi extends Controller {
             if(req.session) {
                 // Get current user.
                 UserTable.getUser(req.session.passport.user).then((user) => {
-                    resolve(UserGardenTable.getPlants(user.getEmail()));
+                    resolve(UserGardenTable.getPlants(user.getUsername()));
                 }).catch((error) => {
                     reject(new StatusError(500, "Internal error", error.toString()));
                 })
@@ -66,7 +66,7 @@ export class UserApi extends Controller {
                 // Get current user.
                 UserTable.getUser(req.session.passport.user).then((user) => {
                     // Add plant to favourites.
-                    UserGardenTable.addPlant(user.getEmail(), plant).then(() => {
+                    UserGardenTable.addPlant(user.getUsername(), plant).then(() => {
                         resolve();
                     }).catch((error) => {
                         reject(new StatusError(500, "Internal error", error.toString()));
@@ -94,7 +94,7 @@ export class UserApi extends Controller {
                 // Get current user.
                 UserTable.getUser(req.session.passport.user).then((user) => {
                     // Remove plants from favourites.
-                    UserGardenTable.removePlant(user.getEmail(), plant).then(() => {
+                    UserGardenTable.removePlant(user.getUsername(), plant).then(() => {
                         resolve();
                     }).catch((error) => {
                         reject(new StatusError(500, "Internal error", error.toString()));
@@ -121,7 +121,7 @@ export class UserApi extends Controller {
                 // Get current user.
                 UserTable.getUser(req.session.passport.user).then((user) => {
                     // Get progress.
-                    UserGardenTable.getTutorialProgress(user.getEmail(), plant).then((progress) => {
+                    UserGardenTable.getTutorialProgress(user.getUsername(), plant).then((progress) => {
                         resolve(new TutorialProgress(progress));
                     });
                 }).catch((error) => {
@@ -149,7 +149,7 @@ export class UserApi extends Controller {
                 // Get current user.
                 UserTable.getUser(req.session.passport.user).then((user) => {
                     // Update progress.
-                    UserGardenTable.updateTutorialProgress(user.getEmail(), plant, tutorialProgress.progress).then(() => {
+                    UserGardenTable.updateTutorialProgress(user.getUsername(), plant, tutorialProgress.progress).then(() => {
                         resolve();
                     }).catch((error) => {
                         reject(new StatusError(500, "Internal error", error.toString()));

@@ -1,7 +1,7 @@
 create table user_table (
-    email VARCHAR(50) not null,
+    username VARCHAR(50) not null,
     hashed_pw VARCHAR(60) not null,
-    primary key (email)
+    primary key (username)
 );
 
 create table plant_table (
@@ -23,15 +23,15 @@ create table plant_table (
 );
 
 create table push_subscription_table (
-    user_email VARCHAR(50) not null,
+    username VARCHAR(50) not null,
     push_subscription VARCHAR(1024)
 );
 
 create table user_garden_table (
-    user_email VARCHAR(50) not null references user_table(email),
+    username VARCHAR(50) not null references user_table(username),
     plant_name VARCHAR(64) not null references plant_table(plant_name),
     tutorial_progress INT not null,
-    primary key (user_email, plant_name)
+    primary key (username, plant_name)
 )
 
 create table plant_tutorial_table (

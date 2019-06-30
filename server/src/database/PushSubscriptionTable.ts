@@ -3,14 +3,14 @@ import {PushSubscription} from "web-push";
 
 /**
  * Add a push subscription.
- * @param userEmail The email of the user.
+ * @param username The username of the affected user.
  * @param pushSubscription The new push subscription.
  */
-export function add(userEmail: string, pushSubscription: PushSubscription): Promise<any> {
+export function add(username: string, pushSubscription: PushSubscription): Promise<any> {
     return new Promise<boolean>(function(resolve, reject) {
         CONFIG.pool.query(
-            'INSERT INTO push_subscription_table (user_email, push_subscription)' +
-            'VALUES (\'' + userEmail + '\', \''
+            'INSERT INTO push_subscription_table (username, push_subscription)' +
+            'VALUES (\'' + username + '\', \''
                 + JSON.stringify(pushSubscription) + '\')' , (error) => {
                 if (error) {
                     console.log(error);
@@ -24,13 +24,13 @@ export function add(userEmail: string, pushSubscription: PushSubscription): Prom
 
 /**
  * Remove a push subscription.
- * @param userEmail The email of the user.
+ * @param username The username of the affected user.
  * @param pushSubscription The push subscription to be removed.
  */
-export function remove(userEmail: string, pushSubscription: PushSubscription): Promise<any> {
+export function remove(username: string, pushSubscription: PushSubscription): Promise<any> {
     return new Promise<boolean>(function(resolve, reject) {
         CONFIG.pool.query(
-            'DELETE FROM push_subscription_table WHERE user_email=\'' + userEmail
+            'DELETE FROM push_subscription_table WHERE username=\'' + username
             + '\' AND push_subscription=\'' + JSON.stringify(pushSubscription) + '\'' , (error) => {
                 if (error) {
                     console.log(error);
@@ -44,12 +44,12 @@ export function remove(userEmail: string, pushSubscription: PushSubscription): P
 
 /**
  * Get all push subscriptions of a specified user.
- * @param userEmail The email address of the user.
+ * @param username The username of the affected user.
  * @return All push subscriptions of the user.
  */
-export function getSubscriptionsForUser(userEmail: string): Promise<Array<PushSubscription>> {
+export function getSubscriptionsForUser(username: string): Promise<Array<PushSubscription>> {
     return new Promise<Array<PushSubscription>>(function(resolve, reject) {
-        CONFIG.pool.query('SELECT push_subscription FROM push_subscription_table WHERE user_email = \'' + userEmail + '\'', (error, results) => {
+        CONFIG.pool.query('SELECT push_subscription FROM push_subscription_table WHERE username = \'' + username + '\'', (error, results) => {
             if (error) {
                 reject(error);
                 return;

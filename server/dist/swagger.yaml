@@ -5,12 +5,12 @@ definitions:
     User:
         description: 'Represents a user.'
         properties:
-            email:
+            username:
                 type: string
             hashedPw:
                 type: string
         required:
-            - email
+            - username
             - hashedPw
         type: object
     TutorialProgress:
@@ -347,9 +347,9 @@ paths:
             security: []
             parameters:
                 -
-                    description: 'The email address of the new user.'
+                    description: 'The username of the new user.'
                     in: query
-                    name: email
+                    name: username
                     required: true
                     type: string
                 -

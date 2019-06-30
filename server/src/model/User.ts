@@ -4,21 +4,21 @@
 export class User {
 
     /**
-     * The email address of the user.
+     * The username of the user.
      */
-    private readonly email: string;
+    private readonly username: string;
     /**
      * The hashed password.
      */
     private readonly hashedPw: string;
 
-    constructor(email: string, hashedPw: string){
-        this.email = email;
+    constructor(username: string, hashedPw: string){
+        this.username = username;
         this.hashedPw = hashedPw;
     };
 
-    getEmail() {
-        return this.email;
+    getUsername() {
+        return this.username;
     }
 
     getHashedPw() {

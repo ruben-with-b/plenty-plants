@@ -11,7 +11,7 @@ import * as express from 'express';
 const models: TsoaRoute.Models = {
     "User": {
         "properties": {
-            "email": { "dataType": "string", "required": true },
+            "username": { "dataType": "string", "required": true },
             "hashedPw": { "dataType": "string", "required": true },
         },
     },
@@ -239,7 +239,7 @@ export function RegisterRoutes(app: express.Express) {
     app.get('/api/v1/auth/signup',
         function(request: any, response: any, next: any) {
             const args = {
-                email: { "in": "query", "name": "email", "required": true, "dataType": "string" },
+                username: { "in": "query", "name": "username", "required": true, "dataType": "string" },
                 password: { "in": "query", "name": "password", "required": true, "dataType": "string" },
             };
 

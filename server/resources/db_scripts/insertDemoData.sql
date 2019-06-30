@@ -1,4 +1,4 @@
-INSERT INTO user_table (email, hashed_pw)
+INSERT INTO user_table (username, hashed_pw)
 values
     ('rudi.loderer@outlook.de', '$2b$10$1q35a/qGPtnJfey54HenaOadjJDRpSmszeiDyKIMhhDT/epRCWHIC'), -- pw: 1234
     ('ruben.santoro@hs-augsburg.de', '$2b$10$1q35a/qGPtnJfey54HenaOadjJDRpSmszeiDyKIMhhDT/epRCWHIC'); -- pw: 1234

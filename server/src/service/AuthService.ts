@@ -14,7 +14,7 @@ export function initAuthentication(): void {
         new BasicStrategy(
            (username, password, done) => {
                 UserTable.getUser(username).then((user) => {
-                    if (user && user.getEmail() === username) {
+                    if (user && user.getUsername() === username) {
                         bcrypt.compare(password, user.getHashedPw()).then((result) => {
                             if(result) {
                                 done(null, user);
@@ -33,13 +33,13 @@ export function initAuthentication(): void {
             }
         )
     );
-    // Defines how to serialize a user in a session. (because the email is unique it is enough)
+    // Defines how to serialize a user in a session. (because the username is unique, it is enough)
     passport.serializeUser((user: User, done) => {
-        done(null, user.getEmail())
+        done(null, user.getUsername())
     });
     // Describes how to deserialize a user from the session.
-    passport.deserializeUser((email: string, done) => {
-        UserTable.getUser(email).then((user) => {
+    passport.deserializeUser((username: string, done) => {
+        UserTable.getUser(username).then((user) => {
             done(null, user);
         }).catch((error) => {
             done(error);
