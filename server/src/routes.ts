@@ -31,15 +31,22 @@ const models: TsoaRoute.Models = {
             "lastMonth": { "dataType": "double", "required": true },
         },
     },
+    "Species": {
+        "enums": ["Fruit", "Vegetables", "Herbs"],
+    },
+    "Difficulty": {
+        "enums": ["Simple", "Moderate", "Serious"],
+    },
     "PlantSummary": {
         "properties": {
             "name": { "dataType": "string", "required": true },
+            "species": { "ref": "Species", "required": true },
             "sowingDistance": { "dataType": "double", "required": true },
             "sowingDepth": { "dataType": "double", "required": true },
             "soilCondition": { "dataType": "string", "required": true },
             "germinationTime": { "dataType": "double", "required": true },
             "numberOfHarvests": { "dataType": "string", "required": true },
-            "difficulty": { "dataType": "double", "required": true },
+            "difficulty": { "ref": "Difficulty", "required": true },
             "sowPeriodBegin": { "dataType": "double", "required": true },
             "harvestPeriodEnd": { "dataType": "double", "required": true },
         },

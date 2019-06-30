@@ -54,12 +54,29 @@ definitions:
             - firstMonth
             - lastMonth
         type: object
+    Species:
+        description: 'A plants species.'
+        enum:
+            - Fruit
+            - Vegetables
+            - Herbs
+        type: string
+    Difficulty:
+        description: 'The difficulty to grow a plant.'
+        enum:
+            - Simple
+            - Moderate
+            - Serious
+        type: string
     PlantSummary:
         description: "Some basic information about a plant. Currently this information is\r\nshown in the \"Katalog\""
         properties:
             name:
                 type: string
                 description: 'The name of the plant.'
+            species:
+                $ref: '#/definitions/Species'
+                description: 'The species of the plant.'
             sowingDistance:
                 type: number
                 format: double
@@ -79,9 +96,8 @@ definitions:
                 type: string
                 description: 'The number of harvests. (unit: string)'
             difficulty:
-                type: number
-                format: double
-                description: "The difficulty to grow this plant. (A number\rfrom the set [1, 3]. 3 is the highest level of difficulty.)"
+                $ref: '#/definitions/Difficulty'
+                description: 'The difficulty to grow this plant.'
             sowPeriodBegin:
                 type: number
                 format: double
@@ -92,6 +108,7 @@ definitions:
                 description: 'The end of the harvest period. (unit: month)'
         required:
             - name
+            - species
             - sowingDistance
             - sowingDepth
             - soilCondition

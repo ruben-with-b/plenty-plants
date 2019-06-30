@@ -6,6 +6,7 @@ create table user_table (
 
 create table plant_table (
     plant_name VARCHAR(64) not null,
+    species VARCHAR(32) not null,
     sow_period_begin INT not null,
     sow_period_end INT not null,
     plant_period_begin INT not null,
@@ -17,7 +18,7 @@ create table plant_table (
     soil_condition VARCHAR(64) not null,
     germination_time INT not null,
     number_of_harvests VARCHAR(64) not null,
-    difficulty INT not null,
+    difficulty VARCHAR(32) not null,
     primary key (plant_name)
 );
 

@@ -10,6 +10,7 @@ import {PlantSummary} from "../model/PlantSummary";
 export function getPlantSummary(plant: string): Promise<PlantSummary> {
     return new Promise<PlantSummary>((resolve, reject) => {
         CONFIG.pool.query('SELECT ' +
+            'species, ' +
             'sow_period_begin, ' +
             'harvest_period_end,' +
             'sowing_distance, ' +
@@ -37,6 +38,7 @@ export function getPlantSummary(plant: string): Promise<PlantSummary> {
             let row: any = results.rows[0];
             resolve(new PlantSummary(
                 plant,
+                row.species,
                 row.sowing_distance,
                 row.sowing_depth,
                 row.soil_condition,
