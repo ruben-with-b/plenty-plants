@@ -82,8 +82,10 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/v1/user/my-plants',
+        authenticateMiddleware([{ "basicAuth": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -97,6 +99,48 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.getMyPlants.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/v1/user/my-plants/:plant',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserApi();
+
+
+            const promise = controller.addPlant.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.delete('/api/v1/user/my-plants/:plant',
+        authenticateMiddleware([{ "basicAuth": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+                plant: { "in": "path", "name": "plant", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserApi();
+
+
+            const promise = controller.removePlant.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/v1/auth/login',

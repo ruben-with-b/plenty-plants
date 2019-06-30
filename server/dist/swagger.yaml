@@ -162,11 +162,56 @@ paths:
                         type: array
                         items:
                             type: string
-                '401':
-                    description: 'Please log in.'
-            summary: 'Get the plants of the current user.'
-            security: []
+            summary: 'Get the users favourite plants.'
+            security:
+                -
+                    basicAuth: []
             parameters: []
+    '/user/my-plants/{plant}':
+        post:
+            operationId: AddPlant
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: object
+                '204':
+                    description: 'Plant successfully added.'
+            summary: 'Add a plant to the users favourite plants.'
+            security:
+                -
+                    basicAuth: []
+            parameters:
+                -
+                    description: 'The plant to be added.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
+        delete:
+            operationId: RemovePlant
+            produces:
+                - application/json
+            responses:
+                '200':
+                    description: Ok
+                    schema:
+                        type: object
+                '204':
+                    description: 'Plant successfully removed.'
+            summary: 'Remove a plant from the users favourite plants.'
+            security:
+                -
+                    basicAuth: []
+            parameters:
+                -
+                    description: 'The plant to be removed.'
+                    in: path
+                    name: plant
+                    required: true
+                    type: string
     /auth/login:
         post:
             operationId: Login
