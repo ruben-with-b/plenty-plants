@@ -26,6 +26,14 @@ $blue-grey: #7c8f9c;
     align-items: center;
 }
 
+.flex-column{
+    flex-direction: column;
+}
+
+.wrap{
+    flex-wrap: wrap;
+}
+
 .container{
     padding: 1em 1.2em;
 }
@@ -42,6 +50,10 @@ $blue-grey: #7c8f9c;
 }
 
 // Resets
+
+a{
+    text-decoration: none; 
+}
 
 li{
     list-style: none;

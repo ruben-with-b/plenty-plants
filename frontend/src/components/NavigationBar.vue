@@ -13,10 +13,12 @@
         <v-ons-icon icon="md-search"></v-ons-icon>
         <div class="sub-icon-font">Katalog</div>
       </ul>
-      <ul>
-        <v-ons-icon icon="md-settings"></v-ons-icon>
-        <div class="sub-icon-font">Einstellungen</div>
-      </ul>
+      <router-link to="/login" class="">
+        <ul>
+          <v-ons-icon icon="md-account"></v-ons-icon>
+          <div class="sub-icon-font">Konto</div>
+        </ul>
+      </router-link> 
     </li>
   </div>
 </div>
