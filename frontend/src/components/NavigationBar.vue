@@ -5,15 +5,19 @@
   </v-ons-fab>
   <div class="bottom-navi flex center-ver space-around">
     <li class="flex">
-      <ul>
-        <v-ons-icon class="active" icon="md-calendar"></v-ons-icon>
-        <div class="sub-icon-font active">Dashboard</div>
-      </ul>
-      <ul>
-        <v-ons-icon icon="md-search"></v-ons-icon>
-        <div class="sub-icon-font">Katalog</div>
-      </ul>
-      <router-link to="/login" class="">
+      <router-link to="/" class="" exact>
+        <ul>
+          <v-ons-icon class="" icon="md-calendar"></v-ons-icon>
+          <div class="sub-icon-font active">Dashboard</div>
+        </ul>
+      </router-link>
+      <router-link to="/catalogue" class="" exact>
+        <ul>
+          <v-ons-icon icon="md-search"></v-ons-icon>
+          <div class="sub-icon-font">Katalog</div>
+        </ul>
+      </router-link>
+      <router-link to="/login" class="" exact>
         <ul>
           <v-ons-icon icon="md-account"></v-ons-icon>
           <div class="sub-icon-font">Konto</div>
@@ -55,16 +59,12 @@ ul{
   width: calc(100vw/4);
 }
 
-ons-icon{
+a{
   color: #A4B1BA;
 }
 
-.sub-icon-font{
-  color: #A4B1BA
-}
-
-.active{
-  color: #fff;
+.router-link-active{
+  color: #ffffff;
 }
 
 ons-fab{

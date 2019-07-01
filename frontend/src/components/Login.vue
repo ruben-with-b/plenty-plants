@@ -11,8 +11,8 @@
                             <Plant />
                         </icon-base>
                         <div class="border-input">
-                            <v-ons-input placeholder="Deine E-Mailadresse" float
-                                v-model="email" name="email"
+                            <v-ons-input placeholder="Dein Username" float
+                                name="Username"
                             >
                             </v-ons-input>
                         </div>
@@ -91,9 +91,11 @@
 
 @import "../styles/main.scss";
 
-ons-toolbar, .container{
-  background: $dashboard-bg !important;
+.container{
+  background: url(../assets/bg1.svg) no-repeat center center;
+  background-size: cover;
 }
+
 ons-input{
     width: 40vw !important;
 }
@@ -111,7 +113,7 @@ ons-input{
 .border-button::before {
     content: '';
     position: absolute;
-    width: 6.6em;
+    width: 6.2em;
     height: 2.6em;
     background: #28be98;
     -webkit-transform: translate(4px, 5px);
