@@ -105,7 +105,4 @@ ons-card{
   width: 60%;
 }
 
-.offset-navi{
-  height: 55px;
-}
 </style>

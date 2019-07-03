@@ -151,7 +151,4 @@ ons-input{
     margin-bottom: 4em;
 }
 
-.offset-navi{
-  height: 55px;
-}
 </style>

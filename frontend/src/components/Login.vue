@@ -6,7 +6,7 @@
                     <div class="center">{{ title }}</div>
                 </v-ons-toolbar>
                 <div class="">
-                    <form v-on:submit="login" class="flex wrap flex-column center-ver">
+                    <form @submit.prevent="login" class="flex wrap flex-column center-ver">
                         <icon-base class="logo" width="120" height="120" viewBox="0 0 50 50" icon-name="noun-gardening" >
                             <Plant />
                         </icon-base>
@@ -129,7 +129,4 @@ ons-input{
     margin-bottom: 4em;
 }
 
-.offset-navi{
-  height: 55px;
-}
 </style>

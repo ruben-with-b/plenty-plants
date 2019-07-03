@@ -27,12 +27,12 @@ export default {
     axios.get("/api/v1/user/my-plants", {})
     .then((response) => {
         this.plants = response.data;
-        Console.log(this.plants);
+        Console.log(vm.plants);
 
         axios.get("/api/v1/plant/tomato/sowPeriod", {})
             .then((response) => {
-                this.sowPeriod = response.data
-                Console.log(this.sowPeriod);
+                vm.sowPeriod = response.data
+                Console.log(vm.sowPeriod);
                 
             })
             .catch((errors) => {
