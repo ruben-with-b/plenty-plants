@@ -23,7 +23,7 @@
                             </v-ons-input>
                         </div>
                         <div class="border-button">
-                            <v-ons-button type="submit">Anmelden</v-ons-button>
+                            <v-ons-button type="submit" @click="login()">Anmelden</v-ons-button>
                         </div>
                     </form>
                 </div>
@@ -62,8 +62,7 @@
             }
         },
         methods: {
-            login: (e) => {
-                e.preventDefault();
+            login() {
                 let email = this.name;
                 let password = this.password;
                 let login = () => {
