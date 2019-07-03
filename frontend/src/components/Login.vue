@@ -12,7 +12,7 @@
                         </icon-base>
                         <div class="border-input">
                             <v-ons-input placeholder="Dein Username" float
-                                name="Username"
+                                v-model="name" name="username"
                             >
                             </v-ons-input>
                         </div>
@@ -55,15 +55,17 @@
         },
         data() {
             return {
-                title: "Login",
+                title: 'Login',
+                name: '',
+                password: '',
                 toastVisible: true // when user not logged in
             }
         },
         methods: {
             login: (e) => {
                 e.preventDefault();
-                let email = e.target.elements.email.value;
-                let password = e.target.elements.password.value;
+                let email = this.name;
+                let password = this.password;
                 let login = () => {
                     let authHeader = {
                         auth: {
