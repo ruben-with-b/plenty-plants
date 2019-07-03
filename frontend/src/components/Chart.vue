@@ -17,7 +17,9 @@ export default {
       sowPeriod: null,
       calenderIcons: [
               { src: require('@/assets/tomato.png'), width: 20, height: 20 }
-            ]
+            ],
+      currentDay: this.getDay(),
+      currentMonth: this.getMonth()
     }
   },
   mounted () {
@@ -61,7 +63,7 @@ export default {
           a--;
         }
       },
-      afterDraw: function (chart) {
+      afterDraw (chart) {
         let ctx = chart.chart.ctx;
         for (let i in chart.config.data.datasets) {
           for(let j = chart.config.data.datasets[i].data.length - 1; j>= 0;--j) { 
@@ -75,6 +77,7 @@ export default {
               ctx.translate(arc.round.x, arc.round.y);
               ctx.fillStyle = arc.round.backgroundColor;
               ctx.beginPath();
+              ctx.arc(arc.round.radius * Math.sin(startAngle), arc.round.radius * Math.cos(startAngle), arc.round.thickness, 0, 2 * Math.PI);
               ctx.arc(arc.round.radius * Math.sin(endAngle), arc.round.radius * Math.cos(endAngle), arc.round.thickness, 0, 2 * Math.PI);
               ctx.closePath();
               ctx.fill();
@@ -143,7 +146,7 @@ export default {
         }]    
       },
       cutoutPercentage: 60,
-      rotation: 2 * Math.PI,
+      rotation: 1.5 * Math.PI,
       responsive: false,
       legend: {
         display: true,
@@ -175,7 +178,7 @@ export default {
         doughnutlabel: {
           labels: [
             {
-              text: '22',
+              text: this.currentDay,
               font: {
                 size: '50',
                 family: 'Karla',
@@ -184,7 +187,7 @@ export default {
               color: 'grey'
             },
             {
-              text: 'AUGUST',
+              text: this.currentMonth,
               font: {
                 size: '20',
                 family: 'Karla',
@@ -196,6 +199,32 @@ export default {
         }
       }
     })
+  },
+  methods: { 
+    getDay () {
+      let date = new Date();
+      let day = date.getDay();
+      return day;
+    },
+    getMonth () {
+      let date = new Date();
+      let monthList = new Array();
+      monthList[0] = "Januar";
+      monthList[1] = "Februar";
+      monthList[2] = "März";
+      monthList[3] = "April";
+      monthList[4] = "Mai";
+      monthList[5] = "Juni";
+      monthList[6] = "Juli";
+      monthList[7] = "August";
+      monthList[8] = "September";
+      monthList[9] = "Oktober";
+      monthList[10] = "November";
+      monthList[11] = "Dezember";
+      let month = monthList[date.getMonth()];
+
+      return month.toUpperCase();
+    }
   }
 }
 </script>

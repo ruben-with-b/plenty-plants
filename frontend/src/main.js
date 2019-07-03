@@ -5,6 +5,7 @@ import App from './App.vue'
 import Dashboard from './components/Dashboard.vue'
 import Login from './components/Login.vue'
 import Register from './components/Register.vue'
+import Settings from './components/Settings.vue'
 import VueRouter from 'vue-router'
 
 import 'onsenui/css/onsenui.css';
@@ -27,6 +28,9 @@ const routes = [
   },
   { path: '/signin',
     component: Register
+  },
+  { path: '/settings',
+    component: Settings
   }
 ];
 

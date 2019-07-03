@@ -17,10 +17,10 @@
           <div class="sub-icon-font">Katalog</div>
         </ul>
       </router-link>
-      <router-link to="/login" class="" exact>
+      <router-link to="/settings" class="" exact>
         <ul>
-          <v-ons-icon icon="md-account"></v-ons-icon>
-          <div class="sub-icon-font">Konto</div>
+          <v-ons-icon icon="md-settings"></v-ons-icon>
+          <div class="sub-icon-font">Einstellungen</div>
         </ul>
       </router-link> 
     </li>
