@@ -114,26 +114,35 @@
                 Console.log(vm.allPlants);
 
                 for (let index = 0; index < vm.allPlants.length; index++) {
-                
-                    axios.get("/api/v1/plant/" + vm.allPlants[index] + "/summary", {})
-                    .then((response) => {
-                        let summary = response.data;
-                        // vm.summaryAllPlants.push(summary);
-                        vm.summaryAllPlants['key' + index] = summary;
-                    })
-                    .catch((errors) => {
-                        Console.log("Cannot get Data. Error: " + errors.message);
+
+                    let summary = new Promise((resolve) => {
+                        axios.get("/api/v1/plant/" + vm.allPlants[index] + "/summary", {})
+                        .then((response) => {
+                            resolve(response.data);
+                            Console.log(vm.summaryAllPlants[0]);
+                        })
+                        .catch((errors) => {
+                            Console.log("Cannot get Data. Error: " + errors.message);
+                        });
                     });
+                    // vm.summaryAllPlants.push(summary);
+                    vm.summaryAllPlants[index] = summary;
                     
                 }
 
                 for (let index = 0; index < vm.summaryAllPlants.length; index++) {
-                    if (vm.summaryAllPlants[index].difficulty === 'Moderate') {
-                        vm.levelRucola = ['full','full','empty'];
-                    }
+                    vm.summaryAllPlants[index].then((summary) => {
+                        if (summary.difficulty === 'Moderate') {
+                            vm.levelRucola = ['full','full','empty'];
+                        }
+                    });
+
                 }
-                
-                Console.log(vm.summaryAllPlants);
+
+                // vm.summaryAllPlants[0].then((summary) => {
+                //     Console.log(summary.difficulty);
+                // });
+                // Console.log();
             })
             .catch((errors) => {
                 Console.log("Cannot get Data. Error: " + errors.message);
