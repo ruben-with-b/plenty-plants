@@ -12,7 +12,6 @@
                         :line-class="'default-tabs__active-line'"
                         @onClick="handleClick"
                     />
-                    
                     <div class="flex center-content" v-if="currentTab === 'tab1'">
                         <template v-for="k in summaryAllPlants">
                             <template  v-if="k.species === 'Herbs'">
@@ -111,7 +110,6 @@
             axios.get("/api/v1/plant/all", {})
             .then((response) => {
                 vm.allPlants = response.data;
-                Console.log(vm.allPlants);
 
                 for (let index = 0; index < vm.allPlants.length; index++) {
 
@@ -119,14 +117,14 @@
                         axios.get("/api/v1/plant/" + vm.allPlants[index] + "/summary", {})
                         .then((response) => {
                             resolve(response.data);
-                            Console.log(vm.summaryAllPlants[0]);
+                            summary = response.data;
+                            vm.summaryAllPlants.push(summary);
                         })
                         .catch((errors) => {
                             Console.log("Cannot get Data. Error: " + errors.message);
                         });
                     });
-                    // vm.summaryAllPlants.push(summary);
-                    vm.summaryAllPlants[index] = summary;
+                    
                     
                 }
 
@@ -138,11 +136,6 @@
                     });
 
                 }
-
-                // vm.summaryAllPlants[0].then((summary) => {
-                //     Console.log(summary.difficulty);
-                // });
-                // Console.log();
             })
             .catch((errors) => {
                 Console.log("Cannot get Data. Error: " + errors.message);
