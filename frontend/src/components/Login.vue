@@ -111,17 +111,6 @@ ons-input{
     border-radius: 8px;
 }
 
-.border-button::before {
-    content: '';
-    position: absolute;
-    width: 6.2em;
-    height: 2.6em;
-    background: #28be98;
-    -webkit-transform: translate(4px, 5px);
-    transform: translate(-3px, -2px);
-    border-radius: 8px;
-}
-
 .container{
     height: 89vh;
 }

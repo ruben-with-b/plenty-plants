@@ -1,10 +1,7 @@
 <template>
     <div class="root">
         <v-ons-page class="">
-            <div class="container flex center-content center-ver">
-                <v-ons-toolbar modifier="transparent">
-                    <div class="center">{{ title }}</div>
-                </v-ons-toolbar>
+            <div class="container flex center-content">
                 <div class="block">     
                     <tabs
                         :tabs="tabs"
@@ -17,26 +14,44 @@
                     />
                     
                     <div class="flex center-content" v-if="currentTab === 'tab1'">
-                        <v-ons-card class="">
-                            <div class="flex space-between">
-                                <h4 class="title-card">{{ titleCard }}</h4>
-                                <div>
-                                    <template v-for="i in index">
-                                        <template v-if="level === 'full'">
-                                            <icon-base :key="i.id" class="severity" width="30" height="30" viewBox="0 0 1 30" icon-name="leaf" >
-                                                <Leaf/>
-                                            </icon-base>
-                                        </template>
-                                        <template v-if="level === 'empty'">
-                                            <icon-base :key="i.id" class="severity" width="30" height="30" viewBox="0 0 1 30" icon-name="leaf" >
-                                                <LeafOutline/>
-                                            </icon-base>
-                                        </template>
-                                    </template>
-                                </div>
-                            </div>
-                            
-                        </v-ons-card>
+                        <template v-for="k in summaryAllPlants">
+                            <template  v-if="k.species === 'Herbs'">
+                                <v-ons-card :key="k.id" class="flex space-between align-content-space-betw wrap">
+                                    <div class="flex space-between card-header">
+                                        <h4 class="title-card">{{ k.name }}</h4>
+                                        <div>
+                                            <template v-for="l in levelRucola">
+                                                <template v-if="l === 'full'">      <!-- Simple, Moderate, Serious -->
+                                                    <icon-base :key="l.id" class="severity" width="30" height="30" viewBox="0 0 1 30" icon-name="leaf" >
+                                                        <Leaf/>
+                                                    </icon-base>
+                                                </template>
+                                                <template v-if="l === 'empty'">
+                                                    <icon-base :key="l.id" class="severity" width="30" height="30" viewBox="0 0 1 30" icon-name="leaf" >
+                                                        <LeafOutline/>
+                                                    </icon-base>
+                                                </template>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="flex center-content card-body">
+                                        <img src="@/assets/rucola/rucola-1x.png"
+                                                srcset="@/assets/rucola/rucola-1x.png 1x,
+                                                        @/assets/rucola/rucola-2x.png 2x"
+                                                alt="rucola"
+                                        >
+                                    </div>
+                                    <div class="flex space-between card-button-group">
+                                        <v-ons-button>Info
+                                            <div class="border-button secondary-button"></div>
+                                        </v-ons-button>
+                                        <v-ons-button>Hinzufügen
+                                            <div class="border-button"></div>
+                                        </v-ons-button>
+                                    </div>
+                                </v-ons-card>
+                            </template>
+                        </template>
                     </div>
                     <div class="flex center-content" v-if="currentTab === 'tab2'">
                         <v-ons-card class="">
@@ -48,10 +63,7 @@
                             <div class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur eum, vel voluptate autem explicabo itaque at rerum labore magni corporis. Reiciendis consequuntur quibusdam, deleniti error eaque praesentium modi corporis veniam.</div>
                         </v-ons-card>
                     </div>
-                </div>
-
-                
-                    
+                </div>                    
             </div>
             <div class="offset-navi"></div>
             <Navigationbar></Navigationbar>
@@ -61,11 +73,14 @@
 
 
 <script>
-    import Tabs from 'vue-tabs-with-active-line';
+    import Tabs from 'vue-tabs-with-active-line'
     import Navigationbar from './NavigationBar.vue'
     import IconBase from '@/components/icons/IconBase.vue'
     import LeafOutline from '@/components/icons/LeafOutline.vue'
     import Leaf from '@/components/icons/Leaf.vue'
+
+    import axios from "axios"
+    import Console from "console"
 
     export default {
         name: "Catalogue",
@@ -86,9 +101,44 @@
                 ],
                 currentTab: 'tab1',
                 titleCard: 'Rucola',
-                index: [1,2,3],
-                level: 'empty'
+                levelRucola: ['full','full','full'],
+                allPlants: '',
+                summaryAllPlants: new Array()
             }
+        },
+        mounted () {
+            const vm = this;
+            axios.get("/api/v1/plant/all", {})
+            .then((response) => {
+                vm.allPlants = response.data;
+                Console.log(vm.allPlants);
+
+                for (let index = 0; index < vm.allPlants.length; index++) {
+                
+                    axios.get("/api/v1/plant/" + vm.allPlants[index] + "/summary", {})
+                    .then((response) => {
+                        let summary = response.data;
+                        // vm.summaryAllPlants.push(summary);
+                        vm.summaryAllPlants['key' + index] = summary;
+                    })
+                    .catch((errors) => {
+                        Console.log("Cannot get Data. Error: " + errors.message);
+                    });
+                    
+                }
+
+                for (let index = 0; index < vm.summaryAllPlants.length; index++) {
+                    if (vm.summaryAllPlants[index].difficulty === 'Moderate') {
+                        vm.levelRucola = ['full','full','empty'];
+                    }
+                }
+                
+                Console.log(vm.summaryAllPlants);
+            })
+            .catch((errors) => {
+                Console.log("Cannot get Data. Error: " + errors.message);
+            });
+
         },
         methods: {
             handleClick(newTab) {
@@ -110,7 +160,7 @@
 }
 
 ons-card{
-    padding: 25px 30px 16px 30px;
+    padding: 25px 30px 25px 30px;
     width: 70vw;
     height: 60vh;
 }

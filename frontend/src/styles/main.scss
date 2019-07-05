@@ -5,6 +5,7 @@ $light-green: #28be98;
 $dashboard-bg: #f7f8fa; 
 $blue-grey: #7c8f9c;
 $blue-green: #606d78;
+$light-teal: #9fd6b7;
 
 // Alignments
 
@@ -38,8 +39,18 @@ $blue-green: #606d78;
     flex-wrap: wrap;
 }
 
+.align-content-space-betw{
+  align-content: space-between;
+}
+
 .container{
     padding: 1em 1.2em;
+}
+
+// Helper
+
+.pointer{
+  cursor: pointer;
 }
 
 // Fonts
@@ -130,4 +141,34 @@ li{
       background-color: #2f989c;
       transition: transform 0.4s ease, width 0.4s ease;
     }
+  }
+
+  // Buttons
+
+  .border-button {
+    cursor: pointer;
+  }
+
+  .border-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #28be98;
+    -webkit-transform: translate(4px, 5px);
+    transform: translate(-2px, -2px);
+    border-radius: 8px;
+    z-index: -1;
+  }
+
+  .secondary-button::before{
+    background: $light-teal;
+  }
+  
+  // Cards
+
+  .card-header, .card-body, .card-button-group{
+    width: 100%;
   }

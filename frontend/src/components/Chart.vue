@@ -26,7 +26,7 @@ export default {
     const vm = this;
     axios.get("/api/v1/user/my-plants", {})
     .then((response) => {
-        this.plants = response.data;
+        vm.plants = response.data;
         Console.log(vm.plants);
 
         axios.get("/api/v1/plant/tomato/sowPeriod", {})
@@ -87,9 +87,10 @@ export default {
       },
       beforeDraw() {
         let ctx = document.getElementById('doughnut-chart').getContext('2d');
+        
         let xOffset = ctx.canvas.clientWidth;
         let yOffset = ctx.canvas.clientHeight;
-        
+        // Month indicators
         ctx.fillStyle = '#cfcfcf'
         ctx.font = '14px Karla';
         ctx.fillText('Jan', xOffset - xOffset/2.5, yOffset - yOffset/1.02 );
@@ -148,6 +149,7 @@ export default {
       cutoutPercentage: 60,
       rotation: 1.5 * Math.PI,
       responsive: false,
+      maintainAspectRatio: false,
       legend: {
         display: true,
         position: 'bottom',

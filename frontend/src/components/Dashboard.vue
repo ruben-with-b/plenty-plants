@@ -5,7 +5,7 @@
     </v-ons-toolbar>
     <div class="container">
        <!-- <button id="permission-btn" v-on:click="activateNotifications()">Ask Permission</button> -->
-      <Chart class="flex center-content"></Chart>
+      <Chart class="chart flex center-content" :width="400" :height="400"></Chart>
       <div class="flex space-between">
         <div>
           <h3 class="title-segment">Nächste Schritte</h3>
@@ -80,6 +80,10 @@ import Plant from '@/components/icons/Plant.vue'
       return {
         title: "Mein Kalender"
       }
+    },
+    mounted () {
+      // Breakpoints
+      
     },
     methods: {
       activateNotifications: activateNotifications
