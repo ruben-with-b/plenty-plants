@@ -36,33 +36,11 @@
 </template>
 
 <script>
-
-import Chart from './Chart.vue'
-import Navigationbar from './NavigationBar.vue'
-import IconBase from '@/components/icons/IconBase.vue'
-import WateringCan from '@/components/icons/WateringCan.vue'
-import Plant from '@/components/icons/Plant.vue'
-
-
-  /**
-   * Activate push-notifications.
-   */
-  const activateNotifications = async () => {
-    if (!('serviceWorker' in navigator)) {
-      throw new Error('No Service Worker support!');
-    }
-
-    if (!('PushManager' in window)) {
-      throw new Error('No Push API Support!');
-    }
-
-    const permission = await window.Notification.requestPermission();
-    if(permission == 'granted'){
-      await navigator.serviceWorker.register('sw_notification.js');
-    } else {
-      throw new Error('Warning: We are not allowed to use notifications');
-    }
-  };
+  import Chart from './Chart.vue'
+  import Navigationbar from './NavigationBar.vue'
+  import IconBase from '@/components/icons/IconBase.vue'
+  import WateringCan from '@/components/icons/WateringCan.vue'
+  import Plant from '@/components/icons/Plant.vue'
 
   export default {
     name: "Dashboard",
@@ -86,7 +64,6 @@ import Plant from '@/components/icons/Plant.vue'
       
     },
     methods: {
-      activateNotifications: activateNotifications
     }
   }
 

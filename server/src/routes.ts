@@ -217,6 +217,25 @@ export function RegisterRoutes(app: express.Express) {
             const promise = controller.login.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
+    app.get('/api/v1/auth/is-authenticated',
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "request", "name": "req", "required": true, "dataType": "object" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new AuthApi();
+
+
+            const promise = controller.isAuthenticated.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
     app.get('/api/v1/auth/logout',
         function(request: any, response: any, next: any) {
             const args = {

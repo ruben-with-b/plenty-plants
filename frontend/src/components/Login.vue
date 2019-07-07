@@ -75,7 +75,7 @@
                     axios.post("/api/v1/auth/login", {}, authHeader)
                         .then(() => {
                             Console.log("Logged in");
-                            router.push('/');
+                            router.push(this.$route.query.redirect || '/');
                         })
                         .catch((errors) => {
                             Console.log("Cannot log in. Error: " + errors.message);

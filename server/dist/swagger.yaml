@@ -316,6 +316,23 @@ paths:
                 -
                     basicAuth: []
             parameters: []
+    /auth/is-authenticated:
+        get:
+            operationId: IsAuthenticated
+            produces:
+                - application/json
+            responses:
+                '204':
+                    description: 'Logged in'
+                    schema:
+                        type: object
+                '401':
+                    description: 'User is not authenticated'
+            description: 'Checks whether the current user is authenticated'
+            tags:
+                - Authentication
+            security: []
+            parameters: []
     /auth/logout:
         get:
             operationId: Logout
