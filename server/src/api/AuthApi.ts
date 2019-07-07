@@ -77,20 +77,23 @@ export class AuthApi extends Controller {
     @Get('signup')
     public async signUp(@Query('username') username: string, @Query('password') password: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            UserTable.getUser(username).then((user: User) => {
+            UserTable.getUser(username).then((user) => {
                 if (user === undefined) {
-                    bcrypt.hash(password, this.SALT_ROUNDS).then((hashedPw) => {
-                        UserTable.addUser(username, hashedPw).then(() => {
-                            resolve();
-                            return;
-                        });
+                    bcrypt.hash(password, this.SALT_ROUNDS).then((hashedPw: String) => {
+                        return UserTable.addUser(username, hashedPw);
+                    }).then(() => {
+                        resolve();
+                        return;
+                    }).catch((error) => {
+                        reject(new StatusError(500, "Internal error", error.toString()));
                     });
-
                 } else {
                     reject(new StatusError(409, 'Conflict',
                         'A user with the username \'' + username + '\' already exists!'));
                     return;
                 }
+            }).catch((error) => {
+                reject(new StatusError(500, "Internal error", error.toString()));
             });
         });
     }
