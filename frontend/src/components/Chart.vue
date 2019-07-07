@@ -29,7 +29,7 @@ export default {
         vm.plants = response.data;
         Console.log(vm.plants);
 
-        axios.get("/api/v1/plant/tomato/sowPeriod", {})
+        axios.get("/api/v1/plant/Tomate/sowPeriod", {})
             .then((response) => {
                 vm.sowPeriod = response.data
                 Console.log(vm.sowPeriod);

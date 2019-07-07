@@ -31,6 +31,10 @@ $light-teal: #9fd6b7;
     align-items: center;
 }
 
+.bottom-ver{
+  align-items: flex-end;
+}
+
 .flex-column{
     flex-direction: column;
 }
@@ -171,4 +175,15 @@ li{
 
   .card-header, .card-body, .card-button-group{
     width: 100%;
+  }
+
+  // Info List
+
+  .infolist{
+    color: #ffffff;
+    line-height: 2em;
+  }
+  
+  .list-topics{
+    font-weight: 700;
   }

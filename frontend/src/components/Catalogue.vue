@@ -57,7 +57,7 @@
                                     <div class="flex center-content card-body">
                                         <img :src="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png')"
                                             :srcset="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png') + ' 1x, ' +
-                                            require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-2x.png') + ' 2x, '"
+                                            require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-2x.png') + ' 2x'"
                                             alt="rucola"
                                         >
                                     </div>
@@ -76,19 +76,139 @@
                         </template>
                     </div>
                     <div class="flex center-content" v-if="currentTab === 'tab2'">
-                        <v-ons-card class="">
-                            <div class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, laboriosam minus ratione alias qui neque, soluta dolores ipsa reprehenderit facere animi aperiam ullam voluptatem! Consequatur labore reiciendis repellat optio quis.</div>
-                        </v-ons-card>
+                        <template v-for="k in summaryAllPlants">
+                            <template  v-if="k.species === 'Vegetables'">
+                                <v-ons-card :key="k.id" class="flex space-between align-content-space-betw wrap">
+                                    <div class="flex space-between card-header">
+                                        <h4 class="title-card">{{ k.name }}</h4>
+                                        <div>
+                                            <template v-if="k.difficulty === 'Simple'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                            </template>
+                                            <template v-if="k.difficulty === 'Moderate'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                            </template>
+                                            <template v-if="k.difficulty === 'Serious'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="flex center-content card-body">
+                                        <img :src="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png')"
+                                            :srcset="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png') + ' 1x, '
+                                            + require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-2x.png') + ' 2x'"
+                                            alt="rucola"
+                                        >
+                                    </div>
+                                    <div class="flex space-between card-button-group">
+                                        <router-link :to="{ name: 'Info', query: { plant: k.name }, params: { plant: k.name }}">
+                                            <v-ons-button>Info
+                                                <div class="border-button secondary-button"></div>
+                                            </v-ons-button>
+                                        </router-link>
+                                        <v-ons-button @click="addPlantToDashboard(k.name)">Hinzufügen
+                                            <div class="border-button"></div>
+                                        </v-ons-button>
+                                    </div>
+                                </v-ons-card>
+                            </template>
+                        </template>
                     </div>
                     <div class="flex center-content" v-if="currentTab === 'tab3'">
-                        <v-ons-card class="">
-                            <div class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur eum, vel voluptate autem explicabo itaque at rerum labore magni corporis. Reiciendis consequuntur quibusdam, deleniti error eaque praesentium modi corporis veniam.</div>
-                        </v-ons-card>
+                        <template v-for="k in summaryAllPlants">
+                            <template  v-if="k.species === 'Fruit'">
+                                <v-ons-card :key="k.id" class="flex space-between align-content-space-betw wrap">
+                                    <div class="flex space-between card-header">
+                                        <h4 class="title-card">{{ k.name }}</h4>
+                                        <div>
+                                            <template v-if="k.difficulty === 'Simple'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                            </template>
+                                            <template v-if="k.difficulty === 'Moderate'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                            </template>
+                                            <template v-if="k.difficulty === 'Serious'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="flex center-content card-body">
+                                        <img :src="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png')"
+                                            :srcset="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png') + ' 1x, '
+                                            + require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-2x.png') + ' 2x'"
+                                            alt="rucola"
+                                        >
+                                    </div>
+                                    <div class="flex space-between card-button-group">
+                                        <router-link :to="{ name: 'Info', query: { plant: k.name }, params: { plant: k.name }}">
+                                            <v-ons-button>Info
+                                                <div class="border-button secondary-button"></div>
+                                            </v-ons-button>
+                                        </router-link>
+                                        <v-ons-button @click="addPlantToDashboard(k.name)">Hinzufügen
+                                            <div class="border-button"></div>
+                                        </v-ons-button>
+                                    </div>
+                                </v-ons-card>
+                            </template>
+                        </template>
                     </div>
                 </div>                    
             </div>
             <div class="offset-navi"></div>
             <Navigationbar></Navigationbar>
+            <v-ons-toast :visible.sync="toastVisible" animation="ascend">
+                Du hast dies bereits hinzugefügt. 
+                <button @click="toastVisible = false">Alles klar</button>
+            </v-ons-toast>
         </v-ons-page>
     </div>
 </template>
@@ -123,7 +243,8 @@
                 ],
                 currentTab: 'tab1',
                 allPlants: '',
-                summaryAllPlants: new Array()
+                summaryAllPlants: new Array(),
+                toastVisible: false
             }
         },
         mounted () {
@@ -158,14 +279,15 @@
                 this.currentTab = newTab;
             },
             addPlantToDashboard(plant) {
-                let currentObj = this;
-                axios.post('http://localhost:3000/api/v1/user/my-plants/' + plant)
+                let vm = this;
+                axios.post('/api/v1/user/my-plants/' + plant)
                 .then(function (response) {
-                    currentObj.output = response.data;
-                    Console.log(currentObj.output);
+                    vm.output = response.data;
+                    Console.log(vm.output);
                 })
                 .catch(function (error) {
-                    currentObj.output = error;
+                    vm.output = error;
+                    vm.toastVisible = true;
                 });
             }
         }
