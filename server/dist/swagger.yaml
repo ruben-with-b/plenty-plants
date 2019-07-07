@@ -206,6 +206,8 @@ paths:
                         type: object
                 '204':
                     description: 'Plant successfully added.'
+                '404':
+                    description: 'No plant with given name'
             summary: 'Add a plant to the users favourite plants.'
             tags:
                 - User
@@ -253,6 +255,8 @@ paths:
                     description: Ok
                     schema:
                         $ref: '#/definitions/TutorialProgress'
+                '404':
+                    description: 'No plant with given name'
             summary: 'Get the tutorial-progress for a plant.'
             tags:
                 - User

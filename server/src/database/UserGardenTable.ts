@@ -35,7 +35,7 @@ export function addPlant(username: string, plantName: string): Promise<any> {
         CONFIG.pool.query('INSERT INTO user_garden_table (username, plant_name, tutorial_progress) ' +
             'values (\'' + username + '\', \'' + plantName + '\', \'0\');', (error) => {
             if (error) {
-                reject(new StatusError(500, "Error accessing the DB", error.message));
+                reject(error);
                 return;
             }
 
@@ -85,7 +85,8 @@ export function getTutorialProgress(username: string, plantName: string): Promis
             }
 
             if (results.rows.length == 0) {
-                reject(new StatusError(404, "Not found", "There is no plant called '" + plantName + "'"));
+                reject(new StatusError(404, "Not found",
+                    "There is no plant called '" + plantName + "' in your favourites."));
                 return;
             }
             resolve(results.rows[0].tutorial_progress);
