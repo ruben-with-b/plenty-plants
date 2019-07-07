@@ -67,7 +67,7 @@
                                                 <div class="border-button secondary-button"></div>
                                             </v-ons-button>
                                         </router-link>
-                                        <v-ons-button>Hinzufügen
+                                        <v-ons-button @click="addPlantToDashboard(k.name)">Hinzufügen
                                             <div class="border-button"></div>
                                         </v-ons-button>
                                     </div>
@@ -152,11 +152,21 @@
             .catch((errors) => {
                 Console.log("Cannot get Data. Error: " + errors.message);
             });
-
         },
         methods: {
             handleClick(newTab) {
                 this.currentTab = newTab;
+            },
+            addPlantToDashboard(plant) {
+                let currentObj = this;
+                axios.post('http://localhost:3000/api/v1/user/my-plants/' + plant)
+                .then(function (response) {
+                    currentObj.output = response.data;
+                    Console.log(currentObj.output);
+                })
+                .catch(function (error) {
+                    currentObj.output = error;
+                });
             }
         }
     }
