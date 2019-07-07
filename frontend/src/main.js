@@ -7,6 +7,7 @@ import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import Settings from './components/Settings.vue'
 import Catalogue from './components/Catalogue.vue'
+import InfoPlant from './components/InfoPlant.vue'
 
 import VueRouter from 'vue-router'
 
@@ -36,6 +37,11 @@ const routes = [
   },
   { path: '/catalogue',
     component: Catalogue
+  },
+  { path: '/info',
+    name: 'Info',
+    component: InfoPlant,
+    props: true
   }
 ];
 

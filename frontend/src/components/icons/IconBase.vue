@@ -7,7 +7,7 @@
 	role="presentation"
 	>
 		<title :id="iconName" lang="en">{{iconName}} icon</title>
-		<g :fill="iconColor">
+		<g>
 			<slot/>
 		</g>
 	</svg>
@@ -29,10 +29,6 @@ export default {
 		height: {
 			type: [Number, String],
 			default: 17
-		},
-		iconColor: {
-			type: String,
-			default: 'currentColor'
 		}
 	}
 }

@@ -19,31 +19,54 @@
                                     <div class="flex space-between card-header">
                                         <h4 class="title-card">{{ k.name }}</h4>
                                         <div>
-                                            <template v-for="l in levelRucola">
-                                                <template v-if="l === 'full'">      <!-- Simple, Moderate, Serious -->
-                                                    <icon-base :key="l.id" class="severity" width="30" height="30" viewBox="0 0 1 30" icon-name="leaf" >
-                                                        <Leaf/>
-                                                    </icon-base>
-                                                </template>
-                                                <template v-if="l === 'empty'">
-                                                    <icon-base :key="l.id" class="severity" width="30" height="30" viewBox="0 0 1 30" icon-name="leaf" >
-                                                        <LeafOutline/>
-                                                    </icon-base>
-                                                </template>
+                                            <template v-if="k.difficulty === 'Simple'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                            </template>
+                                            <template v-if="k.difficulty === 'Moderate'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                            </template>
+                                            <template v-if="k.difficulty === 'Serious'">
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <LeafOutline/>
+                                                </icon-base>
+                                                <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
+                                                    <Leaf/>
+                                                </icon-base>
                                             </template>
                                         </div>
                                     </div>
                                     <div class="flex center-content card-body">
-                                        <img src="@/assets/rucola/rucola-1x.png"
-                                                srcset="@/assets/rucola/rucola-1x.png 1x,
-                                                        @/assets/rucola/rucola-2x.png 2x"
-                                                alt="rucola"
+                                        <img :src="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png')"
+                                            :srcset="require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-1x.png') + ' 1x, ' +
+                                            require('@/assets/'+ k.name.toLowerCase() + '/' + k.name.toLowerCase() + '-2x.png') + ' 2x, '"
+                                            alt="rucola"
                                         >
                                     </div>
                                     <div class="flex space-between card-button-group">
-                                        <v-ons-button>Info
-                                            <div class="border-button secondary-button"></div>
-                                        </v-ons-button>
+                                        <router-link :to="{ name: 'Info', query: { plant: k.name }, params: { plant: k.name }}">
+                                            <v-ons-button>Info
+                                                <div class="border-button secondary-button"></div>
+                                            </v-ons-button>
+                                        </router-link>
                                         <v-ons-button>Hinzufügen
                                             <div class="border-button"></div>
                                         </v-ons-button>
@@ -99,8 +122,6 @@
                     { title: 'Obst', value: 'tab3', }
                 ],
                 currentTab: 'tab1',
-                titleCard: 'Rucola',
-                levelRucola: ['full','full','full'],
                 allPlants: '',
                 summaryAllPlants: new Array()
             }
@@ -126,15 +147,6 @@
                     });
                     
                     
-                }
-
-                for (let index = 0; index < vm.summaryAllPlants.length; index++) {
-                    vm.summaryAllPlants[index].then((summary) => {
-                        if (summary.difficulty === 'Moderate') {
-                            vm.levelRucola = ['full','full','empty'];
-                        }
-                    });
-
                 }
             })
             .catch((errors) => {
@@ -165,9 +177,5 @@ ons-card{
     padding: 25px 30px 25px 30px;
     width: 70vw;
     height: 60vh;
-}
-
-.severity{
-    margin-left: -10px; 
 }
 </style>
