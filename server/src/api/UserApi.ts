@@ -59,7 +59,7 @@ export class UserApi extends Controller {
      * @param plant The plant to be added.
      */
     @Response('204', 'Plant successfully added.')
-    @Response('404', 'No plant with given name')
+    @Response('404', 'No plant with given name available')
     @Security('basicAuth')
     @Post('my-plants/{plant}')
     public async addPlant(@Request() req: express.Request, plant: string): Promise<any> {
@@ -169,6 +169,7 @@ export class UserApi extends Controller {
      * @param tutorialProgress The new tutorial progress.
      */
     @Response('204', 'Progress successfully updated.')
+    @Response('404', 'No favourite plant with given name available')
     @Security('basicAuth')
     @Put('my-plants/{plant}/tutorial-progress')
     public async updateTutorialProgress(@Request() req: express.Request, plant: string,

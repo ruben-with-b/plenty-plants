@@ -207,7 +207,7 @@ paths:
                 '204':
                     description: 'Plant successfully added.'
                 '404':
-                    description: 'No plant with given name'
+                    description: 'No plant with given name available'
             summary: 'Add a plant to the users favourite plants.'
             tags:
                 - User
@@ -281,6 +281,8 @@ paths:
                         type: object
                 '204':
                     description: 'Progress successfully updated.'
+                '404':
+                    description: 'No favourite plant with given name available'
             summary: 'Update the tutorial-progress of a plant.'
             tags:
                 - User

@@ -19,8 +19,6 @@ export function getTutorialSteps(plant: string): Promise<TutorialStep[]> {
                 return;
             }
 
-            console.log("got here");
-
             let tutorialSteps: TutorialStep[] = [];
 
             results.rows.forEach((row: any) => {
