@@ -92,7 +92,12 @@
         methods: {
             togglePushNotifications(e) {
                 axios.get("/api/v1/auth/is-authenticated")
-                    .then(() => {
+                    .then((response) => {
+                        if(!response.data) {
+                            router.push({ path: '/login', query: { redirect: '/settings' } });
+                            return;
+                        }
+
                         // Only authenticated users can change the notification settings.
                         if(e.detail.value) {
                             // Enable notifications
@@ -122,11 +127,6 @@
                                 }
                                 this.pushNotificationsEnabled = false;
                             });
-                        }
-                    })
-                    .catch((error) => {
-                        if(error && error.response && error.response.status && error.response.status === 401){
-                            router.push({ path: '/login', query: { redirect: '/settings' } });
                         }
                     });
            },

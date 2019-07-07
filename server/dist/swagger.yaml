@@ -328,12 +328,10 @@ paths:
             produces:
                 - application/json
             responses:
-                '204':
-                    description: 'Logged in'
+                '200':
+                    description: Success
                     schema:
-                        type: object
-                '401':
-                    description: 'User is not authenticated'
+                        type: boolean
             description: 'Checks whether the current user is authenticated'
             tags:
                 - Authentication

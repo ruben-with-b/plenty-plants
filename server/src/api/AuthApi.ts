@@ -41,18 +41,16 @@ export class AuthApi extends Controller {
     /**
      * Checks whether the current user is authenticated
      * @param req The request.
+     * @return True, if the user is authenticated, otherwise false.
      */
-    @SuccessResponse('204', 'Logged in')
-    @Response('401', 'User is not authenticated')
+    @SuccessResponse('200', 'Success')
     @Get('is-authenticated')
-    public async isAuthenticated(@Request() req: express.Request): Promise<any>{
+    public async isAuthenticated(@Request() req: express.Request): Promise<boolean>{
         return new Promise<any>((resolve, reject) => {
             if(req.isAuthenticated()) {
-                resolve();
+                resolve(true);
             } else {
-                reject(new StatusError(401, 'Authentication error',
-                    'User is not authenticated'));
-                return;
+                resolve(false);
             }
         });
     }
