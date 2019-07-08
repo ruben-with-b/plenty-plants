@@ -205,7 +205,7 @@ export default {
   methods: { 
     getDay () {
       let date = new Date();
-      let day = date.getDay();
+      let day = date.getDate();
       return day;
     },
     getMonth () {

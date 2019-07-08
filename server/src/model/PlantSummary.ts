@@ -43,7 +43,7 @@ export class PlantSummary {
      */
     constructor(readonly name: string, readonly species: Species,
                 readonly sowingDistance: number, readonly sowingDepth: number,
-                readonly soilCondition: string, germinationTime: number,
+                readonly soilCondition: string, readonly germinationTime: number,
                 readonly numberOfHarvests: string, readonly difficulty: Difficulty,
                 readonly sowPeriodBegin: number, readonly harvestPeriodEnd: number,
                 readonly location: string){ };
