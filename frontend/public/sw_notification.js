@@ -1,3 +1,7 @@
+/**
+ * @author Rudi Loderer <rudi.loderer@hs-augsburg.de>
+ */
+
 // just a function to convert the vapid-key
 // adopted from here: https://www.npmjs.com/package/web-push
 const urlBase64ToUint8Array = base64String => {
@@ -19,7 +23,7 @@ const urlBase64ToUint8Array = base64String => {
 // backend must know our subscription. So let's send the subscription to
 // the backend.
 const saveSubscription = async subscription => {
-    const SERVER_URL = 'http://localhost:3001/api/v1/notification/add';
+    const SERVER_URL = '/api/v1/notification/add';
     const response = await fetch(SERVER_URL, {
         method: 'post',
         headers: {
@@ -33,16 +37,12 @@ const saveSubscription = async subscription => {
 // subscribe to the push manager
 self.addEventListener('activate', async () => {
     // This will be called only once when the service worker is activated.
-    try {
-        const applicationServerKey = urlBase64ToUint8Array(
-            'BDLpp91SDx9YfVpkbSCVIi4H-uXBcoggk1x0Whaw_kHQRU_9yxYQWQN4Uob0x06iu26nH7AdzNdq9vBc6Fk80OU'
-        );
-        const options = { applicationServerKey, userVisibleOnly: true};
-        const subscription = await self.registration.pushManager.subscribe(options);
-        await saveSubscription(subscription);
-    } catch (err) {
-        console.log('Error', err)
-    }
+    const applicationServerKey = urlBase64ToUint8Array(
+        'BDLpp91SDx9YfVpkbSCVIi4H-uXBcoggk1x0Whaw_kHQRU_9yxYQWQN4Uob0x06iu26nH7AdzNdq9vBc6Fk80OU'
+    );
+    const options = { applicationServerKey, userVisibleOnly: true};
+    const subscription = await self.registration.pushManager.subscribe(options);
+    await saveSubscription(subscription);
 });
 
 // listen for incoming notifications
@@ -50,8 +50,6 @@ self.addEventListener("push", function(event) {
     if (event.data) {
         let notification = JSON.parse(event.data.text());
         showLocalNotification(notification.title, notification.message,  self.registration);
-    } else {
-        console.log('Warning', 'There was a notification without content!');
     }
 });
 

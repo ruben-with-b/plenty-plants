@@ -71,7 +71,8 @@ export class NotificationApi extends Controller {
             }
 
             NotificationService.sendNotification(req.session.passport.user,
-                "Frostwarnung", "Achtung, diese Nacht gibt es Frost!").then(() => {
+                "Frostwarnung",
+                "Achtung, diese Nacht gibt es Frost! Vergiss nicht deine Pflanzen zu schützen.").then(() => {
                 resolve({});
             }).catch((error) => {
                 reject(new StatusError(500, 'Internal error', error));
