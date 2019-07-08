@@ -25,7 +25,7 @@
         <div>
           <h3 class="title-segment">Wetter</h3>
           <p>
-            Some content.
+            {{weather}}
           </p>
         </div>
       </div>
@@ -41,6 +41,8 @@
   import IconBase from '@/components/icons/IconBase.vue'
   import WateringCan from '@/components/icons/WateringCan.vue'
   import Plant from '@/components/icons/Plant.vue'
+  import * as WeatherService from '../services/WeatherService.js'
+  import Console from 'console'
 
   export default {
     name: "Dashboard",
@@ -56,12 +58,21 @@
     },
     data() {
       return {
-        title: "Mein Kalender"
+        title: "Mein Kalender",
+        weather: undefined
       }
     },
     mounted () {
       // Breakpoints
       
+    },
+    created() {
+      WeatherService.getWeather().then((weather) => {
+        this.weather = weather;
+        Console.log(weather);
+      }).catch(() => {
+        this.weather = "Das Wetter kann nur angezeigt werden, wenn Sie den Zugriff auf ihre Geo-Position erlauben!";
+      });
     },
     methods: {
     }
