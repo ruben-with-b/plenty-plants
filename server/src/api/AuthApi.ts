@@ -1,5 +1,4 @@
 import * as UserTable from '../database/UserTable';
-import {User} from '../model/User';
 import * as express from "express";
 import bcrypt from 'bcrypt';
 import {Controller, Get, Post, Route, Request, Response, SuccessResponse, Query, Security, Tags} from "tsoa";
@@ -46,7 +45,7 @@ export class AuthApi extends Controller {
     @SuccessResponse('200', 'Success')
     @Get('is-authenticated')
     public async isAuthenticated(@Request() req: express.Request): Promise<boolean>{
-        return new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve) => {
             if(req.isAuthenticated()) {
                 resolve(true);
             } else {

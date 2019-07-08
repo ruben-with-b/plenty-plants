@@ -30,12 +30,13 @@ export function enable() {
 
         window.Notification.requestPermission().then((permission) => {
             if(permission === 'granted'){
-                navigator.serviceWorker.register('sw_notification.js');
-                resolve(true);
-                return;
+                navigator.serviceWorker.register('sw_notification.js').then(() => {
+                    resolve(true);
+                }).catch(() => {
+                    resolve(false);
+                });
             } else {
                 resolve(false);
-                return;
             }
         });
     });

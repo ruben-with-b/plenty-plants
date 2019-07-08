@@ -1,5 +1,5 @@
 import {Controller, Get, Query, Response, Route, Tags} from "tsoa";
-import {Condition, Weather} from "../model/Weather";
+import {Weather} from "../model/Weather";
 import * as WeatherService from "../service/WeatherService"
 
 /**
