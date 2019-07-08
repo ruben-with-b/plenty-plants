@@ -44,7 +44,6 @@
     import Plant from '@/components/icons/Plant.vue'
 
     import axios from "axios"
-    import Console from "console"
     import {router} from "../main.js"
     export default {
         name: "Login",
@@ -74,12 +73,8 @@
                     };
                     axios.post("/api/v1/auth/login", {}, authHeader)
                         .then(() => {
-                            Console.log("Logged in");
                             router.push(this.$route.query.redirect || '/');
-                        })
-                        .catch((errors) => {
-                            Console.log("Cannot log in. Error: " + errors.message);
-                        })
+                        });
                 };
                 login()
             }
