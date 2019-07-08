@@ -187,3 +187,15 @@ li{
   .list-topics{
     font-weight: 700;
   }
+
+  // Input
+
+  .border-input::before {
+    content: '';
+    position: absolute;
+    width: 40vw;
+    height: 44px;
+    transform: translate(-6px, -3px);
+    background: #ffffff;
+    border-radius: 8px;
+}

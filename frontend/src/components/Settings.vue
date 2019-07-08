@@ -29,34 +29,21 @@
                             </div>
                         </ons-list-item>
                         <ons-list-item>
-                            <button class="center">
+                            <label class="center">
                                 Username ändern
-                            </button>
-                        </ons-list-item>
-                        <ons-list-item>
-                            <button class="center">
-                                Passwort ändern
-                            </button>
-                        </ons-list-item>
-                        <ons-list-item>
-                            <button class="center"
-                                    @click="logout()">
-                                Abmelden
-                            </button>
-                        </ons-list-item>
-
-                        <!-- <ons-list-item>
-                            <label class="center" for="switch2">
-                            {{ switchOn ? 'Enabled switch' : 'Disabled switch' }}
                             </label>
-                            <div class="right">
-                            <v-ons-switch input-id="switch2"
-                                :disabled="!switchOn"
-                            >
-                            </v-ons-switch>
-                            </div>
-                        </ons-list-item> -->
-                        </ons-list>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <label class="center">
+                                Passwort ändern
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <label class="center" @click="logout()">
+                                Abmelden
+                            </label>
+                        </ons-list-item>
+                    </ons-list>
                 </div>
             </div>
             <div class="offset-navi"></div>

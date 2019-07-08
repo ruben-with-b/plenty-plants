@@ -17,20 +17,15 @@
                             </v-ons-input>
                         </div>
                         <div class="border-input">
-                            <v-ons-input placeholder="Deine E-Mailadresse" float
-                                v-model="email" name="email"
-                            >
-                            </v-ons-input>
-                        </div>
-                        <div class="border-input">
                             <v-ons-input placeholder="Dein Passwort" float
                                 v-model="password" name="password"
                             >          
                             </v-ons-input>
                         </div>
-                        <div class="border-button">
-                            <v-ons-button type="submit">Registrieren</v-ons-button>
-                        </div>
+                        <v-ons-button type="submit">Registrieren
+                            <div class="border-button"></div>
+                        </v-ons-button>
+                        
                     </form>
                 </div>
             </div>
@@ -66,14 +61,13 @@
             }
         },
         methods: {
-            login: (e) => {
-                e.preventDefault();
-                let email = e.target.elements.email.value;
-                let password = e.target.elements.password.value;
+            login() {
+                let name = this.name;
+                let password = this.password;
                 let login = () => {
                     let authHeader = {
                         auth: {
-                            username: email,
+                            username: name,
                             password: password
                         },
                     };
@@ -107,27 +101,6 @@
 }
 ons-input{
     width: 40vw !important;
-}
-
-.border-input::before {
-    content: '';
-    position: absolute;
-    width: 40vw;
-    height: 44px;
-    transform: translate(-6px, -3px);
-    background: #ffffff;
-    border-radius: 8px;
-}
-
-.border-button::before {
-    content: '';
-    position: absolute;
-    width: 7.1em;
-    height: 2.6em;
-    background: #28be98;
-    -webkit-transform: translate(4px, 5px);
-    transform: translate(-3px, -2px);
-    border-radius: 8px;
 }
 
 .container{

@@ -22,9 +22,9 @@
                             >          
                             </v-ons-input>
                         </div>
-                        <div class="border-button">
-                            <v-ons-button type="submit" @click="login()">Anmelden</v-ons-button>
-                        </div>
+                        <v-ons-button type="submit" @click="login()">Anmelden
+                            <div class="border-button"></div>
+                        </v-ons-button>
                     </form>
                 </div>
             </div>
@@ -63,12 +63,12 @@
         },
         methods: {
             login() {
-                let email = this.name;
+                let name = this.name;
                 let password = this.password;
                 let login = () => {
                     let authHeader = {
                         auth: {
-                            username: email,
+                            username: name,
                             password: password
                         },
                     };
@@ -99,16 +99,6 @@
 
 ons-input{
     width: 40vw !important;
-}
-
-.border-input::before {
-    content: '';
-    position: absolute;
-    width: 40vw;
-    height: 44px;
-    transform: translate(-6px, -3px);
-    background: #ffffff;
-    border-radius: 8px;
 }
 
 .container{
