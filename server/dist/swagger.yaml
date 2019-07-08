@@ -157,10 +157,11 @@ definitions:
             - keys
         type: object
 info:
-    title: web-technologien
+    title: plenty-plants-api
     version: 1.0.0
+    description: 'API for the web-application "plenty plants".'
     license:
-        name: ISC
+        name: 'Licensed under ISC'
 paths:
     /user:
         get:

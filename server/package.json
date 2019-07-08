@@ -1,7 +1,7 @@
 {
-  "name": "web-technologien",
+  "name": "plenty-plants-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API for the web-application \"plenty plants\".",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Licensed under ISC",
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/cookie-session": "^2.0.37",
