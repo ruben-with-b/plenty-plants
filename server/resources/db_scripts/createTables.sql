@@ -19,6 +19,7 @@ create table plant_table (
     germination_time INT not null,
     number_of_harvests VARCHAR(64) not null,
     difficulty VARCHAR(32) not null,
+    plant_location VARCHAR(64) not null,
     primary key (plant_name)
 );
 

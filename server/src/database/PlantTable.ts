@@ -18,7 +18,8 @@ export function getPlantSummary(plant: string): Promise<PlantSummary> {
             'soil_condition, ' +
             'germination_time, ' +
             'number_of_harvests, ' +
-            'difficulty ' +
+            'difficulty, ' +
+            'plant_location ' +
             'FROM plant_table WHERE plant_name = \'' + plant + '\'', (error, results) => {
             if (error) {
                 reject(new StatusError(500, "Error accessing the DB", error.message));
@@ -46,7 +47,8 @@ export function getPlantSummary(plant: string): Promise<PlantSummary> {
                 row.number_of_harvests,
                 row.difficulty,
                 row.sow_period_begin,
-                row.harvest_period_end,));
+                row.harvest_period_end,
+                row.plant_location));
         });
     });
 }

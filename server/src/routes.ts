@@ -54,6 +54,7 @@ const models: TsoaRoute.Models = {
             "difficulty": { "ref": "Difficulty", "required": true },
             "sowPeriodBegin": { "dataType": "double", "required": true },
             "harvestPeriodEnd": { "dataType": "double", "required": true },
+            "location": { "dataType": "string", "required": true },
         },
     },
     "TutorialStep": {

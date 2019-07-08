@@ -39,10 +39,12 @@ export class PlantSummary {
      * @param difficulty        The difficulty to grow this plant.
      * @param sowPeriodBegin    The begin of the sow period. (unit: month)
      * @param harvestPeriodEnd  The end of the harvest period. (unit: month)
+     * @param location          The plants preferred location.
      */
     constructor(readonly name: string, readonly species: Species,
                 readonly sowingDistance: number, readonly sowingDepth: number,
                 readonly soilCondition: string, germinationTime: number,
                 readonly numberOfHarvests: string, readonly difficulty: Difficulty,
-                readonly sowPeriodBegin: number, readonly harvestPeriodEnd: number){ };
+                readonly sowPeriodBegin: number, readonly harvestPeriodEnd: number,
+                readonly location: string){ };
 }

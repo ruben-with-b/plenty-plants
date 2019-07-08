@@ -10,7 +10,8 @@ INSERT INTO plant_table (
     harvest_period_begin, harvest_period_end,
     sowing_distance, sowing_depth,
     soil_condition, germination_time,
-    number_of_harvests, difficulty)
+    number_of_harvests, difficulty,
+    plant_location)
 values (
     'Erdbeere', 'Fruit',
     '2', '4',
@@ -18,21 +19,24 @@ values (
     '6', '10',
     '50', '1',
     'feucht', '10',
-    'Mehrfach', 'Moderate'),
+    'Mehrfach', 'Moderate',
+    'Sonne'),
     ('Rucola', 'Herbs',
     '2', '2',
     '3', '3',
     '4', '4',
     '50', '1',
     'feucht', '10',
-    'Mehrfach', 'Moderate'),
+    'Mehrfach', 'Moderate',
+    'Sonne/Halbschatten'),
     ('Tomate', 'Vegetables',
     '2', '4',
     '5', '6',
     '7', '10',
     '50', '1',
     'feucht', '10',
-    'Mehrfach', 'Moderate');
+    'Mehrfach', 'Moderate',
+    'Sonne');
 
 INSERT INTO plant_tutorial_table (
     plant_name, 

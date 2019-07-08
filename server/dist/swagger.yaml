@@ -116,6 +116,9 @@ definitions:
                 type: number
                 format: double
                 description: 'The end of the harvest period. (unit: month)'
+            location:
+                type: string
+                description: 'The plants preferred location.'
         required:
             - name
             - species
@@ -127,6 +130,7 @@ definitions:
             - difficulty
             - sowPeriodBegin
             - harvestPeriodEnd
+            - location
         type: object
     TutorialStep:
         description: 'Represents a tutorial step.'
