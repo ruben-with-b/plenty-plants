@@ -8,6 +8,7 @@ import Register from './components/Register.vue'
 import Settings from './components/Settings.vue'
 import Catalogue from './components/Catalogue.vue'
 import InfoPlant from './components/InfoPlant.vue'
+import Tutorial from './components/Tutorial.vue'
 
 import VueRouter from 'vue-router'
 
@@ -42,6 +43,9 @@ const routes = [
     name: 'Info',
     component: InfoPlant,
     props: true
+  },
+  { path: '/project',
+    component: Tutorial
   }
 ];
 

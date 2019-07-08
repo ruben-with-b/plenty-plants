@@ -11,24 +11,24 @@
             </v-ons-toolbar>
             <div class="container flex center-content bottom-ver" :style="{'background-image': 'url(' + require('@/assets/info/rucola/rucola-bg.png') + ')'}">
                 <div class="flex content-down">
-                    <ul class="infolist list-topics">
-                        <li>Zeitraum</li>
-                        <li>Saat-Abstand</li>
-                        <li>Saattiefe</li>
-                        <li>Boden</li>
-                        <li>Keimung</li>
-                        <li>Ernte</li>
-                        <li>Standort</li>
-                    </ul>
-                    <ul class="infolist list-content">
-                        <li>–</li>
-                        <li>{{ summary.sowingDistance }} cm</li>
-                        <li>{{ summary.sowingDepth }} cm</li>
-                        <li>{{ summary.soilCondition }}</li>
-                        <li>–</li>
-                        <li>{{ summary.numberOfHarvests }}</li>
-                        <li>–</li>
-                    </ul>
+                    <div class="infolist list-topics">
+                        <p>Zeitraum</p>
+                        <p>Saat-Abstand</p>
+                        <p>Saattiefe</p>
+                        <p>Boden</p>
+                        <p>Keimung</p>
+                        <p>Ernte</p>
+                        <p>Standort</p>
+                    </div>
+                    <div class="infolist list-content">
+                        <p>{{ month[summary.sowPeriodBegin - 1] }} bis {{ month[summary.harvestPeriodEnd - 1] }} </p>
+                        <p>{{ summary.sowingDistance }} cm</p>
+                        <p>{{ summary.sowingDepth }} cm</p>
+                        <p>{{ summary.soilCondition }}</p>
+                        <p>{{ summary.germinationTime }}</p>
+                        <p>{{ summary.numberOfHarvests }}</p>
+                        <p>{{ summary.location }}</p>
+                    </div>
                 </div>
             </div>
             <div class="offset-navi"></div>
@@ -58,7 +58,8 @@
     }   ,
         data() {
             return {
-                summary: ''
+                summary: '',
+                month: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']
             }
         },
         mounted () {

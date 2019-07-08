@@ -172,7 +172,7 @@
                                                     <Leaf/>
                                                 </icon-base>
                                                 <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
-                                                    <LeafOutline/>
+                                                    <Leaf/>
                                                 </icon-base>
                                                 <icon-base width="25" height="25" viewBox="0 0 42 56" icon-name="leaf" >
                                                     <Leaf/>
