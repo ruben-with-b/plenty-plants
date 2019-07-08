@@ -13,18 +13,8 @@
                             </label>
                             <div class="right">
                                 <v-ons-switch
-                                        v-model="pushNotificationsEnabled"
-                                        v-on:change="togglePushNotifications">
-                                </v-ons-switch>
-                            </div>
-                        </ons-list-item>
-                        <ons-list-item>
-                            <label class="center" for="switch1">
-                                GPS freigeben (für Wetter)
-                            </label>
-                            <div class="right">
-                                <v-ons-switch input-id="switch1"
-                                    v-model="switchOn">
+                                    v-model="pushNotificationsEnabled"
+                                    v-on:change="togglePushNotifications">
                                 </v-ons-switch>
                             </div>
                         </ons-list-item>
@@ -59,8 +49,8 @@
 
 <script>
     import Navigationbar from './NavigationBar.vue'
-    import * as AuthService from '../services/AuthService.ts'
-    import * as PushService from '../services/PushService.ts'
+    import * as AuthService from '../services/AuthService.js'
+    import * as PushService from '../services/PushService.js'
     import {router} from "../main.js"
     // import IconBase from '@/components/icons/IconBase.vue'
 
@@ -83,7 +73,6 @@
             return {
                 title: "Einstellungen",
                 pushNotificationsEnabled: false,
-                switchOn: true,
                 isUserAuthenticated: false
             }
         },
