@@ -6,6 +6,7 @@ import 'chartjs-plugin-doughnutlabel';
 
 import axios from "axios"
 import Console from "console"
+import {router} from "../main.js"
 
 export default {
   extends: Doughnut,
@@ -13,8 +14,10 @@ export default {
   props: ['data', 'options'],
   data() {
     return {
-      plants: null,
-      sowPeriod: null,
+      projects: null,
+      ringDataSet: [
+                    [5,4,1,2]
+                  ],
       calenderIcons: [
               { src: require('@/assets/tomato.png'), width: 20, height: 20 }
             ],
@@ -26,18 +29,53 @@ export default {
     const vm = this;
     axios.get("/api/v1/user/my-plants", {})
     .then((response) => {
-        vm.plants = response.data;
-        Console.log(vm.plants);
+        vm.projects = response.data;
+        // Console.log(vm.projects);
+        
+        for (let index = 0; index < vm.projects.length; index++) {
+          let plantPeriods = new Array;
+          let indexOne = new Promise((resolve) => {
+              axios.get("/api/v1/plant/" + vm.projects[index] + "/sowPeriod", {})
+              .then((response) => {
+                  resolve(response.data);
+                  indexOne = response.data;
+                  plantPeriods.push(indexOne.firstMonth);
+              })
+              .catch((errors) => {
+                  Console.log("Cannot get Data. Error: " + errors.message);
+              });
+          });
+          let indexTwo = new Promise((resolve) => {
+              axios.get("/api/v1/plant/" + vm.projects[index] + "/plantPeriod", {})
+              .then((response) => {
+                  resolve(response.data);
+                  indexTwo = response.data;
+                  plantPeriods.push(indexTwo.firstMonth);
+              })
+              .catch((errors) => {
+                  Console.log("Cannot get Data. Error: " + errors.message);
+              });
+              
+          });
+          let indexThree = new Promise((resolve) => {
+              axios.get("/api/v1/plant/" + vm.projects[index] + "/plantPeriod", {})
+              .then((response) => {
+                  resolve(response.data);
+                  indexThree = response.data;
+                  plantPeriods.push(indexThree.firstMonth);
 
-        axios.get("/api/v1/plant/Tomate/sowPeriod", {})
-            .then((response) => {
-                vm.sowPeriod = response.data
-                Console.log(vm.sowPeriod);
-                
-            })
-            .catch((errors) => {
-                Console.log("Cannot log in. Error: " + errors.message);
-            });
+                  vm.ringDataSet.push(plantPeriods);
+                  Console.log(vm.ringDataSet);
+              })
+              .catch((errors) => {
+                  Console.log("Cannot get Data. Error: " + errors.message);
+              });
+              
+          });
+
+          
+        }
+
     })
     .catch((errors) => {
         Console.log("Cannot log in. Error: " + errors.message);
@@ -112,28 +150,34 @@ export default {
         {
           label: 'tomato',
           backgroundColor: [
-            '#efcd58',
-            '#28be98',
-            '#7c8f9c',
+            '#9fd6b7',
+            '#a8cacb',
+            '#f9b797',
             '#e6e6e6'
           ],
           borderWidth: 0,
-          data: [5,4,1,2]
+          data: vm.ringDataSet[0]
         },
-        {
-          label: 'salad',
-          backgroundColor: [
-            '#efcd58',
-            '#28be98',
-            '#7c8f9c',
-            '#e6e6e6'
-          ],
-          borderWidth: 0,
-          data: [1,3,5,3]
-        }
+        // {
+        //   label: 'salad',
+        //   backgroundColor: [
+        //     '#9fd6b7',
+        //     '#a8cacb',
+        //     '#f9b797',
+        //     '#e6e6e6'
+        //   ],
+        //   borderWidth: 0,
+        //   data: [1,3,5,3]
+        // }
       ]
     },
     {
+      tooltips: {
+        enabled: false,
+        custom: function() {
+                  router.push({ path: '/project' }); // ?plant=Rucola
+                }
+      },
       events: ['click'],
       scales: {
         xAxes: [{
@@ -202,7 +246,7 @@ export default {
       }
     })
   },
-  methods: { 
+  methods: {
     getDay () {
       let date = new Date();
       let day = date.getDate();

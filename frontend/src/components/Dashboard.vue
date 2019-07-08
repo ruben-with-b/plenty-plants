@@ -69,9 +69,9 @@
     created() {
       WeatherService.getWeather().then((weather) => {
         this.weather = weather;
-        Console.log(weather);
+        // Console.log(weather);
       }).catch(() => {
-        this.weather = "Das Wetter kann nur angezeigt werden, wenn Sie den Zugriff auf ihre Geo-Position erlauben!";
+        this.weather = "Bitte erlaube uns den Zugriff auf deinen Standort in deinem Konto.";
       });
     },
     methods: {
