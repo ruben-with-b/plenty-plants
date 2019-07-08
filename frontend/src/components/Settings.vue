@@ -28,7 +28,7 @@
                                 </v-ons-switch>
                             </div>
                         </ons-list-item>
-                        <ons-list-item>
+                        <!--<ons-list-item>
                             <label class="center">
                                 Username ändern
                             </label>
@@ -37,10 +37,15 @@
                             <label class="center">
                                 Passwort ändern
                             </label>
-                        </ons-list-item>
-                        <ons-list-item>
+                        </ons-list-item>-->
+                        <ons-list-item v-if="isUserAuthenticated">
                             <label class="center" @click="logout()">
                                 Abmelden
+                            </label>
+                        </ons-list-item>
+                        <ons-list-item v-if="!isUserAuthenticated">
+                            <label class="center" @click="login()">
+                                Anmelden
                             </label>
                         </ons-list-item>
                     </ons-list>
@@ -54,7 +59,8 @@
 
 <script>
     import Navigationbar from './NavigationBar.vue'
-    import axios from "axios"
+    import * as AuthService from '../services/AuthService.ts'
+    import * as PushService from '../services/PushService.ts'
     import {router} from "../main.js"
     // import IconBase from '@/components/icons/IconBase.vue'
 
@@ -65,60 +71,50 @@
         },
         created() {
             // Set status of push notifications
-            navigator.serviceWorker.getRegistration('sw_notification.js').then((registration) => {
-                this.pushNotificationsEnabled = !!registration;
+            PushService.isEnabled().then((isRegistered) => {
+                this.pushNotificationsEnabled = isRegistered
+            });
+
+            AuthService.isUserAuthenticated().then((isAuthenticated) => {
+               this.isUserAuthenticated = isAuthenticated;
             });
         },
         data() {
             return {
                 title: "Einstellungen",
                 pushNotificationsEnabled: false,
-                switchOn: true
+                switchOn: true,
+                isUserAuthenticated: false
             }
         },
         methods: {
             togglePushNotifications(e) {
-                axios.get("/api/v1/auth/is-authenticated")
-                    .then((response) => {
-                        if(!response.data) {
+                AuthService.isUserAuthenticated()
+                    .then((isAuthenticated) => {
+                        if(!isAuthenticated) {
+                            // Only authenticated users can change the notification settings.
                             router.push({ path: '/login', query: { redirect: '/settings' } });
                             return;
                         }
 
-                        // Only authenticated users can change the notification settings.
                         if(e.detail.value) {
-                            // Enable notifications
-                            if (!('serviceWorker' in navigator)) {
-                                throw new Error('No Service Worker support!');
-                            }
-
-                            if (!('PushManager' in window)) {
-                                throw new Error('No Push API Support!');
-                            }
-
-                            window.Notification.requestPermission().then((permission) => {
-                                if(permission === 'granted'){
-                                    navigator.serviceWorker.register('sw_notification.js');
-                                    this.pushNotificationsEnabled = true;
-                                } else {
-                                    // do not toggle the switch
-                                    this.pushNotificationsEnabled = false;
-                                    throw new Error('Warning: We are not allowed to use notifications');
-                                }
+                            PushService.enable().then((isEnabled) => {
+                               this.pushNotificationsEnabled= isEnabled;
                             });
                         } else {
-                            // Disable notifications
-                            navigator.serviceWorker.getRegistration('sw_notification.js').then((registration) => {
-                                if(registration) {
-                                    registration.unregister();
-                                }
+                            PushService.disable().then(() => {
                                 this.pushNotificationsEnabled = false;
                             });
                         }
                     });
            },
             logout() {
-                axios.get("/api/v1/auth/logout");
+                AuthService.logout().then(() => {
+                   this.isUserAuthenticated = false;
+                });
+            },
+            login() {
+                router.push({ path: '/login', query: { redirect: '/settings' } });
             }
         }
     }
