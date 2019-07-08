@@ -27,7 +27,7 @@ values (
     '4', '4',
     '50', '1',
     'feucht', '10',
-    'Mehrfach', 'Simple',
+    'mehrfach', 'Simple',
     'Sonne/Halbschatten'),
     ('Tomate', 'Vegetables',
     '2', '4',
@@ -47,18 +47,33 @@ INSERT INTO plant_tutorial_table (
 values (
     'Tomate', 
     '1', 
-    'Schritt 1', 
-    'Beschreibung von Schritt 1 (Tomate)'
+    'Aussaat',
+    'Pflanze die Tomatensamen zwischen Februar und April 1cm tief in kleine Töpfe und ziehe sie an einem sonnigen Fensterplatz groß.'
     ),(
     'Tomate', 
     '2', 
-    'Schritt 2', 
-    'Beschreibung von Schritt 2 (Tomate)'
+    'Keimung',
+    'Die Tomaten mögen es warm (20-30°). Nach etwa 10 Tagen siehst du die Pflänzchen.'
     ),(
     'Tomate', 
     '3', 
-    'Schritt 3', 
-    'Beschreibung von Schritt 3 (Tomate)'
+    'Pflanzen',
+    'Nach 8-12 Wochen kannst du die Tomaten um-pflanzen. Tomaten sind sehr frostempfindlich und dürfen deshalb erst ab Juni nach draußen.'
+    ),(
+    'Tomate',
+    '4',
+    'Pflanzen',
+    'Die Tomaten sind jetzt 20-30 cm hoch und haben erste Blütenknospen. Die Pflanzen mit einem Abstand von 45-60 cm in komposthaltige Erde einpflanzen.'
+    ),(
+    'Tomate',
+    '5',
+    'Gießen',
+    'Zwei mal die Woche, bei Sonnenschein täglich die Wurzeln/Erde gießen. Wasser auf Blättern vermeiden, sonst gibt es Braunfäule.'
+    ),(
+    'Tomate',
+    '6',
+    'Ernte',
+    'Tomatenfrüchte gibt es bis Oktober. Die Tomaten ernten, wenn sie zu drei vierteln rot verfärbt sind.'
     ),(
     'Erdbeere', 
     '1', 
