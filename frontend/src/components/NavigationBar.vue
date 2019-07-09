@@ -7,8 +7,8 @@
     <li class="flex">
       <router-link to="/" class="" exact>
         <ul>
-          <v-ons-icon class="" icon="md-calendar"></v-ons-icon>
-          <div class="sub-icon-font active">Dashboard</div>
+          <v-ons-icon class="" icon="md-local-florist"></v-ons-icon>
+          <div class="sub-icon-font active">Mein Garten</div>
         </ul>
       </router-link>
       <router-link to="/catalogue" class="" exact>

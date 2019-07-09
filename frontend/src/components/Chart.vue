@@ -15,14 +15,37 @@ export default {
   data() {
     return {
       projects: null,
-      ringDataSet: [
-                    [5,4,1,2]
-                  ],
+      plantPeriods: new Array,
+      ringDataSet: new Array,
       calenderIcons: [
-              { src: require('@/assets/tomato.png'), width: 20, height: 20 }
-            ],
+        { src: require('@/assets/tomate.png'), width: 20, height: 20 }
+      ],
       currentDay: this.getDay(),
-      currentMonth: this.getMonth()
+      currentMonth: this.getMonth(),
+      datasets:  [
+        {
+          label: 'tomato',
+          backgroundColor: [
+            '#9fd6b7',
+            '#a8cacb',
+            '#f9b797',
+            '#e6e6e6'
+          ],
+          borderWidth: 0,
+          data: [5,4,1,2]
+        },
+        // {
+        //   label: 'salad',
+        //   backgroundColor: [
+        //     '#9fd6b7',
+        //     '#a8cacb',
+        //     '#f9b797',
+        //     '#e6e6e6'
+        //   ],
+        //   borderWidth: 0,
+        //   data: [1,3,5,3]
+        // }
+      ]
     }
   },
   mounted () {
@@ -30,16 +53,15 @@ export default {
     axios.get("/api/v1/user/my-plants", {})
     .then((response) => {
         vm.projects = response.data;
-        // Console.log(vm.projects);
         
         for (let index = 0; index < vm.projects.length; index++) {
-          let plantPeriods = new Array;
           let indexOne = new Promise((resolve) => {
               axios.get("/api/v1/plant/" + vm.projects[index] + "/sowPeriod", {})
               .then((response) => {
                   resolve(response.data);
                   indexOne = response.data;
-                  plantPeriods.push(indexOne.firstMonth);
+                  vm.plantPeriods.push(indexOne.firstMonth);
+                  
               })
               .catch((errors) => {
                   Console.log("Cannot get Data. Error: " + errors.message);
@@ -50,7 +72,8 @@ export default {
               .then((response) => {
                   resolve(response.data);
                   indexTwo = response.data;
-                  plantPeriods.push(indexTwo.firstMonth);
+                  vm.plantPeriods.push(indexTwo.firstMonth);
+                  
               })
               .catch((errors) => {
                   Console.log("Cannot get Data. Error: " + errors.message);
@@ -62,20 +85,16 @@ export default {
               .then((response) => {
                   resolve(response.data);
                   indexThree = response.data;
-                  plantPeriods.push(indexThree.firstMonth);
-
-                  vm.ringDataSet.push(plantPeriods);
-                  Console.log(vm.ringDataSet);
+                  vm.plantPeriods.push(indexThree.firstMonth);
               })
               .catch((errors) => {
                   Console.log("Cannot get Data. Error: " + errors.message);
               });
               
           });
-
-          
+          vm.ringDataSet.push(vm.plantPeriods);
+          Console.log(vm.ringDataSet);
         }
-
     })
     .catch((errors) => {
         Console.log("Cannot log in. Error: " + errors.message);
@@ -146,30 +165,7 @@ export default {
     
     this.renderChart({
       labels: ['Aussaat', 'Umpflanzen', 'Ernte'],
-      datasets: [
-        {
-          label: 'tomato',
-          backgroundColor: [
-            '#9fd6b7',
-            '#a8cacb',
-            '#f9b797',
-            '#e6e6e6'
-          ],
-          borderWidth: 0,
-          data: vm.ringDataSet[0]
-        },
-        // {
-        //   label: 'salad',
-        //   backgroundColor: [
-        //     '#9fd6b7',
-        //     '#a8cacb',
-        //     '#f9b797',
-        //     '#e6e6e6'
-        //   ],
-        //   borderWidth: 0,
-        //   data: [1,3,5,3]
-        // }
-      ]
+      datasets: this.datasets
     },
     {
       tooltips: {
