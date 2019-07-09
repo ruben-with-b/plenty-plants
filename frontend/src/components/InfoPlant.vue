@@ -9,7 +9,7 @@
                 </div>
                 <div class="center">{{ plant }}</div>
             </v-ons-toolbar>
-            <div class="container flex center-content bottom-ver" :style="{'background-image': 'url(' + require('@/assets/info/rucola/rucola-bg.png') + ')'}">
+            <div class="container flex center-content bottom-ver" :style="{'background-image': getBackground()}">
                 <div class="flex content-down">
                     <div class="infolist list-topics">
                         <p>Zeitraum</p>
@@ -59,7 +59,8 @@
         data() {
             return {
                 summary: '',
-                month: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']
+                month: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+                mqS: window.matchMedia("(max-width:600px)")
             }
         },
         mounted () {
@@ -67,15 +68,25 @@
             axios.get("/api/v1/plant/" + vm.plant + "/summary", {})
             .then((response) => {
                 vm.summary = response.data;
-                Console.log(vm.summary);
             })
             .catch((errors) => {
                 Console.log("Cannot get Data. Error: " + errors.message);
             });
-            
+
         },
         methods: {
-            
+            getBackground () {
+                let img = this.loadImg();
+                this.mqS.addListener(this.loadImg);
+                return img
+            },
+            loadImg () {
+                if (this.mqS.matches) {
+                    return 'url(' + require('@/assets/info/' + this.plant.toLowerCase() + '/' + this.plant.toLowerCase() + '-portrait.png') + ')'    
+                } else
+                    document.querySelector('.container').style.backgroundPosition = '50% 15%'
+                    return 'url(' + require('@/assets/info/' + this.plant.toLowerCase() + '/' + this.plant.toLowerCase() + '-landscape.png') + ')'
+            }
         }
     }
 </script>
