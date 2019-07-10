@@ -15,7 +15,6 @@ export default {
   data() {
       return {
           projects: null,
-          plantPeriods: new Array,
           ringDataSet: new Array,
           ringDataList: new Array,
           calenderIcons: [
@@ -39,19 +38,20 @@ export default {
           });
 
       for (let index = 0; index < vm.projects.length; index++) {
+          let plantPeriods = [];
 
         await axios.get("/api/v1/plant/" + vm.projects[index] + "/sowPeriod", {})
             .then((response) => {
-                vm.plantPeriods.push(response.data.firstMonth);
+                plantPeriods.push(response.data.firstMonth);
                 return axios.get("/api/v1/plant/" + vm.projects[index] + "/plantPeriod", {});
             }).then((response) => {
-                vm.plantPeriods.push(response.data.firstMonth);
+                plantPeriods.push(response.data.firstMonth);
                 return axios.get("/api/v1/plant/" + vm.projects[index] + "/harvestPeriod", {});
             }).then((response) => {
-                vm.plantPeriods.push(response.data.firstMonth);
+                plantPeriods.push(response.data.firstMonth);
                 return axios.get("/api/v1/plant/" + vm.projects[index] + "/harvestPeriod", {});
             }).then((response) => {
-                vm.plantPeriods.push(response.data.lastMonth); // 
+                plantPeriods.push(response.data.lastMonth); //
             }).then(() => {
                 
                 // vm.ringDataSet[1] = vm.plantPeriods[1] - vm.plantPeriods[0];
@@ -71,11 +71,11 @@ export default {
                   ],
                   borderWidth: 0,
                   data: [
-                    vm.plantPeriods[0] - 1,
-                    vm.plantPeriods[1] - vm.plantPeriods[0],
-                    vm.plantPeriods[2] - vm.plantPeriods[1],
-                    (vm.plantPeriods[3] - vm.plantPeriods[2]) + 1,
-                    12 - vm.plantPeriods[3]
+                    plantPeriods[0] - 1,
+                    plantPeriods[1] - plantPeriods[0],
+                    plantPeriods[2] - plantPeriods[1],
+                    (plantPeriods[3] - plantPeriods[2]) + 1,
+                    12 - plantPeriods[3]
                   ]
                 }
 
