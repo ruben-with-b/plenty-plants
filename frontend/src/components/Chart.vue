@@ -17,65 +17,72 @@ export default {
           projects: null,
           plantPeriods: new Array,
           ringDataSet: new Array,
+          ringDataList: new Array,
           calenderIcons: [
+              {src: require('@/assets/tomate.png'), width: 0, height: 0},
               {src: require('@/assets/tomate.png'), width: 20, height: 20}
           ],
           currentDay: this.getDay(),
           currentMonth: this.getMonth(),
-          datasets: [
-              {
-                  label: 'tomato',
+          datasets: []
+      }
+    },
+    async mounted () {
+      const vm = this;
+
+      await axios.get("/api/v1/user/my-plants", {})
+          .then((response) => {
+              vm.projects = response.data;
+          })
+          .catch((errors) => {
+              Console.log("Cannot log in. Error: " + errors.message);
+          });
+
+      for (let index = 0; index < vm.projects.length; index++) {
+
+        await axios.get("/api/v1/plant/" + vm.projects[index] + "/sowPeriod", {})
+            .then((response) => {
+                vm.plantPeriods.push(response.data.firstMonth);
+                return axios.get("/api/v1/plant/" + vm.projects[index] + "/plantPeriod", {});
+            }).then((response) => {
+                vm.plantPeriods.push(response.data.firstMonth);
+                return axios.get("/api/v1/plant/" + vm.projects[index] + "/harvestPeriod", {});
+            }).then((response) => {
+                vm.plantPeriods.push(response.data.firstMonth);
+                return axios.get("/api/v1/plant/" + vm.projects[index] + "/harvestPeriod", {});
+            }).then((response) => {
+                vm.plantPeriods.push(response.data.lastMonth); // 
+            }).then(() => {
+                
+                // vm.ringDataSet[1] = vm.plantPeriods[1] - vm.plantPeriods[0];
+                // vm.ringDataSet[2] = vm.plantPeriods[2] - vm.plantPeriods[1];
+                // vm.ringDataSet[3] = (vm.plantPeriods[3] - vm.plantPeriods[2]) + 1;
+                // vm.ringDataSet[4] = 12 - vm.plantPeriods[3];
+                // vm.ringDataSet[0] = vm.plantPeriods[0] - 1;
+
+                this.datasets[index] = {
+                  label: vm.projects[index],
                   backgroundColor: [
-                      '#9fd6b7',
-                      '#a8cacb',
-                      '#f9b797',
-                      '#e6e6e6'
+                    '#e6e6e6',
+                    '#9fd6b7',
+                    '#a8cacb',
+                    '#f9b797',
+                    '#e6e6e6'
                   ],
                   borderWidth: 0,
-                  data: new Array,
-              },
-              // {
-              //   label: 'salad',
-              //   backgroundColor: [
-              //     '#9fd6b7',
-              //     '#a8cacb',
-              //     '#f9b797',
-              //     '#e6e6e6'
-              //   ],
-              //   borderWidth: 0,
-              //   data: [1,3,5,3]
-              // }
-          ]
-      }
-    }, async mounted () {
-        const vm = this;
+                  data: [
+                    vm.plantPeriods[0] - 1,
+                    vm.plantPeriods[1] - vm.plantPeriods[0],
+                    vm.plantPeriods[2] - vm.plantPeriods[1],
+                    (vm.plantPeriods[3] - vm.plantPeriods[2]) + 1,
+                    12 - vm.plantPeriods[3]
+                  ]
+                }
 
-        await axios.get("/api/v1/user/my-plants", {})
-            .then((response) => {
-                vm.projects = response.data;
-            })
-            .catch((errors) => {
-                Console.log("Cannot log in. Error: " + errors.message);
+            }).catch((errors) => {
+                Console.log("Cannot get Data. Error: " + errors.message);
             });
-
-        for (let index = 0; index < vm.projects.length; index++) {
-
-            await axios.get("/api/v1/plant/" + vm.projects[index] + "/sowPeriod", {})
-                .then((response) => {
-                    vm.plantPeriods.push(response.data.firstMonth);
-                    return axios.get("/api/v1/plant/" + vm.projects[index] + "/plantPeriod", {});
-                }).then((response) => {
-                    vm.plantPeriods.push(response.data.firstMonth);
-                    return axios.get("/api/v1/plant/" + vm.projects[index] + "/plantPeriod", {});
-                }).then((response) => {
-                    vm.plantPeriods.push(response.data.firstMonth);
-                }).then(() => {
-                    vm.ringDataSet = vm.plantPeriods;
-                }).catch((errors) => {
-                    Console.log("Cannot get Data. Error: " + errors.message);
-                });
-            this.datasets[index].data = vm.ringDataSet;
-        }
+      }
 
     this.addPlugin({
       id: 'myPlugin',
@@ -164,11 +171,11 @@ export default {
         }]    
       },
       cutoutPercentage: 60,
-      rotation: 1.5 * Math.PI,
+      rotation: -0.5 * Math.PI,
       responsive: false,
       maintainAspectRatio: false,
       legend: {
-        display: true,
+        display: false,
         position: 'bottom',
         onClick: null,
         labels: {
