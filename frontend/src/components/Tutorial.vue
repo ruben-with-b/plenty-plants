@@ -11,22 +11,39 @@
             </v-ons-toolbar>
             <div class="container flex center-content">
                 <v-ons-carousel fullscreen swipeable auto-scroll auto-scroll-ratio="0.2" :index.sync="carouselIndex">
-                    <v-ons-carousel-item v-for="value in items" :key="value.id" :style="{backgroundColor: value}">
-                        <div style="text-align: center; font-size: 30px; margin-top: 20px;">{{value.heading}}</div>
-                        <div>{{ value.body }}</div>
+                    <v-ons-carousel-item class="flex center-content" v-for="(value, index) in tutSteps" :key="value.id" :style="{backgroundColor: value}">
+                        <v-ons-card class="flex space-between align-content-space-betw wrap">
+                            <div class="flex space-between card-header">
+                                <h4 class="title-card">{{index + 1}}.</h4>
+                                <h4 class="title-card">{{value.heading}}</h4>
+                                <i></i>
+                            </div>
+                            <div class="flex center-content card-body">
+                                <lottie v-if="index === 0" :options="defaultOptions" :height="300" :width="300" v-on:animCreated="loadAnimation"/>
+                            </div>
+                            <div class="flex center-content tut-description card-body">
+                                {{ value.body }}
+                            </div>
+                            <div class="flex center-content card-button-group">
+                                <v-ons-checkbox
+                                    :input-id="check"
+                                    v-model="state"
+                                    >
+                                </v-ons-checkbox>
+                                <label class="state-label" for="check">
+                                    {{ state ? 'Erledigt' : 'offen' }}
+                                </label>
+                            </div>
+                        </v-ons-card>
                     </v-ons-carousel-item>
                 </v-ons-carousel>
 
                 <div :style="dots">
-                    <span :index="dotIndex - 1" v-for="dotIndex in Object.keys(items).length" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
+                    <span :index="dotIndex - 1" v-for="dotIndex in Object.keys(tutSteps).length" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
                         {{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}
                     </span>
                 </div>
             </div>
-
-
-
-
             <div class="offset-navi"></div>
             <Navigationbar></Navigationbar>
         </v-ons-page>
@@ -38,64 +55,57 @@
     import Navigationbar from './NavigationBar.vue'
     import IconBase from '@/components/icons/IconBase.vue'
     import Back from '@/components/icons/Back.vue'
+    import Lottie from './LottieBase.vue';
+    import * as animationData1 from '@/assets/lottie-tomate/1/lottie-tomate-1.json';
 
-    // import axios from "axios"
-    // import Console from "console"
+    import axios from "axios"
+    import Console from "console"
 
     export default {
         name: "Tutorial",
         components: {
             Navigationbar,
             IconBase,
-            Back
+            Back,
+            Lottie,
+            'lottie': Lottie
         },
         data() {
             return {
                 title: 'Tutorial',
                 carouselIndex: 0,
-                items: [
-                    {
-                        "heading": "Aussaat",
-                        "body": "Pflanze die Tomatensamen zwischen Februar und April 1cm tief in kleine Töpfe und ziehe sie an einem sonnigen Fensterplatz groß."
-                    },
-                    {
-                        "heading": "Keimung",
-                        "body": "Die Tomaten mögen es warm (20-30°). Nach etwa 10 Tagen siehst du die Pflänzchen."
-                    },
-                    {
-                        "heading": "Pflanzen",
-                        "body": "Nach 8-12 Wochen kannst du die Tomaten um-pflanzen. Tomaten sind sehr frostempfindlich und dürfen deshalb erst ab Juni nach draußen."
-                    },
-                    {
-                        "heading": "Pflanzen",
-                        "body": "Die Tomaten sind jetzt 20-30 cm hoch und haben erste Blütenknospen. Die Pflanzen mit einem Abstand von 45-60 cm in komposthaltige Erde einpflanzen."
-                    },
-                    {
-                        "heading": "Gießen",
-                        "body": "Zwei mal die Woche, bei Sonnenschein täglich die Wurzeln/Erde gießen. Wasser auf Blättern vermeiden, sonst gibt es Braunfäule."
-                    },
-                    {
-                        "heading": "Ernte",
-                        "body": "Tomatenfrüchte gibt es bis Oktober. Die Tomaten ernten, wenn sie zu drei vierteln rot verfärbt sind."
-                    }
-                ],
+                state: true,
+                steps: undefined,
+                tutSteps: undefined,
                 dots: {
                     textAlign: 'center',
-                    fontSize: '30px',
-                    color: '#000',
+                    fontSize: '20px',
+                    color: '#7c8f9c',
                     position: 'absolute',
                     bottom: '40px',
                     left: 0,
                     right: 0
-                }
+                },
+                defaultOptions: {animationData: animationData1.default},
+                animationSpeed: 1
             }
         },
         mounted () {
-            // const vm = this;
-            
+            const vm = this;
+
+            axios.get("/api/v1/plant/Tomate/tutorial-steps", {}) // modify!
+            .then((response) => {
+                vm.tutSteps = response.data;
+
+            })
+            .catch((errors) => {
+                Console.log("Cannot get Data. Error: " + errors.message);
+            });
         },
         methods: {
-            
+            loadAnimation: function (anim) {
+                this.anim = anim;
+            }
         }
     }
 </script>
@@ -108,11 +118,26 @@
 .container{
   background: url(../assets/bg1.svg) no-repeat center center;
   background-size: cover;
-  height: 89vh;
+  height: calc(100% - 55px);
   padding: 1em 0;
 }
 
 ons-carousel[fullscreen] {
     width: 100%;
+}
+
+ons-card{
+    padding: 25px 40px;
+    width: 85vw;
+    height: 70vh;
+}
+
+.tut-description{
+    text-align: center;
+}
+
+.state-label{
+    color: $cornflower-blue;
+    margin-left: 10px;
 }
 </style>

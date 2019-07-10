@@ -54,22 +54,16 @@ export default {
                 plantPeriods.push(response.data.lastMonth); //
             }).then(() => {
                 
-                // vm.ringDataSet[1] = vm.plantPeriods[1] - vm.plantPeriods[0];
-                // vm.ringDataSet[2] = vm.plantPeriods[2] - vm.plantPeriods[1];
-                // vm.ringDataSet[3] = (vm.plantPeriods[3] - vm.plantPeriods[2]) + 1;
-                // vm.ringDataSet[4] = 12 - vm.plantPeriods[3];
-                // vm.ringDataSet[0] = vm.plantPeriods[0] - 1;
-
                 this.datasets[index] = {
                   label: vm.projects[index],
                   backgroundColor: [
-                    '#e6e6e6',
+                    '#f1f1f1',
                     '#9fd6b7',
                     '#a8cacb',
                     '#f9b797',
-                    '#e6e6e6'
+                    '#f1f1f1'
                   ],
-                  borderWidth: 0,
+                  borderWidth: 1,
                   data: [
                     plantPeriods[0] - 1,
                     plantPeriods[1] - plantPeriods[0],
@@ -175,7 +169,7 @@ export default {
       responsive: false,
       maintainAspectRatio: false,
       legend: {
-        display: false,
+        display: true,
         position: 'bottom',
         onClick: null,
         labels: {
