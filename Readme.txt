@@ -24,6 +24,8 @@ Anwendung starten:
 - Bitte wechseln Sie mit dem Terminal in den Ordner dieser Readme-Datei: `cd <Project root>`
 - Server starten: `startBackend.sh` (windows) oder `sh startBackend.sh` (macOS)
 - Frontend starten: `startFrontend.sh` (windows) oder `sh startFrontend.sh` (macOS)
+- Zum Anmelden an die "Plenty Plants" musst du in die Einstellungen wechseln und den Button "Anmelden clicken". Danach
+  kannst du dich mit dem Benutzer "fabian" und dem Passwort "team23" anmelden.
 
 Projektabgrenzung:
 Design                                           Ronja
