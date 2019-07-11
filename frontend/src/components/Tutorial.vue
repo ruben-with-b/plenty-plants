@@ -19,13 +19,19 @@
                                 <i></i>
                             </div>
                             <div class="flex center-content card-body">
-                                <lottie v-if="index === 0" :options="defaultOptions" :height="300" :width="300" v-on:animCreated="loadAnimation"/>
+                                <lottie v-if="index === 0" :options="defaultOptions" :height="200" :width="200" v-on:animCreated="loadAnimation"/>
+                                <img src="@/assets/lottie-tomate/2.png" v-if="index === 1"/>
+                                <img src="@/assets/lottie-tomate/3.png" v-if="index === 2"/>
+                                <img src="@/assets/lottie-tomate/4.png" v-if="index === 3"/>
+                                <img src="@/assets/lottie-tomate/5.png" v-if="index === 4"/>
+                                <img src="@/assets/lottie-tomate/6.png" v-if="index === 5"/>
                             </div>
                             <div class="flex center-content tut-description card-body">
                                 {{ value.body }}
                             </div>
                             <div class="flex center-content card-button-group">
                                 <v-ons-checkbox
+                                    @click="checkedTheBox()"
                                     :input-id="check"
                                     v-model="progress[index].done"
                                     >
@@ -76,14 +82,14 @@
                 plant: '',
                 carouselIndex: 0,
                 state: true,
-                progress: [
-                    { done: true },
-                    { done: false },
-                    { done: false },
-                    { done: true },
-                    { done: true },
-                    { done: true }
-                ],
+                progress: {
+                    0: { done: false },
+                    1: { done: false },
+                    2: { done: false },
+                    3: { done: false },
+                    4: { done: false },
+                    5: { done: false }
+                },
                 steps: undefined,
                 tutSteps: undefined,
                 dots: {
@@ -91,7 +97,7 @@
                     fontSize: '20px',
                     color: '#7c8f9c',
                     position: 'absolute',
-                    bottom: '40px',
+                    bottom: '4em',
                     left: 0,
                     right: 0
                 },
@@ -122,8 +128,17 @@
             }
         },
         methods: {
-            loadAnimation: function (anim) {
+            loadAnimation (anim) {
                 this.anim = anim;
+            },
+            checkedTheBox () {
+                axios.post('/api/v1/user/my-plants/' + this.plant + '/tutorial-progress')
+                .then(function (response) {
+                    Console.log(response.data);
+                })
+                .catch(function (error) {
+                    Console.log(error);
+                });
             }
         }
     }
@@ -148,7 +163,7 @@ ons-carousel[fullscreen] {
 ons-card{
     padding: 25px 40px;
     width: 85vw;
-    height: 70vh;
+    height: 66vh;
 }
 
 .tut-description{

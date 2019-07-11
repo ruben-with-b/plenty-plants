@@ -96,6 +96,18 @@ li{
     height: 55px;
   }
 
+// Fab
+
+ons-fab{
+  bottom: 35px !important;
+  background: #9fd6b7 !important;
+  position: fixed !important;
+}
+
+ons-fab ons-icon{
+  color: #fff;
+}
+
 // Tabbar
 
 .default-tabs {

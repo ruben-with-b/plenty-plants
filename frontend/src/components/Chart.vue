@@ -131,7 +131,8 @@ export default {
         ctx.fillText('Jan', xOffset - xOffset/2.5, yOffset - yOffset/1.02 );
         ctx.fillText('Feb', xOffset - xOffset/8, yOffset - yOffset/1.2 );
         ctx.fillText('Mär', xOffset - xOffset/30, yOffset - yOffset/1.5 );
-        ctx.fillText('Apr', xOffset - xOffset/30, yOffset - yOffset/2.2 );          ctx.fillText('Mai', xOffset - xOffset/8, yOffset - yOffset/3.8 );
+        ctx.fillText('Apr', xOffset - xOffset/30, yOffset - yOffset/2.2 );
+        ctx.fillText('Mai', xOffset - xOffset/8, yOffset - yOffset/3.8 );
         ctx.fillText('Aug', xOffset - xOffset/1.16, yOffset - yOffset/3.8 );
         ctx.fillText('Sep', xOffset - xOffset/1.05, yOffset - yOffset/2.2 );
         ctx.fillText('Okt', xOffset - xOffset/1.05, yOffset - yOffset/1.5 );

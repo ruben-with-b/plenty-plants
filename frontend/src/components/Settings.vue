@@ -6,7 +6,7 @@
                     <div class="center">{{ title }}</div>
                 </v-ons-toolbar>
                 <div class="">
-                    <ons-list>
+                    <ons-list class="wrap">
                         <ons-list-item>
                             <label class="center">
                                 Frostwarnung
@@ -18,16 +18,6 @@
                                 </v-ons-switch>
                             </div>
                         </ons-list-item>
-                        <!--<ons-list-item>
-                            <label class="center">
-                                Username ändern
-                            </label>
-                        </ons-list-item>
-                        <ons-list-item>
-                            <label class="center">
-                                Passwort ändern
-                            </label>
-                        </ons-list-item>-->
                         <ons-list-item v-if="isUserAuthenticated">
                             <label class="center" @click="logout()">
                                 Abmelden

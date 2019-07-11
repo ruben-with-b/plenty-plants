@@ -5,7 +5,7 @@
     </v-ons-toolbar>
     <div class="container">
        <!-- <button id="permission-btn" v-on:click="activateNotifications()">Ask Permission</button> -->
-      <Chart class="chart flex center-content" :width="400" :height="400"></Chart>
+      <Chart class="chart flex center-content" :width="380" :height="380"></Chart>
       <div class="flex space-between">
         <div>
           <h3 class="title-segment">Nächste Schritte</h3>
@@ -44,6 +44,11 @@
     </div>
     <div class="offset-navi"></div>
     <Navigationbar></Navigationbar>
+    <router-link to="/catalogue" class="" exact>
+      <v-ons-fab position="bottom right">
+        <v-ons-icon icon="md-plus"></v-ons-icon>
+      </v-ons-fab>
+    </router-link>
   </v-ons-page>
 </template>
 
@@ -57,7 +62,7 @@
   import Rucola from '@/components/icons/Rucola.vue'
   import Tomate from '@/components/icons/Tomate.vue'
   import * as WeatherService from '../services/WeatherService.js'
-  // import Console from 'console'
+  import Console from 'console'
 
   export default {
     name: "Dashboard",
@@ -87,6 +92,7 @@
     created() {
       WeatherService.getWeather().then((weather) => {
         this.weather = weather;
+        Console.log(weather)
       }).catch(() => {
         this.weather = "Kein Zugriff auf Standort";
       });
@@ -105,6 +111,21 @@
 
 ons-toolbar, .container{
   background: $dashboard-bg !important;
+}
+
+ ons-fab{
+  bottom: 35px !important;
+  background: #9fd6b7 !important;
+  position: fixed !important;
+}
+
+
+ons-fab ons-icon{
+  color: #fff;
+}
+
+.container{
+  height: 92vh;
 }
 
 ons-card{

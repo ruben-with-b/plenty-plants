@@ -33,6 +33,9 @@
             </div>
             <div class="offset-navi"></div>
             <Navigationbar></Navigationbar>
+            <v-ons-fab @click.native="addPlantToDashboard(this.plant)" position="bottom right">
+                <v-ons-icon icon="md-plus"></v-ons-icon>
+            </v-ons-fab>
         </v-ons-page>
     </div>
 </template>
@@ -86,6 +89,18 @@
                 } else
                     document.querySelector('.container').style.backgroundPosition = '50% 15%'
                     return 'url(' + require('@/assets/info/' + this.plant.toLowerCase() + '/' + this.plant.toLowerCase() + '-landscape.png') + ')'
+            },
+            addPlantToDashboard(plant) {
+                let vm = this;
+                axios.post('/api/v1/user/my-plants/' + plant)
+                .then(function (response) {
+                    vm.output = response.data;
+                    Console.log(vm.output);
+                })
+                .catch(function (error) {
+                    vm.output = error;
+                    vm.toastVisible = true;
+                });
             }
         }
     }

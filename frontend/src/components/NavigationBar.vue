@@ -1,8 +1,5 @@
 <template>
 <div class="root">
-  <v-ons-fab position="bottom right">
-      <v-ons-icon icon="md-plus"></v-ons-icon>
-  </v-ons-fab>
   <div class="bottom-navi flex center-ver space-around">
     <li class="flex">
       <router-link to="/" class="" exact>
@@ -65,17 +62,6 @@ a{
 
 .router-link-active{
   color: #ffffff;
-}
-
-ons-fab{
-  bottom: 35px !important;
-  background: #9fd6b7 !important;
-  position: fixed !important;
-}
-
-
-ons-fab ons-icon{
-  color: #fff;
 }
 
 </style>
