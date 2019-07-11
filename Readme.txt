@@ -1,12 +1,16 @@
 Teammitglieder:
-Ronja Weber (Design)
-Ruben Santoro (Frontend)
-Rudi Loderer (Backend)
+Ronja Weber
+Ruben Santoro
+Rudi Loderer
 
 Projektname: Plenty Plants
 
 Projektbeschreibung:
-...TODO
+“Plenty Plants” ist eine Progressive Web App, die angehende Hobby-Gärtner dabei unterstützt, Gemüse, Kräuter und Obst zu
+säen, zu pflegen und zu ernten. Die App bietet pro Pflanze tutorial-ähnliche Anweisungen. Diese Anweisungen begleiten
+den Benutzer durch den Lebenszyklus seiner Pflanzen. Ein Dashboard gewährleistet einen chronologischen und inhaltlichen
+Überblick über das Pflanz-Jahr. Push-Benachrichtigungen warnen den Nutzer vor Frost. Die angebundene Wetter-API
+liefert ergänzende Informationen.
 
 Setup:
 - (optional) Nodejs installieren
@@ -22,6 +26,6 @@ Anwendung starten:
 - Frontend starten: `startFrontend.sh` (windows) oder `sh startFrontend.sh` (macOS)
 
 Projektabgrenzung:
-Design                                           Ronja & Ruben ...TODO genauer abgrenzen
+Design                                           Ronja
 Frontend                                         Ruben
 Backend und Push-Benachrichtigungen im Frontend  Rudi
