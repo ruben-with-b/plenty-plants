@@ -6,8 +6,9 @@
 
 ### Install dependencies
 1. Go to the project root: `cd <Project root>`
+1. Navigate to the server: `cd server`
 1. Install dependencies: `npm install`
-1. Navigate to the frontend: `cd frontend`
+1. Navigate to the frontend: `cd ../frontend`
 1. Install dependencies: `npm install`
 
 ### Deploy application

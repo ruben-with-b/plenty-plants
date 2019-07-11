@@ -12,13 +12,13 @@ import './api/PlantApi';
 import './api/NotificationApi';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
-const swaggerDocument = YAML.load('./dist/swagger.yaml');
 
 const app: express.Express = express();
 dotenv.config();
 let port: string;
 let distFolder: string;
 let devModeEnabled: boolean;
+let swaggerYamlPath: string;
 
 // Fetch some environment variables
 if (process.env.PORT_BE) {
@@ -35,6 +35,12 @@ if (process.env.DEV_MODE_ENABLED) {
     devModeEnabled = (process.env.DEV_MODE_ENABLED === 'true');
 } else {
     throw new Error("Environment variable DEV_MODE_ENABLED undefined!");
+}
+
+if (process.env.SWAGGER_YAML_PATH) {
+    swaggerYamlPath = process.env.SWAGGER_YAML_PATH;
+} else {
+    throw new Error("Environment variable SWAGGER_YAML_PATH undefined!");
 }
 
 // Deploy frontend?
@@ -71,6 +77,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 
 // Deploy api documentation
+const swaggerDocument = YAML.load(swaggerYamlPath);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port);
