@@ -14,7 +14,7 @@ export default {
   props: ['data', 'options'],
   data() {
       return {
-          projects: null,
+          projects: new Array,
           ringDataSet: new Array,
           ringDataList: new Array,
           calenderIcons: [

@@ -24,7 +24,7 @@
         </div>
         <div>
           <h3 class="title-segment">Wetter</h3>
-          <div class="flex center-content flex-column weather-section">
+          <div class="flex center-content flex-column weather-section" v-if="weather">
             <template>
               <icon-base v-if="weather.condition === 'CLEAR'" width="50" height="50" viewBox="0 0 50 50" class="weather-icon" icon-name="sun">
                 <Sun/>
