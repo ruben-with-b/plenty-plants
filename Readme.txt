@@ -14,7 +14,7 @@ liefert ergänzende Informationen.
 
 Setup:
 - (optional) Nodejs installieren
-- Bitte wechseln Sie mit dem Terminal in den Ordner dieser Readme-Datei: `cd <Project root>`
+- Bitte wechseln Sie mit dem Terminal in den Ordner "Projektdateien": `cd <...>/Projektdateien`
 - Navigiere in den Ordner server: `cd server`
 - Anhängigkeiten installieren: `npm install`
 - Navigieren in den Ordner frontend: `cd ../frontend`
@@ -26,6 +26,10 @@ Anwendung starten:
 - Frontend starten: `startFrontend.sh` (windows) oder `sh startFrontend.sh` (macOS)
 - Zum Anmelden an die "Plenty Plants" musst du in die Einstellungen wechseln und den Button "Anmelden clicken". Danach
   kannst du dich mit dem Benutzer "fabian" und dem Passwort "team23" anmelden.
+
+Fehlerbehebung:
+- Bei Problemen mit der Konfiguration bitte in der Readme.md nachsehen. Hier ist beschrieben, wie die Ports oder
+  Änhnliches angepasst werden.
 
 Projektabgrenzung:
 Design                                           Ronja
