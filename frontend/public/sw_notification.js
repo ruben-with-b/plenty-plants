@@ -56,7 +56,8 @@ self.addEventListener("push", function(event) {
 // show notifications
 const showLocalNotification = (title, body, swRegistration) => {
     const options = {
-        body
+        body: body,
+        icon: './logo-plenty-plants.png'
         // here you can add more properties like icon, image, vibrate, etc.
     };
     swRegistration.showNotification(title, options);
