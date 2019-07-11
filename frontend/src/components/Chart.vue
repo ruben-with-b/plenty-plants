@@ -149,7 +149,7 @@ export default {
       tooltips: {
         enabled: false,
         custom: function() {
-                  router.push({ path: '/project' }); // ?plant=Rucola
+                  router.push({ path: '/project?plant=Tomate' }); // ?plant=Rucola
                 }
       },
       events: ['click'],

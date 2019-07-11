@@ -7,7 +7,7 @@
                         <back/>
                     </icon-base>
                 </div>
-                <div class="center">{{ title }}</div>
+                <div class="center">{{ title + ' für ' + plant }}</div>
             </v-ons-toolbar>
             <div class="container flex center-content">
                 <v-ons-carousel fullscreen swipeable auto-scroll auto-scroll-ratio="0.2" :index.sync="carouselIndex">
@@ -27,11 +27,11 @@
                             <div class="flex center-content card-button-group">
                                 <v-ons-checkbox
                                     :input-id="check"
-                                    v-model="state"
+                                    v-model="progress[index].done"
                                     >
                                 </v-ons-checkbox>
                                 <label class="state-label" for="check">
-                                    {{ state ? 'Erledigt' : 'offen' }}
+                                    {{ progress[index].done ? 'Erledigt' : 'offen' }}
                                 </label>
                             </div>
                         </v-ons-card>
@@ -73,8 +73,17 @@
         data() {
             return {
                 title: 'Tutorial',
+                plant: '',
                 carouselIndex: 0,
                 state: true,
+                progress: [
+                    { done: true },
+                    { done: false },
+                    { done: false },
+                    { done: true },
+                    { done: true },
+                    { done: true }
+                ],
                 steps: undefined,
                 tutSteps: undefined,
                 dots: {
@@ -101,6 +110,16 @@
             .catch((errors) => {
                 Console.log("Cannot get Data. Error: " + errors.message);
             });
+
+            let urlQuery = location.search;
+
+            if (urlQuery === '?plant=Tomate') {
+                vm.plant = 'Tomate'
+            } else if (urlQuery === '?plant=Rucola') {
+                vm.plant = 'Rucola'
+            } else if (urlQuery === '?plant=Erdbeere') {
+                vm.plant = 'Erdbeere'
+            }
         },
         methods: {
             loadAnimation: function (anim) {
