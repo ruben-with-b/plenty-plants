@@ -220,7 +220,8 @@
     import IconBase from '@/components/icons/IconBase.vue'
     import LeafOutline from '@/components/icons/LeafOutline.vue'
     import Leaf from '@/components/icons/Leaf.vue'
-
+    import * as AuthService from '../services/AuthService';
+    import {router} from "../main.js"
     import axios from "axios"
     import Console from "console"
 
@@ -279,16 +280,25 @@
                 this.currentTab = newTab;
             },
             addPlantToDashboard(plant) {
-                let vm = this;
-                axios.post('/api/v1/user/my-plants/' + plant)
-                .then(function (response) {
-                    vm.output = response.data;
-                    Console.log(vm.output);
-                })
-                .catch(function (error) {
-                    vm.output = error;
-                    vm.toastVisible = true;
-                });
+                AuthService.isUserAuthenticated()
+                    .then((isAuthenticated) => {
+                        if(!isAuthenticated) {
+                            // Only authenticated users can change the notification settings.
+                            router.push({ path: '/login', query: { redirect: '/catalogue' } });
+                            return;
+                        }
+
+                        let vm = this;
+                        axios.post('/api/v1/user/my-plants/' + plant)
+                            .then(function (response) {
+                                vm.output = response.data;
+                                Console.log(vm.output);
+                            })
+                            .catch(function (error) {
+                                vm.output = error;
+                                vm.toastVisible = true;
+                            });
+                     });
             }
         }
     }
